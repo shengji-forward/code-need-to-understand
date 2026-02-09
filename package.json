@@ -1,0 +1,17 @@
+{
+  "name": "code-need-to-understand",
+  "version": "1.0.0",
+  "description": "JavaScript/TypeScript learning path for OpenCoach development",
+  "type": "module",
+  "scripts": {
+    "practice": "npx tsx",
+    "check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "tsx": "^4.7.0"
+  }
+}
