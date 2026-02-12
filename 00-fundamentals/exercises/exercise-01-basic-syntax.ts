@@ -14,9 +14,9 @@ console.log("=== Exercise 1: Variables and Types ===\n");
 // - Create a const variable called 'isActive' with value true
 
 // TODO: Your code here
-// const userName = ...
-// let score = ...
-// const isActive = ...
+const userName = "SJ forward";
+let score = 0;
+const isActive = true;
 
 console.log("Name:", userName);
 console.log("Score:", score);
@@ -30,6 +30,9 @@ console.log("Active:", isActive);
 // - Log the new score
 
 // TODO: Your code here
+score = score + 10 
+
+console.log(`Score after update: ${score}`);
 
 // Expected output: "Score after update: 10"
 
@@ -41,6 +44,8 @@ console.log("Active:", isActive);
 // - Log the greeting
 
 // TODO: Your code here
+
+console.log(`Hello, ${userName}!`);
 
 // Expected output: "Hello, [your name]!"
 
@@ -54,10 +59,15 @@ console.log("Active:", isActive);
 
 const value1 = 10;
 const value2 = "5";
-let sum = value1 + value2; // This gives "105" (string concatenation)
+// let sum = value1 + value2; // This gives "105" (string concatenation)
 
 // TODO: Fix the bug to get 15
-// sum = value1 + ...
+
+let sum = value1 + +value2
+
+// let sum = value1+ Number(value2)
+
+// let sum = value1 + parseInt(value2, 10)
 
 console.log("\nSum:", sum); // Should print 15
 
@@ -68,10 +78,11 @@ console.log("\nSum:", sum); // Should print 15
 // - Replace == with === to properly compare values
 // - Check if 5 equals "5" (should be false with ===)
 
-const comparison = 5 == "5"; // Bad - uses loose equality
+// const comparison = 5 == "5"; // Bad - uses loose equality
 
 // TODO: Replace with strict equality
-// const comparison = ...
+// @ts-expect-error Intentional: demonstrating strict equality returns false for different types
+const comparison = 5 === "5";
 
 console.log("Is 5 strictly equal to '5'?:", comparison); // Should be false
 
@@ -88,4 +99,20 @@ console.log("Is 5 strictly equal to '5'?:", comparison); // Should be false
 console.log("\n=== Bonus Challenge ===");
 // Log your user summary here
 
+interface User {
+  name: string,
+  age: number,
+  email: string
+}
+
+const user: User = {
+  name: "SJ forward",
+  age: 26,
+  email: "shengjideng@gmail.com"
+}
+
+console.log(`User: ${user.name}, Age: ${user.age}, Email: ${user.email}`);
+
 console.log("\n✅ Exercise complete!");
+
+export {};

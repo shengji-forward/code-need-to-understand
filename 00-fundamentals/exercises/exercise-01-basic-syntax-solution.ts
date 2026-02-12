@@ -38,6 +38,7 @@ console.log("\nSum:", sum); // Prints 15
 // ============================================
 // SOLUTION 5: Use strict equality
 // ============================================
+// @ts-expect-error
 const comparison = 5 === "5"; // Strict equality
 console.log("Is 5 strictly equal to '5'?:", comparison); // false
 
@@ -54,3 +55,5 @@ console.log("\n=== Bonus Challenge ===");
 console.log(`User: ${user.name}, Age: ${user.age}, Email: ${user.email}`);
 
 console.log("\n✅ Exercise complete!");
+
+export {}
