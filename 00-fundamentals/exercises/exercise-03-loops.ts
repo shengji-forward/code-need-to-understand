@@ -14,9 +14,17 @@ console.log("=== Exercise 3: Control Flow and Loops ===\n");
 // - Use if/else statements
 
 // TODO: Your code here
-// function getGrade(score: number): string {
-//   ...
-// }
+function getGrade(score: number): string {
+  if (score >= 90) {
+    return "A"
+  } else if (score >= 80) {
+    return "B"
+  } else if (score >= 70 ) {
+    return "C"
+  } else {
+    return "F"
+  }
+}
 
 console.log("Score 95:", getGrade(95)); // Should be "A"
 console.log("Score 85:", getGrade(85)); // Should be "B"
@@ -32,9 +40,20 @@ console.log("Score 65:", getGrade(65)); // Should be "F"
 // - Use a ternary operator
 
 // TODO: Your code here
+
+// if/else solution
 // function canDrive(age: number): string {
-//   ...
+//   if (age >= 18) {
+//     return "Can drive"
+//   } else {
+//     return "Cannot drive"
+//   }
 // }
+
+// ternary operator solution
+function canDrive(age: number): string {
+  return age >= 18 ? "Can drive" : "Cannot drive";
+}
 
 console.log("\nAge 20:", canDrive(20)); // Should be "Can drive"
 console.log("Age 15:", canDrive(15)); // Should be "Cannot drive"
@@ -48,11 +67,49 @@ console.log("Age 15:", canDrive(15)); // Should be "Cannot drive"
 // - Return the total
 
 // TODO: Your code here
+// for...of loop
+function sumArray(numbers: number[]): number {
+  let total = 0;
+  for (const num of numbers) {
+    total += num
+  }
+  return total;
+}
+
+// classic for loop
 // function sumArray(numbers: number[]): number {
 //   let total = 0;
-//   // Use for...of loop here
+//   for (let i = 0; i < numbers.length; i++) {
+//     total += numbers[i];
+//   }
 //   return total;
 // }
+
+// forEach loop – do this for each item (no return value)
+// function sumArray(numbers: number[]): number {
+//   let total = 0
+//   numbers.forEach((n) => { total += n })
+//   return total
+// }
+
+// while loop
+// function sumArray(numbers: number[]): number {
+//   let total = 0
+//   let i = 0
+//   while (i < numbers.length) {
+//     total += numbers[i]
+//     i++
+//   }
+//   return total
+// }
+
+// reduce – combine all items into one value
+// function sumArray(numbers: number[]): number {
+//   return numbers.reduce((sum, n) => {
+//     return sum + n
+//   }, 0)
+// }
+
 
 console.log("\nSum of [1, 2, 3, 4, 5]:", sumArray([1, 2, 3, 4, 5])); // Should be 15
 
@@ -65,9 +122,11 @@ console.log("\nSum of [1, 2, 3, 4, 5]:", sumArray([1, 2, 3, 4, 5])); // Should b
 // - Format: "Key: [key], Value: [value]"
 
 // TODO: Your code here
-// function logObject(obj: any): void {
-//   // Use for...in loop here
-// }
+function logObject(obj: any): void {
+  for (const key in obj) {
+    console.log(`Key: ${key}, Value: ${obj[key]}`);
+  }
+}
 
 console.log("\n=== Object Properties ===");
 logObject({ name: "Alice", age: 30, city: "NYC" });
