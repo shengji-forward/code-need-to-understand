@@ -146,8 +146,24 @@ logObject({ name: "Alice", age: 30, city: "NYC" });
 
 // TODO: Your code here
 // function findFirstNegative(numbers: number[]): number | undefined {
-//   ...
+//   for (const n of numbers) {
+//     if (n < 0) {
+//       return n
+//     }
+//   }
+//   return undefined
 // }
+
+function findFirstNegative(numbers: number[]): number | undefined {
+  let result: number | undefined = undefined
+  for (const n of numbers) {
+    if (n < 0) {
+      result = n
+      break
+    }
+  }
+  return result
+}
 
 console.log("\nFirst negative in [1, 2, -3, 4]:", findFirstNegative([1, 2, -3, 4])); // Should be -3
 console.log("First negative in [1, 2, 3]:", findFirstNegative([1, 2, 3])); // Should be undefined
@@ -164,9 +180,17 @@ console.log("First negative in [1, 2, 3]:", findFirstNegative([1, 2, 3])); // Sh
 // - Use modulo operator (%)
 
 // TODO: Your code here
-// function fizzBuzz(n: number): string {
-//   ...
-// }
+function fizzBuzz(n: number): string | number {
+  if (n % 3 === 0 && n % 5 === 0) {
+    return "FizzBuzz"
+  } else if (n % 3 === 0) {
+    return "Fizz"
+  } else if (n % 5 === 0) {
+    return "Buzz"
+  } else {
+    return `${n}`
+  }
+}
 
 console.log("\n=== Bonus Challenge ===");
 console.log("fizzBuzz(3):", fizzBuzz(3)); // Should be "Fizz"
