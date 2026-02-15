@@ -58,7 +58,7 @@ function getEvents(numbers: number[]):number[] {
   return numbers.filter((n) => n % 2 === 0)
 }
 
-console.log("Evens:", getEvens([1, 2, 3, 4, 5, 6])); // Should be [2, 4, 6]
+console.log("Evens:", getEvents([1, 2, 3, 4, 5, 6])); // Should be [2, 4, 6]
 
 // ============================================
 // TODO 4: Use array reduce
@@ -161,10 +161,17 @@ console.log("New todos:", newTodos); // Should have 2 items
 // TODO: Your code here
 // function transformData(products: any[]): number {
 //   return products
-//     .filter(...) // Filter by category
-//     .map(...)    // Add tax
-//     .reduce(...); // Sum totals
+//     .filter(({product}) => {product.category === "electronics"}) // Filter by category
+//     .map(({product}) => {product.priceWithTax: 1.1})    // Add tax
+//     .reduce((sum, product.price) => sum + product.price * product.priceWithTax, 1); // Sum totals
 // }
+
+function transformData(products: any[]): number {
+  return products
+    .filter(({category}) => {return category === "electronics"}) // Filter by category
+    .map((product) => ({...product, priceWithTax: product.price * 1.1}))    // Add tax
+    .reduce((sum, product) => sum + product.priceWithTax, 0); // Sum totals
+}
 
 const products = [
   { id: 1, name: "Laptop", price: 1000, category: "electronics" },
