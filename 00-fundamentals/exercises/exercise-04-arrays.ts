@@ -16,11 +16,11 @@ console.log("=== Exercise 4: Arrays and Objects ===\n");
 // - Log the final array
 
 // TODO: Your code here
-// let arr = [1, 2, 3];
-// arr.push(...);
-// arr.unshift(...);
-// arr.pop(...);
-// console.log("Final array:", arr);
+let arr = [1, 2, 3];
+arr.push(4); // add at the end of array
+arr.unshift(0); // add at the start of array
+arr.pop(); // removes from end of array
+console.log("Final array:", arr);
 
 // ============================================
 // TODO 2: Use array map
@@ -30,9 +30,9 @@ console.log("=== Exercise 4: Arrays and Objects ===\n");
 // - Use map to return a new array with each number doubled
 
 // TODO: Your code here
-// function doubleAll(numbers: number[]): number[] {
-//   // Use map here
-// }
+function doubleAll(numbers: number[]): number[] {
+  return numbers.map((n) => n * 2)
+}
 
 const nums = [1, 2, 3, 4, 5];
 console.log("Original:", nums);
@@ -47,8 +47,16 @@ console.log("Doubled:", doubleAll(nums)); // Should be [2, 4, 6, 8, 10]
 
 // TODO: Your code here
 // function getEvens(numbers: number[]): number[] {
-//   // Use filter here
-// }
+//   return numbers.filter((n) => {
+//     if (n % 2 === 0) {
+//       return n
+//     }
+//   })
+// } // works but wrong reason
+
+function getEvents(numbers: number[]):number[] {
+  return numbers.filter((n) => n % 2 === 0)
+}
 
 console.log("Evens:", getEvens([1, 2, 3, 4, 5, 6])); // Should be [2, 4, 6]
 
@@ -61,9 +69,9 @@ console.log("Evens:", getEvens([1, 2, 3, 4, 5, 6])); // Should be [2, 4, 6]
 // - Hint: Start with initial value of 1
 
 // TODO: Your code here
-// function multiplyAll(numbers: number[]): number {
-//   // Use reduce here
-// }
+function multiplyAll(numbers: number[]): number {
+  return numbers.reduce((product, n) => product * n, 1)
+}
 
 console.log("Product of [2, 3, 4]:", multiplyAll([2, 3, 4])); // Should be 24
 
@@ -76,10 +84,22 @@ console.log("Product of [2, 3, 4]:", multiplyAll([2, 3, 4])); // Should be 24
 // - Log them separately
 
 // TODO: Your code here
-// const user = { ... };
-// const { ... } = user;
-// console.log("Name:", name);
-// console.log("Email:", email);
+
+type User = {
+  name: string,
+  age: number,
+  email: string
+}
+
+const user: User = {
+  name: "SJ",
+  age: 26,
+  email: "shengjideng@gmail.com"
+}
+
+const { name, email } = user;
+console.log("Name:", name);
+console.log("Email:", email);
 
 // ============================================
 // TODO 6: Array destructuring
@@ -90,10 +110,10 @@ console.log("Product of [2, 3, 4]:", multiplyAll([2, 3, 4])); // Should be 24
 // - Log them
 
 // TODO: Your code here
-// const colors = [...];
-// const [... , ...] = colors;
-// console.log("First:", firstColor);
-// console.log("Third:", thirdColor);
+const colors = ["black", "white", "yellow", "brown", "red"];
+const [ firstColor, , thirdColor] = colors;
+console.log("First:", firstColor);
+console.log("Third:", thirdColor);
 
 // ============================================
 // TODO 7: Spread operator with objects
@@ -104,10 +124,10 @@ console.log("Product of [2, 3, 4]:", multiplyAll([2, 3, 4])); // Should be 24
 // - Log both objects
 
 // TODO: Your code here
-// const base = { name: "Alice", age: 30 };
-// const extended = { ...base, ... };
-// console.log("Base:", base);
-// console.log("Extended:", extended);
+const base = { name: "Alice", age: 30 };
+const extended = { ...base, email: "alice@example.com" };
+console.log("Base:", base);
+console.log("Extended:", extended);
 
 // ============================================
 // TODO 8: Immutable array update
@@ -118,9 +138,9 @@ console.log("Product of [2, 3, 4]:", multiplyAll([2, 3, 4])); // Should be 24
 // - Return a NEW array (don't mutate the original)
 
 // TODO: Your code here
-// function addTodo(todos: any[], newTodo: any): any[] {
-//   // Use spread here
-// }
+function addTodo(todos: any[], newTodo: any): any[] {
+  return [...todos, newTodo] 
+}
 
 const todos = [{ id: 1, task: "Learn JS", done: false }];
 const newTodos = addTodo(todos, { id: 2, task: "Practice", done: false });
@@ -158,3 +178,5 @@ console.log("Total with tax:", transformData(products));
 // Should be: (1000 * 1.1) + (500 * 1.1) = 1100 + 550 = 1650
 
 console.log("\n✅ Exercise complete!");
+
+export {}
