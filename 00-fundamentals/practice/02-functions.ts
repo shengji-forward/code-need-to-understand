@@ -199,6 +199,7 @@ function getUserById(id: string) {
   return { id, name: "User" };
 }
 // NOT:
+// @ts-expect-error
 function get(id) {
   return { id, name: "User" };
 }
@@ -209,3 +210,5 @@ function connectToDb(connectionString: string = "localhost:5432") {
 }
 
 console.log("\n✅ Practice complete!");
+
+export {}

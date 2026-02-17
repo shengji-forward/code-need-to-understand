@@ -217,3 +217,5 @@ function processUser(user: { name?: string; age?: number }) {
 }
 
 console.log("\n✅ Practice complete!");
+
+export {}

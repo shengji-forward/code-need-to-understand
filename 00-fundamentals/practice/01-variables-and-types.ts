@@ -59,10 +59,12 @@ const result2 = 1 + 1;
 console.log("1 + 1 =", result2, "(type:", typeof result2 + ")");
 
 // String - Number = Number (coerces string to number)
+// @ts-expect-error
 const result3 = "10" - 5;
 console.log("'10' - 5 =", result3, "(type:", typeof result3 + ")");
 
 // String * Number = Number (coerces string to number)
+// @ts-expect-error
 const result4 = "3" * 4;
 console.log("'3' * 4 =", result4, "(type:", typeof result4 + ")");
 
@@ -73,10 +75,12 @@ console.log("'3' * 4 =", result4, "(type:", typeof result4 + ")");
 console.log("\n=== Equality Examples ===");
 
 // Loose equality (==) - converts types before comparing
+// @ts-expect-error
 console.log("5 == '5':", 5 == "5"); // true (string converted to number)
 console.log("null == undefined:", null == undefined); // true
 
 // Strict equality (===) - no type conversion
+// @ts-expect-error
 console.log("5 === '5':", 5 === "5"); // false (different types)
 console.log("null === undefined:", null === undefined); // false
 
@@ -137,3 +141,5 @@ const defaultConfig = {
 console.log("Default config:", defaultConfig);
 
 console.log("\n✅ Practice complete!");
+
+export {}
