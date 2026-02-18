@@ -19,9 +19,9 @@ Layer-1-naming: Variables (Labeled storage) {
     let,
   }
   level-2-variable-rule {
-    type coercion,
-    strict equality,
-    template literals
+    type-coercion,
+    strict-equality,
+    template-literals
   }
 }
 
@@ -29,7 +29,8 @@ Layer-2-collection: Organisation {
   2.1-Arrays (Ordered collections) {
     level-1-array-item {
       array-item-position: index,
-      array-item-value: element,
+      array-item-value: element | value,
+      array-item: index + element | value,
       array-element-access: arr[index]
     },
     level-2-array-methods {
@@ -56,8 +57,11 @@ Layer-2-collection: Organisation {
       object-property: key + value,
       object-property-access: obj["name"] | obj.name
     }
-    level-2-object-methods-and-this {
+    level-2-object-methods {
 
+    }
+    level-3-obejct-rule {
+      object-this,
     }
   }
   2.3-Organisation-methods {

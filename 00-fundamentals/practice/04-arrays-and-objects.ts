@@ -92,10 +92,12 @@ console.log("Name:", user.name);
 console.log("Email:", user["email"]);
 
 // Adding properties
+// @ts-expect-error
 user.city = "NYC";
 console.log("After adding city:", user);
 
 // Deleting properties
+// @ts-expect-error
 delete user.isAdmin;
 console.log("After deleting isAdmin:", user);
 
@@ -106,6 +108,7 @@ console.log("After deleting isAdmin:", user);
 console.log("\n=== Destructuring ===");
 
 // Array destructuring
+
 const colors = ["red", "green", "blue"];
 const [firstColor, secondColor, thirdColor] = colors;
 console.log("Destructured colors:", firstColor, secondColor, thirdColor);
@@ -247,3 +250,5 @@ const userAccount = {
 };
 
 console.log("\n✅ Practice complete!");
+
+export {}
