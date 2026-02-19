@@ -17,11 +17,19 @@ console.log("=== Exercise 1: TypeScript Types and Interfaces ===\n");
 // - Create a product object using this interface
 
 // TODO: Your code here
-// interface Product {
-//   ...
-// }
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  category?: string
+}
 
-// const product: Product = { ... };
+const product: Product = { 
+  id: 1,
+  name: "iPhone",
+  price: 1999,
+  category: "mobile"
+};
 
 console.log("Product:", product);
 
@@ -34,11 +42,17 @@ console.log("Product:", product);
 // - Create a digital product object
 
 // TODO: Your code here
-// interface DigitalProduct extends Product {
-//   ...
-// }
+interface DigitalProduct extends Product {
+  downloadLink: string
+}
 
-// const digitalProduct: DigitalProduct = { ... };
+const digitalProduct: DigitalProduct = {
+  downloadLink: "www.example.com",
+  id: 1,
+  name: "iPhone",
+  price: 1999,
+  category: "mobile"
+};
 
 console.log("Digital product:", digitalProduct);
 
@@ -54,9 +68,9 @@ console.log("Digital product:", digitalProduct);
 // - Create a variable of this type
 
 // TODO: Your code here
-// type Status = ...
+type Status = "pending" | "active" | "inactive" | "suspended"
 
-// const currentStatus: Status = ...;
+const currentStatus: Status = "active";
 
 console.log("Current status:", currentStatus);
 
@@ -73,11 +87,15 @@ console.log("Current status:", currentStatus);
 // - Use type narrowing (typeof)
 
 // TODO: Your code here
-// type ID = ...
+type ID = number | string
 
-// function parseId(id: ID): string {
-//   // Use typeof to narrow the type
-// }
+function parseId(id: ID): string {
+  if (typeof id === "number") {
+    return `Number ID: ${id}`
+  } else {
+    return `String ID: ${id}`
+  }
+}
 
 console.log("Parse ID 123:", parseId(123)); // Should be "Number ID: 123"
 console.log("Parse ID 'abc':", parseId("abc")); // Should be "String ID: abc"
@@ -92,11 +110,24 @@ console.log("Parse ID 'abc':", parseId("abc")); // Should be "String ID: abc"
 // - Create a teamManager object with all properties
 
 // TODO: Your code here
-// type Employee = { ... };
-// type Manager = { ... };
-// type TeamManager = Employee & Manager;
+type Employee = {
+  id: number;
+  name: string
+};
 
-// const teamManager: TeamManager = { ... };
+type Manager = {
+  department: string;
+  reports: Employee[]
+};
+
+type TeamManager = Employee & Manager;
+
+const teamManager: TeamManager = {
+  id: 1,
+  name: "shengji",
+  department: "Product",
+  reports: []
+};
 
 console.log("Team manager:", teamManager);
 
@@ -110,11 +141,11 @@ console.log("Team manager:", teamManager);
 // - Use Math.sqrt()
 
 // TODO: Your code here
-// type Coordinate = ...
+type Coordinate = [number, number]
 
-// function calculateDistance(coord1: Coordinate, coord2: Coordinate): number {
-//   ...
-// }
+function calculateDistance(coord1: Coordinate, coord2: Coordinate): number {
+  return Math.sqrt((coord2[0]-coord1[0]) ** 2 + (coord2[1]-coord1[1]) ** 2)
+}
 
 const coord1: Coordinate = [0, 0];
 const coord2: Coordinate = [3, 4];
