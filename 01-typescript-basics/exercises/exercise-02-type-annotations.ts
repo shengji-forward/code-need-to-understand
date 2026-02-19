@@ -19,14 +19,20 @@ console.log("=== Exercise 2: TypeScript Advanced Type Annotations ===\n");
 //   - If error: return "Error: {error}"
 
 // TODO: Your code here
-// type LoadingState = { ... };
-// type SuccessState = { ... };
-// type ErrorState = { ... };
-// type AppState = LoadingState | SuccessState | ErrorState;
+type LoadingState = { status: "loading" };
+type SuccessState = { status: "success"; data: string };
+type ErrorState = { status: "error"; error: string };
+type AppState = LoadingState | SuccessState | ErrorState;
 
-// function renderState(state: AppState): string {
-//   // Use discriminated union narrowing
-// }
+function renderState(state: AppState): string {
+  if (state.status === "loading") {
+    return `Loading...`
+  } else if (state.status === "success") {
+    return `Data: ${state.data}`
+  } else {
+    return `Error: ${state.error}`
+  }
+}
 
 console.log("Loading:", renderState({ status: "loading" })); // "Loading..."
 console.log("Success:", renderState({ status: "success", data: "Hello" })); // "Data: Hello"
@@ -48,13 +54,16 @@ console.log("Error:", renderState({ status: "error", error: "Failed" })); // "Er
 // - The original todo should NOT be modified
 
 // TODO: Your code here
-// interface Todo {
-//   ...
-// }
+interface Todo {
+  id: number;
+  title: string;
+  description: string;
+  completed: boolean
+}
 
-// function updateTodo(todo: Todo, updates: Partial<Todo>): Todo {
-//   ...
-// }
+function updateTodo(todo: Todo, updates: Partial<Todo>): Todo {
+  return {...todo, ...updates}
+}
 
 const todo: Todo = {
   id: 1,
@@ -79,7 +88,7 @@ console.log("Updated:", updated); // completed should be true
 // - Create a TodoPreview object
 
 // TODO: Your code here
-// type TodoPreview = Pick<Todo, ...>;
+type TodoPreview = Pick<Todo, "id" | "title" | "completed">;
 
 const preview: TodoPreview = {
   id: 1,
@@ -99,7 +108,7 @@ console.log("\nPreview:", preview);
 // - Create a TodoCreate object for creating new todos
 
 // TODO: Your code here
-// type TodoCreate = Omit<Todo, ...>;
+type TodoCreate = Omit<Todo, "id" | "completed">;
 
 const newTodo: TodoCreate = {
   title: "New Task",
@@ -120,12 +129,22 @@ console.log("\nNew todo:", newTodo);
 // - If Fish: call swim() and log "Swimming"
 
 // TODO: Your code here
-// interface Bird { ... }
-// interface Fish { ... }
+interface Bird { 
+  fly: () => void;
+  layEggs: () => void;
+}
+interface Fish { 
+  swim: () => void;
+  layEggs: () => void;
+ }
 
-// function move(animal: Bird | Fish) {
-//   // Use 'in' operator for type narrowing
-// }
+function move(animal: Bird | Fish) {
+  if ("fly" in animal) {
+    animal.fly();
+  } else {
+    animal.swim();
+  }
+}
 
 console.log("\n=== Type Guards ===");
 const bird: Bird = {
@@ -151,13 +170,17 @@ move(fish); // Should log "Swimming!"
 // - The timestamp should be Date.now()
 
 // TODO: Your code here
-// type ValueWithTimestamp<T> = {
-//   ...
-// };
+type ValueWithTimestamp<T> = {
+  value: T;
+  timestamp: number;
+};
 
-// function addTimestamp<T>(value: T): ValueWithTimestamp<T> {
-//   ...
-// }
+function addTimestamp<T>(value: T): ValueWithTimestamp<T> {
+  return {
+    value: value,
+    timestamp: Date.now()
+  }
+}
 
 console.log("\n=== Bonus Challenge ===");
 const timestampedString = addTimestamp("Hello");
