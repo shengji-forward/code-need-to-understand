@@ -16,9 +16,9 @@ console.log("=== Exercise 3: TypeScript Generics ===\n");
 // - Test it with a string, number, and boolean
 
 // TODO: Your code here
-// function identity<T>(value: T): T {
-//   ...
-// }
+function identity<T>(value: T): T {
+  return value
+}
 
 console.log("Identity string:", identity("hello")); // "hello"
 console.log("Identity number:", identity(42)); // 42
@@ -35,9 +35,11 @@ console.log("Identity boolean:", identity(true)); // true
 // - Test with string array and number array
 
 // TODO: Your code here
-// function lastElement<T>(arr: T[]): T | undefined {
-//   ...
-// }
+function lastElement<T>(array: T[]): T | undefined {
+  return array[array.length - 1]
+  // return array.at(-1)
+  // return array.slice(-1)[0]
+}
 
 console.log("\nLast element of [1,2,3]:", lastElement([1, 2, 3])); // 3
 console.log("Last element of ['a','b','c']:", lastElement(["a", "b", "c"])); // "c"
@@ -54,13 +56,13 @@ console.log("Last element of []:", lastElement([])); // undefined
 // - Test with string and array
 
 // TODO: Your code here
-// interface WithLength {
-//   length: number;
-// }
+interface WithLength {
+  length: number;
+}
 
-// function getLength<T extends WithLength>(value: T): number {
-//   ...
-// }
+function getLength<T extends WithLength>(value: T): number {
+  return value.length
+}
 
 console.log("\nLength of 'hello':", getLength("hello")); // 5
 console.log("Length of [1,2,3,4,5]:", getLength([1, 2, 3, 4, 5])); // 5
@@ -77,9 +79,9 @@ console.log("Length of [1,2,3,4,5]:", getLength([1, 2, 3, 4, 5])); // 5
 // - Test with different type combinations
 
 // TODO: Your code here
-// function createPair<K, V>(key: K, value: V): { key: K; value: V } {
-//   ...
-// }
+function createPair<K, V>(key: K, value: V): {key: K, value: V} {
+  return {key, value}
+}
 
 const pair1 = createPair(1, "one");
 const pair2 = createPair("username", "alice");
@@ -102,17 +104,21 @@ console.log("Pair 3:", pair3); // { key: "age", value: 30 }
 // - Push some items and pop them
 
 // TODO: Your code here
-// class Stack<T> {
-//   private items: T[] = [];
-//
-//   push(item: T): void {
-//     ...
-//   }
-//
-//   pop(): T | undefined {
-//     ...
-//   }
-// }
+class Stack<T>{
+  private items: T[] = [];
+
+  constructor(initialItems: T[] =[]) {
+    this.items = initialItems
+  }
+
+  push(item: T): void {
+    this.items.push(item)
+  }
+
+  pop(): T | undefined {
+    return this.items.pop()
+  }
+}
 
 console.log("\n=== Generic Stack ===");
 const stringStack = new Stack<string>();
@@ -135,32 +141,32 @@ console.log("Pop empty:", stringStack.pop()); // undefined
 // - Store users in a private array
 
 // TODO: Your code here
-// interface Repository<T> {
-//   findById(id: number): T | undefined;
-//   save(item: T): void;
-//   getAll(): T[];
-// }
-//
-// interface User {
-//   id: number;
-//   name: string;
-// }
-//
-// class UserRepository implements Repository<User> {
-//   private users: User[] = [];
-//
-//   findById(id: number): User | undefined {
-//     ...
-//   }
-//
-//   save(item: User): void {
-//     ...
-//   }
-//
-//   getAll(): User[] {
-//     ...
-//   }
-// }
+interface Repository<T> {
+  findById(id: number): T | undefined
+  save(item: T): void
+  getAll(): T[]
+}
+
+type User = {
+  id: number
+  name: string
+}
+
+class UserRepository implements Repository<User> {
+  private users: User[] = []
+
+  findById(id: number): User | undefined {
+      return this.users.find((user) => user.id === id)
+  }
+
+  save(item: User): void {
+    this.users.push(item)
+  }
+
+  getAll(): User[] {
+    return this.users
+  }
+}
 
 console.log("\n=== Bonus Challenge ===");
 const userRepo = new UserRepository();

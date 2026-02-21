@@ -209,3 +209,5 @@ const point: Point = { x: 10, y: 20 };
 // point.x = 15; // Error: Cannot assign to 'x' because it is read-only
 
 console.log("\n✅ Practice complete!");
+
+export {}

@@ -227,3 +227,5 @@ function makeRequest(method: HttpMethod, url: string) {
 makeRequest("GET", "/api/users");
 
 console.log("\n✅ Practice complete!");
+
+export {}
