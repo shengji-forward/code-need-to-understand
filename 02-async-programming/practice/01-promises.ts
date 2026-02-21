@@ -36,6 +36,7 @@ myPromise
 // LEVEL 1: Async/Await Syntax
 // ============================================
 
+// @ts-expect-error
 async function fetchData(): Promise<string> {
   // Simulate API call
   return new Promise((resolve) => {
