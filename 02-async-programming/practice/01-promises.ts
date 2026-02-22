@@ -119,6 +119,7 @@ async function parallelOperations() {
   console.log("Results:", [result1, result2, result3]);
 }
 
+// @ts-expect-error
 function delay(ms: number, value: string): Promise<string> {
   return new Promise((resolve) => setTimeout(() => resolve(value), ms));
 }
@@ -132,6 +133,7 @@ setTimeout(() => {
 // LEVEL 3: Promise.allSettled
 // ============================================
 
+// @ts-expect-error
 async function allSettledExample() {
   console.log("\n=== Promise.allSettled ===");
 

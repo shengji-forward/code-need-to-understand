@@ -103,31 +103,6 @@ Layer-3-behavior: Functions (Reusable instructions) {
 
 ```
 
-**Control-flow**
-
-```
-Flow-1-condition {
-  condition-if/elses,
-  condition-ternary-operator,
-  condition-switch-statements
-}
-
-Flow-2-loop {
-  loop-traditional-for-loop,
-  loop-for-of-array-loop,
-  loop-for-in-object-loop,
-  loop-while-loop,
-  loop-break-continue
-}
-
-Flow-3-pattern {
-  pattern-early-return,
-  pattern-loop-control
-}
-
-
-```
-
 **Typescirpt Type System**
 
 ```
@@ -214,5 +189,51 @@ Layer-3-meta-type {
   }
 
 }
+
+```
+
+**Control-flow**
+
+```
+Flow-1-condition {
+  condition-if/elses,
+  condition-ternary-operator,
+  condition-switch-statements
+}
+
+Flow-2-loop {
+  loop-traditional-for-loop,
+  loop-for-of-array-loop,
+  loop-for-in-object-loop,
+  loop-while-loop,
+  loop-break-continue
+}
+
+Flow-3-pattern {
+  pattern-early-return,
+  pattern-loop-control
+}
+
+Flow-4-async-programming {
+  level-1-promise-object {
+    promise-methods-static {
+      Promise.all,
+      Promise.allSettled,
+      Promise.race,
+      Promise.any,
+      Promise.resolve,
+      Promise.reject
+    },
+    instance-methods-on-promise {
+      .then(onFulfilled, onRejected?).
+      .catch(onRejected),
+      .finally(onSettled)
+    }
+  }
+  async-await,
+  try-catch,
+
+}
+
 
 ```
