@@ -503,3 +503,5 @@ async function fetchTask3(): Promise<string> {
 function delay(ms: number, value: string): Promise<string> {
   return new Promise((resolve) => setTimeout(() => resolve(value), ms));
 }
+
+export {}

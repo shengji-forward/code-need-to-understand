@@ -3,6 +3,8 @@
 // TODO: Complete each section marked with TODO
 // Run with: npx tsx exercise-02-errors.ts
 
+import { resolve } from "path";
+
 console.log("=== Exercise 2: Error Handling in Async Code ===\n");
 
 // ============================================
@@ -23,6 +25,18 @@ async function fetchUserData(userId: number): Promise<{ id: number; name: string
   // TODO: Add finally block - log completion message
 
   // Your code here
+  try {
+    if (userId < 1) {
+      throw new Error("Invalid userId")
+    }
+    await new Promise(resolve => setTimeout(resolve, 100))
+    return {id: userId, name: `User ${userId}`}
+  } catch (error) {
+    console.log(`Error: ${error}`);
+    throw error
+  } finally {
+    console.log(`Fetch attempt complete.`);
+  }
 
   // Example structure:
   // try {
@@ -39,15 +53,15 @@ async function fetchUserData(userId: number): Promise<{ id: number; name: string
   //   // Cleanup or logging
   // }
 
-  throw new Error("TODO: Implement this function");
+  // throw new Error("TODO: Implement this function");
 }
 
 // Test TODO 1
 console.log("=== Testing TODO 1: try/catch/finally ===");
 // Uncomment after implementing:
-// fetchUserData(1)
-//   .then(user => console.log("✓ Success:", user))
-//   .catch(err => console.log("✗ Error:", err.message));
+fetchUserData(1)
+  .then(user => console.log("✓ Success:", user))
+  .catch(err => console.log("✗ Error:", err.message));
 
 console.log("\n");
 

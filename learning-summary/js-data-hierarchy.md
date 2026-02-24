@@ -230,9 +230,26 @@ Flow-4-async-programming {
       .finally(onSettled)
     }
   }
-  async-await,
-  try-catch,
+  level-2-async {
+    async-await,
+    try-catch
+  },
+  level-3-error-handling {
+    basic-error-handling {
+      basic-try/catch/finally,
+      throwing-errors
+    },
+    error-classes-types {
+      custom-error-classes,
+      different-error-types
+    },
+    global-error {
+      global-handlers,
+      logging,
+      Promise.all vs allSettled
+    }
 
+  }
 }
 
 
