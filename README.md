@@ -243,7 +243,7 @@ for (let i = 0; i < 10; i++) {
 
 **Resources**:
 - ✅ Simple Practice: `/01-typescript-basics/practice/01-types-and-interfaces.ts`
-- 📝 Exercise: `/01-typescript-basics/exercises/exercise-01-basic-types.ts`
+- 📝 Exercise: `/01-typescript-basics/exercises/exercise-01-types-and-interfaces.ts`
 - 🔗 OpenCoach Reference:
   - Used in: `packages/database/src/schema/` (all schema definitions)
   - Used in: `apps/gateway/src/server.ts` (Hono server types)
@@ -291,7 +291,7 @@ for (let i = 0; i < 10; i++) {
 
 **Resources**:
 - ✅ Simple Practice: `/01-typescript-basics/practice/02-type-annotations.ts`
-- 📝 Exercise: `/01-typescript-basics/exercises/exercise-02-interfaces.ts`
+- 📝 Exercise: `/01-typescript-basics/exercises/exercise-02-type-annotations.ts`
 - 🔗 OpenCoach Reference:
   - Used in: `packages/database/src/schema/health.ts` (health check interfaces)
   - Used in: `apps/api/src/index.ts` (route types)
@@ -338,8 +338,7 @@ for (let i = 0; i < 10; i++) {
 - Discriminated unions
 
 **Resources**:
-- ✅ Simple Practice: `/01-typescript-basics/practice/03-generics-basics.ts`
-- 📝 Exercise: `/01-typescript-basics/exercises/exercise-03-unions.ts`
+- ✅ Simple Practice: `/01-typescript-basics/practice/04-union-types.ts`
 - 🔗 OpenCoach Reference:
   - Used in: `packages/database/src/schema/` (optional columns)
   - Used in: `apps/web/` (component props)
@@ -386,8 +385,8 @@ for (let i = 0; i < 10; i++) {
 - Utility types: Partial, Pick, Omit
 
 **Resources**:
-- ✅ Simple Practice: `/01-typescript-basics/practice/04-generics.ts`
-- 📝 Exercise: `/01-typescript-basics/exercises/exercise-04-generics.ts`
+- ✅ Simple Practice: `/01-typescript-basics/practice/03-generics-basics.ts`
+- 📝 Exercise: `/01-typescript-basics/exercises/exercise-03-generics.ts`
 - 🔗 OpenCoach Reference:
   - Used in: Database libraries (Drizzle, Supabase) for type-safe queries
   - Used in: `apps/api/` (generic route handlers)

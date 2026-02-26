@@ -13,6 +13,7 @@ code-need-to-understand/
 ├── README.md                    # Main knowledge guide with all topics, interview questions, and best practices
 ├── QUICKSTART.md                # Quick start guide for running the code
 ├── PROJECT-STRUCTURE.md         # This file
+├── IMPLEMENTATION-SUMMARY.md    # Implementation summary and statistics
 ├── package.json                 # Project dependencies (tsx for running TypeScript files)
 ├── tsconfig.json                # TypeScript configuration
 ├── .gitignore                   # Git ignore patterns
@@ -37,13 +38,25 @@ code-need-to-understand/
 │   ├── practice/
 │   │   ├── 01-types-and-interfaces.ts      # Types, interfaces, type aliases
 │   │   ├── 02-type-annotations.ts          # Advanced types, utility types, type guards
-│   │   └── 03-generics-basics.ts           # Generics, constraints, utility types with generics
-│   └── exercises/                           # TODO: Add exercises
+│   │   ├── 03-generics-basics.ts           # Generics, constraints, utility types with generics
+│   │   └── 04-union-types.ts               # Union types, type narrowing, discriminated unions
+│   └── exercises/
+│       ├── exercise-01-types-and-interfaces.ts
+│       ├── exercise-01-types-and-interfaces-solution.ts
+│       ├── exercise-02-type-annotations.ts
+│       ├── exercise-02-type-annotations-solution.ts
+│       ├── exercise-03-generics.ts
+│       └── exercise-03-generics-solution.ts
 │
 ├── 02-async-programming/        # Promises, async/await
 │   ├── practice/
-│   │   └── 01-promises.ts                    # Promises, async/await, error handling, parallel operations
-│   └── exercises/                           # TODO: Add exercises
+│   │   ├── 01-promises.ts                    # Promises, async/await, error handling, parallel operations
+│   │   └── 02-error-handling.ts              # Try/catch, custom errors, Promise error handling
+│   └── exercises/
+│       ├── exercise-01-async.ts
+│       ├── exercise-01-async-solution.ts
+│       ├── exercise-02-errors.ts
+│       └── exercise-02-errors-solution.ts
 │
 ├── 03-node-and-modules/         # ES modules, npm, environment
 │   ├── practice/
@@ -99,15 +112,15 @@ code-need-to-understand/
 - Covers: variables, types, functions, control flow, arrays, objects
 - Each practice file has extensive comments and examples
 
-#### 01. TypeScript Basics (✅ Practice files complete)
-- 3 practice files: types/interfaces, advanced types, generics
+#### 01. TypeScript Basics (✅ Complete)
+- 4 practice files: types/interfaces, type annotations, generics, union types
+- 3 exercise files with solutions
 - Covers: type annotations, interfaces, union types, type guards, utility types, generics
-- TODO: Add exercise files
 
-#### 02. Async Programming (✅ Practice files complete)
-- 1 practice file: Promises and async/await
+#### 02. Async Programming (✅ Complete)
+- 2 practice files: Promises, error handling
+- 2 exercise files with solutions
 - Covers: creating Promises, async/await, error handling, parallel operations, Promise.allSettled
-- TODO: Add exercise files
 
 #### 03. Node.js and Modules (✅ Practice files complete)
 - 1 practice file: ES modules
@@ -183,8 +196,8 @@ Each section in README.md has:
 ## Completion Status
 
 - ✅ **00-fundamentals**: Complete (4 practice + 4 exercises with solutions)
-- ✅ **01-typescript-basics**: Practice files complete (3 files)
-- ✅ **02-async-programming**: Practice files complete (1 file)
+- ✅ **01-typescript-basics**: Complete (4 practice + 3 exercises with solutions)
+- ✅ **02-async-programming**: Complete (2 practice + 2 exercises with solutions)
 - ✅ **03-node-and-modules**: Practice files complete (1 file)
 - ⚠️ **04-database-basics**: Structure only, needs content
 - ✅ **05-web-server**: Practice files complete (1 file)
@@ -231,13 +244,14 @@ To add more content:
 
 ---
 
-**Total Files Created**: 24 files
+**Total Files Created**: 36 files
 - 1 comprehensive README.md
 - 1 quick start guide
 - 1 project structure file
+- 1 implementation summary
 - 3 configuration files (package.json, tsconfig.json, .gitignore)
 - 13 practice files across 5 sections
-- 8 exercise/solution pairs in fundamentals section
+- 9 exercise/solution pairs across 3 sections (00: 4 pairs, 01: 3 pairs, 02: 2 pairs)
 
 **Estimated completion time for existing content**: 40-60 hours
 **Estimated completion time for full project**: 200+ hours
