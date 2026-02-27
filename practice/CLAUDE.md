@@ -1,10 +1,18 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Guidance for Claude Code (claude.ai/code) when working with this repository.
 
 ## Project Overview
 
-This is a JavaScript/TypeScript learning roadmap for OpenCoach development. Progressive 11-module curriculum taking learners from fundamentals to production-ready TypeScript. Each module (00-10) has `practice/` files with examples and `exercises/` files with TODO tasks.
+This repository is organized into 3 collections:
+
+1. **practice/** - You are here! Hands-on JavaScript/TypeScript learning roadmap (Modules 00-10)
+2. **knowledge/** - Programming fundamentals courses (CS61A SICP JavaScript Edition)
+3. **learning-summary/** - Progress documentation and conceptual hierarchies
+
+### This Collection (practice/)
+
+Progressive 11-module curriculum taking learners from fundamentals to production-ready TypeScript. Each module (00-10) has `practice/` files with examples and `exercises/` files with TODO tasks.
 
 ## Development Commands
 
@@ -19,7 +27,7 @@ npx tsx watch <path-to-file>
 npm run check <path-to-file>
 ```
 
-## Project Structure
+## Module Structure
 
 ```
 00-fundamentals/         # JavaScript basics (variables, functions, loops, arrays)
@@ -54,3 +62,9 @@ Each directory contains:
 4. Create matching `*-solution.ts` files with explanatory comments
 5. Update README.md with new topics/interview questions
 6. Update PROJECT-STRUCTURE.md completion status
+
+## Working with Other Collections
+
+- **Reference knowledge/** when theoretical fundamentals are needed
+- **Update learning-summary/** when completing modules or discovering new patterns
+- **Keep practice/** as the primary active working directory

@@ -4,7 +4,7 @@
 
 1. **Install dependencies** (one-time setup):
 ```bash
-cd code-need-to-understand
+cd practice
 npm install
 ```
 
@@ -27,6 +27,15 @@ npx tsx 00-fundamentals/exercises/exercise-01-basic-syntax.ts
 # View solution file
 code 00-fundamentals/exercises/exercise-01-basic-syntax-solution.ts
 ```
+
+## Repository Structure Note
+
+This repository is organized into 3 collections:
+- **practice/** - You are here! Hands-on learning modules
+- **knowledge/** - Theory courses (CS61A SICP JavaScript Edition)
+- **learning-summary/** - Progress documentation and concept hierarchies
+
+See the root [README.md](../README.md) for complete navigation.
 
 ## Recommended Learning Path
 
@@ -76,9 +85,11 @@ npx tsx watch 00-fundamentals/practice/01-variables-and-types.ts
 
 ## Need Help?
 
-- Check the main README.md for detailed explanations
+- Check the main [README.md](../README.md) for repository overview
 - Review practice files for commented examples
 - Compare your exercise solutions with the provided solutions
 - Each topic has interview questions with answers (spoiler tags)
+- Reference [knowledge/](../knowledge/) for theory when stuck
+- Track progress in [learning-summary/](../learning-summary/)
 
 Good luck with your learning! 🚀

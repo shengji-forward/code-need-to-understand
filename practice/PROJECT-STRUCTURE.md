@@ -1,20 +1,34 @@
 # Project Structure
 
-This document describes the complete structure of the `code-need-to-understand` learning project.
+This document describes the structure of the `practice/` collection - the hands-on learning roadmap.
 
 ## Overview
 
-This is a progressive JavaScript/TypeScript learning roadmap designed for a junior developer working on the OpenCoach AI health agent project. It takes you from complete beginner to production-ready TypeScript developer.
+This is a progressive JavaScript/TypeScript learning path designed for a junior developer working on the OpenCoach AI health agent project. It takes you from complete beginner to production-ready TypeScript developer.
 
-## Directory Structure
+## Repository Organization
+
+This repository is organized into 3 collections:
 
 ```
 code-need-to-understand/
-├── README.md                    # Main knowledge guide with all topics, interview questions, and best practices
-├── QUICKSTART.md                # Quick start guide for running the code
+├── practice/            # This collection - hands-on learning modules
+├── knowledge/           # Programming fundamentals courses (CS61A SICP)
+└── learning-summary/    # Progress documentation & concept hierarchies
+```
+
+**Learning Philosophy:** Practice-first. Do hands-on exercises in `practice/` first, reference `knowledge/` for theory when stuck, document insights in `learning-summary/`.
+
+## Practice Collection Structure
+
+```
+practice/
+├── README.md                    # Main knowledge guide with topics, interview questions, best practices
+├── QUICKSTART.md                # Quick start guide for running code
 ├── PROJECT-STRUCTURE.md         # This file
 ├── IMPLEMENTATION-SUMMARY.md    # Implementation summary and statistics
-├── package.json                 # Project dependencies (tsx for running TypeScript files)
+├── CLAUDE.md                    # Guidance for Claude Code AI assistant
+├── package.json                 # Dependencies (tsx for running TypeScript files)
 ├── tsconfig.json                # TypeScript configuration
 ├── .gitignore                   # Git ignore patterns
 │
@@ -95,11 +109,13 @@ code-need-to-understand/
 
 ## File Descriptions
 
-### Root Level Files
+### Collection Root Files
 
-- **README.md** (2000+ lines): Comprehensive learning guide with all topics, interview questions, best practices, and OpenCoach code references
+- **README.md**: Comprehensive learning guide with all topics, interview questions, best practices, and OpenCoach code references
 - **QUICKSTART.md**: Quick start guide for getting started immediately
-- **PROJECT-STRUCTURE.md**: This file - documents the project structure
+- **PROJECT-STRUCTURE.md**: This file - documents the practice collection structure
+- **CLAUDE.md**: Guidance for Claude Code AI assistant
+- **IMPLEMENTATION-SUMMARY.md**: Implementation statistics and progress
 - **package.json**: Dependencies for running TypeScript files (tsx)
 - **tsconfig.json**: TypeScript configuration with strict mode enabled
 - **.gitignore**: Git ignore patterns for node_modules and build artifacts
@@ -168,7 +184,7 @@ Each exercise includes:
    - Comments explaining the approach
    - For comparison after completing the exercise
 
-## How to Use This Project
+## How to Use This Collection
 
 ### For Self-Learning
 
@@ -236,7 +252,7 @@ To add more content:
 ## Next Steps
 
 1. Complete practice files for sections 04-10
-2. Add exercise files for sections 01-10
+2. Add exercise files for sections 03-10
 3. Add more references to actual OpenCoach code
 4. Create video scripts based on the content
 5. Add more interview questions per topic
@@ -249,6 +265,7 @@ To add more content:
 - 1 quick start guide
 - 1 project structure file
 - 1 implementation summary
+- 1 CLAUDE.md guidance
 - 3 configuration files (package.json, tsconfig.json, .gitignore)
 - 13 practice files across 5 sections
 - 9 exercise/solution pairs across 3 sections (00: 4 pairs, 01: 3 pairs, 02: 2 pairs)

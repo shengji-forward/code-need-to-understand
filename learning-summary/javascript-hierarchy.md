@@ -1,15 +1,25 @@
 **Layers-hierarchy**
 
 ```
+class {
+  functions {
+    arrays-and-objects {
+      variables {
+        values
+      }
+    }
+  }
+}
+```
+
+```
 Layer-0-foundation: Primitive value (Raw materials, LEGO pieces) {
   level-1-value-type {
     number,
     string,
     boolean,
     null,
-    undefined,
-    symbol,
-    bigint
+    undefined
   }
 }
 
@@ -21,11 +31,18 @@ Layer-1-naming: Variables (Labeled storage) {
   level-2-variable-rule {
     type-coercion,
     strict-equality,
-    template-literals
+    template-literals,
+    type-of-scope {
+      global-scope,
+      function-local-scope,
+      block-scope
+    },
+    lexical-scope,
+    scope-chain
   }
 }
 
-Layer-2-collection: Organisation {
+Layer-2-collection: Arrays and Objects (Organisation) {
   2.1-Arrays (Ordered collections) {
     level-1-array-item {
       array-item-position: index,
@@ -58,7 +75,7 @@ Layer-2-collection: Organisation {
       object-property-access: obj["name"] | obj.name
     }
     level-2-object-methods {
-
+      most-are-custom-methods
     }
     level-3-obejct-rule {
       object-this,
@@ -103,95 +120,6 @@ Layer-3-behavior: Functions (Reusable instructions) {
 
 ```
 
-**Typescirpt Type System**
-
-```
-// type-definition-using-contracts(interface | type-aliases)
-contract typeName<generic-param> {
-  type + type-rules: type-types
-}
-
-// generic-function
-function functionName<generic-type-param>(value: param-type): return-type {
-  return value
-}
-
-```
-
-```
-Layer-0-type: Type {
-  level-1-type-types {
-    number,
-    string,
-    boolean,
-    any (avoid!),
-    unknown,
-    null,
-    void
-  },
-  level-2-composite-types {
-    strings-array-type: string[],
-    numbers-array-type: array<number>
-  },
-  level-3-advanced-types {
-    union: | ,
-    intersection: & ,
-    tupe: [number, number] ,
-    mapped-type,
-    conditional-type,
-    template-literal-type,
-    utility-types {
-      Partial<>,
-      Required<>,
-      Pick<>,
-      Omit<>
-    }
-  },
-  level-4-type-rules {
-    properties-optional-suffix: ?,
-    readonly-prefix: readonly,
-  },
-  level-5-type-concept {
-    type-guards,
-    type-narrows,
-    discriminated-unions,
-    type-assertion
-  }
-}
-
-Layer-1-contracts {
-  level-1-interface {
-    interface-definition,
-    extending-interface
-  },
-  level-2-type-aliases {
-    union,
-    tuple,
-    literal
-  }
-}
-
-Layer-3-meta-type {
-  level-1-generic {
-    generic-functions {
-      generic-parameter: functionName<T>,
-      parameter-type: (arg: T),
-      return-type: (): T,
-    },
-    generic-arrays,
-    generic-constraint,
-    multiple-type-parameters: <K, V>,
-    generic-classes,
-    generic-interfaces,
-    utility-types-with-generics,
-    generic-with-default-type,
-
-  }
-
-}
-
-```
-
 **Control-flow**
 
 ```
@@ -216,6 +144,11 @@ Flow-3-pattern {
 
 Flow-4-async-programming {
   level-1-promise-object {
+    promise-states {
+      pending,
+      fulfilled,
+      rejected
+    }
     promise-methods-static {
       Promise.all,
       Promise.allSettled,
@@ -232,7 +165,11 @@ Flow-4-async-programming {
   }
   level-2-async {
     async-await,
-    try-catch
+    try-catch-finally,
+    async-type {
+      parallel,
+      sequential
+    }
   },
   level-3-error-handling {
     basic-error-handling {
@@ -246,9 +183,8 @@ Flow-4-async-programming {
     global-error {
       global-handlers,
       logging,
-      Promise.all vs allSettled
+      Promise.all vs Promise.allSettled
     }
-
   }
 }
 
