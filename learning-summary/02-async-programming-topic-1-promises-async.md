@@ -1,6 +1,6 @@
-# Learning Summary: 02-Async-Programming (Topic 1 - Promises & Async/Await)
+# Learning Summary: 02-Async-Programming Complete (Topics 1-2)
 
-**Completed**: 2026-02-23
+**Completed**: 2026-02-27
 **Topics**: Promises, Async/Await, Error Handling, Parallel Execution
 **Purpose**: Use this summary for AI interview practice, recap, and YouTube video preparation
 
@@ -292,7 +292,7 @@ const result = await fetchWithRetry(flakyOperation, 5);
 
 ---
 
-### Mistakes You Made & Fixed
+### Mistakes You Made & Fixed (Topic 1)
 
 | TODO | Mistake | Fixed | Lesson |
 |-----|---------|-------|--------|
@@ -305,276 +305,7 @@ const result = await fetchWithRetry(flakyOperation, 5);
 
 ---
 
-### Deep Dive: Your Mistakes
-
-#### Mistake 1: setTimeout Callback Shadowing resolve
-
-**What you did wrong:**
-```typescript
-// ❌ WRONG - Shadowing outer resolve
-function delayMessage(msg: string, time: number): Promise<string> {
-  return new Promise((resolve) => {
-    setTimeout((resolve) => {  // ❌ This shadows the outer resolve!
-      resolve(`✓ ${msg}`);
-    }, time);
-  });
-}
-```
-
-**Why this is wrong:**
-- `setTimeout((resolve) => ...)` creates a NEW parameter named `resolve`
-- This shadows (hides) the outer `resolve` from the Promise constructor
-- The inner `resolve` is just a callback parameter, not the Promise resolver
-- The Promise never resolves because you called the wrong function
-
-**Correct version:**
-```typescript
-// ✅ CORRECT - Don't name setTimeout callback parameter
-function delayMessage(msg: string, time: number): Promise<string> {
-  return new Promise((resolve) => {
-    setTimeout(() => {  // ✅ No parameter, or use different name
-      resolve(`✓ ${msg}`);  // ✅ Calls the Promise resolver
-    }, time);
-  });
-}
-
-// OR with different parameter name
-function delayMessage(msg: string, time: number): Promise<string> {
-  return new Promise((resolve) => {
-    setTimeout((_unused) => {  // ✅ Different name
-      resolve(`✓ ${msg}`);
-    }, time);
-  });
-}
-```
-
-**Key lesson:**
-- Never reuse parameter names from outer scope
-- `setTimeout` callback parameter is rarely needed
-- Be aware of variable shadowing
-
-#### Mistake 2: Using return Instead of resolve()
-
-**What you did wrong:**
-```typescript
-// ❌ WRONG - Using return in Promise constructor
-return new Promise((resolve) => {
-  setTimeout(() => {
-    return `✓ ${msg}`;  // ❌ This doesn't resolve the promise!
-  }, time);
-});
-```
-
-**Why this is wrong:**
-- `return` inside `setTimeout` callback just returns from the callback
-- It does NOT resolve the Promise
-- Promise never settles (stays pending forever)
-
-**Correct version:**
-```typescript
-// ✅ CORRECT - Call resolve() to fulfill the promise
-return new Promise((resolve) => {
-  setTimeout(() => {
-    resolve(`✓ ${msg}`);  // ✅ This resolves the promise
-  }, time);
-});
-```
-
-**Key lesson:**
-- In Promise constructor, use `resolve()` and `reject()`
-- `return` does NOT settle the promise
-- Promise only settles when you call `resolve()` or `reject()`
-
-#### Mistake 3: Array Destructuring Gone Wrong
-
-**What you did wrong:**
-```typescript
-// ❌ WRONG - Destructuring gets first element only
-const [data1, data2, data3] = await Promise.all([
-  simulateApiCall("/api/users", 500),
-  simulateApiCall("/api/posts", 500),
-  simulateApiCall("/api/comments", 500),
-]);
-
-// Then later...
-const [posts] = await fetchPostsOldStyle();  // ❌ posts is first element only
-console.log(posts.length);  // ❌ Error if posts is not an array
-```
-
-**Why this is wrong:**
-- `const [posts] = array` gets the FIRST element and assigns it to `posts`
-- If `fetchPostsOldStyle()` returns `["Post 1", "Post 2", "Post 3"]`
-- Then `posts` becomes `"Post 1"` (a string, not an array)
-- `posts.length` works but gives 6 (string length), not 3 (array length)
-
-**Correct version:**
-```typescript
-// ✅ CORRECT - Get the whole array
-const posts = await fetchPostsOldStyle();  // ✅ posts is the entire array
-console.log(posts.length);  // ✅ 3 (correct!)
-```
-
-**When to destructure:**
-```typescript
-// ✅ Destructure when you want individual elements
-const [user, posts, comments] = await Promise.all([
-  fetchUser(),     // user = individual user object
-  fetchPosts(),    // posts = entire posts array
-  fetchComments(), // comments = entire comments array
-]);
-
-// ✅ Don't destructure when you want the whole array
-const posts = await fetchPosts();  // posts = array of all posts
-```
-
-**Key lesson:**
-- `const [x] = arr` gets first element (`arr[0]`)
-- `const x = arr` gets the entire array
-- Choose based on what you need
-
-#### Mistake 4: Missing await in try/catch
-
-**What you did wrong:**
-```typescript
-// ❌ WRONG - No await, errors not caught
-try {
-  const result = riskyOperation(false);  // ❌ Missing await!
-  console.log(result);  // Promise object, not the value!
-} catch (error) {
-  console.error("Error:", error);  // ❌ Never called!
-}
-```
-
-**Why this is wrong:**
-- Without `await`, `riskyOperation()` returns a Promise object
-- The Promise object is assigned to `result` (not the resolved value)
-- `console.log(result)` logs `Promise { <pending> }` instead of the value
-- Errors from the Promise are NOT caught by `try/catch`
-- Unhandled rejections can crash your app
-
-**Correct version:**
-```typescript
-// ✅ CORRECT - Use await to get value and catch errors
-try {
-  const result = await riskyOperation(false);  // ✅ Awaits the promise
-  console.log(result);  // ✅ "Operation succeeded!"
-} catch (error) {
-  console.error("Error:", error);  // ✅ Catches rejection
-}
-```
-
-**Key lesson:**
-- Always `await` Promise calls in `async` functions
-- Without `await`: you get a Promise object, not the value
-- Without `await`: errors won't be caught by `try/catch`
-- Rule of thumb: If it returns a Promise, await it!
-
-#### Mistake 5: Incorrect Endpoint Names and Labels
-
-**What you did wrong:**
-```typescript
-// ❌ WRONG - Using same endpoint name everywhere
-const [data1, data2, data3] = await Promise.all([
-  simulateApiCall("/api/users", 500),
-  simulateApiCall("/api/users", 500),  // ❌ Should be /api/posts
-  simulateApiCall("/api/users", 500),  // ❌ Should be /api/comments
-]);
-
-// ❌ WRONG - Wrong log message
-async function fetchParallelData(): Promise<void> {
-  console.log("\n=== Sequential Fetch (Slow) ===");  // ❌ Should say "Parallel"
-  // ...
-}
-```
-
-**Why this is wrong:**
-- Results are misleading - all say "Data from /api/users"
-- Log message contradicts what the code actually does
-- Makes debugging confusing
-- Tests don't verify the right behavior
-
-**Correct version:**
-```typescript
-// ✅ CORRECT - Use distinct endpoint names
-const [data1, data2, data3] = await Promise.all([
-  simulateApiCall("/api/users", 500),
-  simulateApiCall("/api/posts", 500),   // ✅ Correct endpoint
-  simulateApiCall("/api/comments", 500), // ✅ Correct endpoint
-]);
-
-// ✅ CORRECT - Accurate log message
-async function fetchParallelData(): Promise<void> {
-  console.log("\n=== Parallel Fetch (Fast) ===");  // ✅ Matches behavior
-  // ...
-}
-```
-
-**Key lesson:**
-- Use meaningful, distinct names in tests
-- Log messages should match what code does
-- Clear labels make debugging easier
-- Be precise and accurate
-
-#### Mistake 6: Throwing Inside Retry Loop
-
-**What you did wrong:**
-```typescript
-// ❌ WRONG - Throws immediately, no retries
-async function fetchWithRetry<T>(
-  operation: () => Promise<T>,
-  maxRetries: number = 3
-): Promise<T> {
-  for (let attempt = 1; attempt <= maxRetries; attempt++) {
-    try {
-      return await operation();  // Success
-    } catch (error) {
-      console.log(`Attempt ${attempt} failed`);
-      throw error;  // ❌ Throws immediately! No more retries!
-    }
-  }
-}
-```
-
-**Why this is wrong:**
-- Loop exits on first error due to `throw`
-- `maxRetries` parameter is ignored
-- Function never retries, just fails immediately
-- Defeats the purpose of retry logic
-
-**Correct version:**
-```typescript
-// ✅ CORRECT - Store error, throw after loop
-async function fetchWithRetry<T>(
-  operation: () => Promise<T>,
-  maxRetries: number = 3
-): Promise<T> {
-  let lastError: unknown;  // ✅ Store error for later
-
-  for (let attempt = 1; attempt <= maxRetries; attempt++) {
-    try {
-      const result = await operation();
-      console.log(`✓ Success on attempt ${attempt}`);
-      return result;  // ✅ Return immediately on success
-    } catch (error) {
-      lastError = error;  // ✅ Save error, don't throw yet
-      console.log(`✗ Attempt ${attempt} failed`);
-      // ✅ Loop continues to next iteration
-    }
-  }
-
-  throw lastError;  // ✅ All retries exhausted, now throw
-}
-```
-
-**Key lesson:**
-- Don't throw inside retry loop
-- Store errors and throw after all retries fail
-- Return immediately on success
-- Loop continues only when there's an error AND more retries left
-
----
-
-### Best Practices Learned
+### Best Practices Learned (Topic 1)
 
 1. ✅ **Prefer async/await over .then() chains** - More readable and easier to debug
 2. ✅ **Always handle async errors** with try/catch blocks
@@ -591,17 +322,6 @@ async function fetchWithRetry<T>(
 13. ✅ **Always re-throw if you can't handle** - Let upstream handlers deal with it
 14. ✅ **Measure performance** - Compare sequential vs parallel execution
 15. ✅ **Type all function signatures** - Async functions return `Promise<T>`
-
----
-
-### Promise Methods Reference
-
-| Method | Behavior | Use Case |
-|--------|----------|----------|
-| `Promise.all([p1, p2])` | Fails fast on first rejection | All operations must succeed |
-| `Promise.allSettled([p1, p2])` | Waits for all to settle | Handle partial failures gracefully |
-| `Promise.race([p1, p2])` | First to settle (resolve/reject) | Timeout patterns |
-| `Promise.any([p1, p2])` | First fulfilled (ignore rejections) | Fastest of multiple sources |
 
 ---
 
@@ -730,6 +450,563 @@ await retry(() => fetch("/api/flaky-endpoint"), 5);
 
 ---
 
+## Topic 2: Advanced Error Handling
+
+### What You Learned
+
+#### 1. Custom Error Classes
+
+**Your code:**
+```typescript
+class NetworkError extends Error {
+  constructor(
+    message: string,
+    public statusCode: number,
+    public retryable: boolean
+  ) {
+    super(message);
+    this.name = "NetworkError";
+  }
+}
+
+// Usage
+try {
+  throw new NetworkError("Connection timeout", 504, true);
+} catch (error) {
+  if (error instanceof NetworkError) {
+    console.log(`Status: ${error.statusCode}, Retryable: ${error.retryable}`);
+  }
+}
+```
+
+**Key concept:**
+- Custom errors extend `Error` class
+- Add public properties for additional context
+- Set `this.name` for error type identification
+- Use `instanceof` to check error type in catch blocks
+- Different error types for different scenarios (NetworkError, ValidationError, DatabaseError)
+
+**Common pattern:**
+```typescript
+class ValidationError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "ValidationError";
+  }
+}
+
+class DatabaseError extends Error {
+  constructor(message: string, public query: string) {
+    super(message);
+    this.name = "DatabaseError";
+  }
+}
+
+async function handleErrors() {
+  try {
+    await operation();
+  } catch (error) {
+    if (error instanceof ValidationError) {
+      // Handle validation
+    } else if (error instanceof NetworkError) {
+      // Handle network
+    } else if (error instanceof DatabaseError) {
+      // Handle database
+    } else {
+      // Fallback
+    }
+  }
+}
+```
+
+#### 2. Promise.all Error Handling (Fail-Fast)
+
+**Your code:**
+```typescript
+async function fetchMultipleUsersFailFast(
+  userIds: number[]
+): Promise<Array<{ id: number; name: string }>> {
+  const promises = userIds.map(id => simulateFetch(id));
+
+  try {
+    const results = await Promise.all(promises);
+    return results;
+  } catch (error) {
+    if (error instanceof Error) {
+      console.log("Fetch failed:", error.message);
+    }
+    throw error;
+  }
+
+  async function simulateFetch(id: number): Promise<{ id: number; name: string }> {
+    await new Promise(resolve => setTimeout(resolve, Math.random() * 100));
+    if (id === 0) throw new Error(`User ${id} not found`);
+    return { id, name: `User ${id}` };
+  }
+}
+```
+
+**Key concept:**
+- `Promise.all()` fails fast on first rejection
+- All other pending promises are cancelled
+- Use when all operations must succeed
+- Throw error to upstream handler after logging
+- Good for: batch operations where failure means complete failure
+
+**When to use:**
+```typescript
+// ✅ Use Promise.all when all must succeed
+const results = await Promise.all([
+  fetchUser(),      // Must succeed
+  fetchProfile(),   // Must succeed
+  fetchSettings()   // Must succeed
+]);
+
+// If any fail, entire operation fails
+```
+
+#### 3. Promise.allSettled for Partial Failures
+
+**Your code:**
+```typescript
+async function fetchMultipleUsersAllSettled(
+  userIds: number[]
+): Promise<{
+  successful: Array<{ id: number; name: string }>;
+  failed: Array<{ userId: number; error: string }>;
+}> {
+  const promises = userIds.map(id => simulateFetch(id));
+  const results = await Promise.allSettled(promises);
+
+  const successful: Array<{ id: number; name: string }> = [];
+  const failed: Array<{ userId: number; error: string }> = [];
+
+  results.forEach((result, index) => {
+    const userId = userIds[index];
+    if (result.status === "fulfilled") {
+      successful.push(result.value);
+      console.log(`User ${userId}: success`);
+    } else {
+      const errorMsg = result.reason instanceof Error
+        ? result.reason.message
+        : String(result.reason);
+      failed.push({ userId, error: errorMsg });
+      console.log(`User ${userId}: failed - ${errorMsg}`);
+    }
+  });
+
+  return { successful, failed };
+}
+```
+
+**Key concept:**
+- `Promise.allSettled()` waits for ALL promises to settle
+- Returns array with `{ status, value | reason }` objects
+- Separate successful and failed results
+- Continue processing even with partial failures
+- Good for: batch operations where partial success is acceptable
+
+**Result type:**
+```typescript
+// Fulfilled result
+{
+  status: "fulfilled",
+  value: <the resolved value>
+}
+
+// Rejected result
+{
+  status: "rejected",
+  reason: <the rejection reason>
+}
+```
+
+#### 4. Error Logging with Context
+
+**Your code:**
+```typescript
+function logErrorWithContext(
+  error: Error,
+  operation: string,
+  input: Record<string, unknown>
+): void {
+  const context = {
+    timestamp: new Date().toISOString(),
+    operation,
+    input,
+    message: error.message,
+    stack: error.stack,
+  };
+
+  console.error(JSON.stringify(context, null, 2));
+}
+
+// Usage
+try {
+  await fetchUserData(-1);
+} catch (error) {
+  logErrorWithContext(error as Error, "fetchUserData", {
+    userId: -1,
+    source: "web"
+  });
+}
+```
+
+**Key concept:**
+- Log structured data (JSON format) for easy parsing
+- Include: timestamp, operation name, input values
+- Include error message and stack trace
+- Makes debugging easier in production
+- Searchable and aggregatable in log systems
+
+**Best practices:**
+```typescript
+// ✅ Good: Structured logging
+logError(error, "operation", { userId: 123, source: "api" });
+
+// ❌ Bad: Unstructured logging
+console.error("Error in operation with user 123 from api");
+
+// ✅ Good: Include request ID
+logError(error, "checkout", { userId: 123, requestId: "abc-123" });
+
+// ✅ Good: Sanitize sensitive data
+logError(error, "login", { email: sanitize(email) });
+```
+
+#### 5. Retry with Exponential Backoff (Bonus!)
+
+**Your code:**
+```typescript
+async function retryWithBackoff<T>(
+  operation: () => Promise<T>,
+  maxRetries: number = 3,
+  initialDelay: number = 1000
+): Promise<T> {
+  let lastError: unknown;
+
+  for (let attempt = 0; attempt < maxRetries; attempt++) {
+    try {
+      return await operation();
+    } catch (error) {
+      lastError = error;
+
+      // Stop if error is not retryable
+      if (error instanceof NetworkError && !error.retryable) {
+        throw error;
+      }
+
+      // Don't throw on last attempt yet
+      if (attempt === maxRetries - 1) {
+        throw error;
+      }
+
+      // Exponential backoff
+      const delay = initialDelay * Math.pow(2, attempt);
+      console.log(`Retry ${attempt + 1}/${maxRetries} in ${delay}ms...`);
+      await new Promise((resolve) => setTimeout(resolve, delay));
+    }
+  }
+
+  throw lastError;
+}
+```
+
+**Key concept:**
+- Exponential backoff: delay = initialDelay * 2^attempt
+- Respects non-retryable errors (check flag before retry)
+- Logs each retry for debugging
+- Prevents overwhelming failing services
+- Common pattern: 1000ms → 2000ms → 4000ms → 8000ms
+
+**Why exponential backoff:**
+```typescript
+// Linear (bad): 1000, 2000, 3000, 4000
+// Exponential (good): 1000, 2000, 4000, 8000
+
+// Benefits:
+// - Gives service time to recover
+// - Reduces load on struggling systems
+// - Prevents thundering herd problem
+```
+
+#### 6. Global Error Handlers
+
+**Your code:**
+```typescript
+// Handle unhandled promise rejections
+process.on("unhandledRejection", (reason: unknown) => {
+  console.error("\n⚠️  UNHANDLED REJECTION:", reason);
+  // In production: log to monitoring service, send alerts
+});
+
+// Handle uncaught exceptions
+process.on("uncaughtException", (error: Error) => {
+  console.error("\n⚠️  UNCAUGHT EXCEPTION:", error.message);
+  // In production: log, cleanup, then exit
+  process.exit(1);
+});
+```
+
+**Key concept:**
+- `unhandledRejection`: Fires when Promise rejects without `.catch()`
+- `uncaughtException`: Fires when error is thrown and not caught
+- Use for logging and monitoring in production
+- `uncaughtException` should exit process (state may be corrupted)
+- Always attach `.catch()` to promises to avoid unhandledRejection
+
+#### 7. Error vs TypeError
+
+**Your code:**
+```typescript
+async function processData(data: unknown): Promise<string> {
+  // TypeError: wrong type of value
+  if (typeof data !== "string") {
+    throw new TypeError("Data must be a string");
+  }
+
+  // Error: general problem
+  if (data.length === 0) {
+    throw new Error("Data cannot be empty");
+  }
+
+  return data.toUpperCase();
+}
+```
+
+**Key concept:**
+- `TypeError`: Wrong type of value (e.g., expected string, got number)
+- `Error`: General problem (e.g., empty string when content expected)
+- Both are Error instances
+- Use specific types for better error handling
+- Helps with debugging and error categorization
+
+---
+
+### Mistakes You Made & Fixed (Topic 2)
+
+| TODO | Mistake | Fixed | Lesson |
+|-----|---------|-------|--------|
+| **None!** | Exercise 2 completed without major errors | N/A | Practice from Topic 1 paid off |
+
+---
+
+### Best Practices Learned (Topic 2)
+
+16. ✅ **Create custom error classes** for different error categories
+17. ✅ **Use `instanceof`** to check error types in catch blocks
+18. ✅ **Add public properties** to custom errors for context
+19. ✅ **Use `Promise.all`** when all operations must succeed (fail-fast)
+20. ✅ **Use `Promise.allSettled`** for partial failure handling
+21. ✅ **Log structured error context** (timestamp, operation, inputs, stack)
+22. ✅ **Implement exponential backoff** for retry logic
+23. ✅ **Check error.retryable** before retrying
+24. ✅ **Set global error handlers** for unhandled rejections/exceptions
+25. ✅ **Use `TypeError`** for type errors, `Error` for general problems
+26. ✅ **Separate successful/failed results** with Promise.allSettled
+27. ✅ **Re-throw errors** after logging for upstream handlers
+28. ✅ **Never swallow errors silently** - at least log them
+29. ✅ **Use finally blocks** for resource cleanup
+30. ✅ **Sanitize sensitive data** before logging
+
+---
+
+### Interview Questions (Topic 2)
+
+1. **What's the difference between `Promise.all()` and `Promise.allSettled()`?**
+   - Answer: `Promise.all()` fails fast on first rejection. `Promise.allSettled()` waits for all to complete and returns both successful and failed results.
+
+2. **When would you use a custom error class?**
+   - Answer: When you need to categorize errors and handle them differently. Example: `NetworkError`, `ValidationError`, `DatabaseError`.
+
+3. **How do you create a custom error class in TypeScript?**
+   - Answer: `class NetworkError extends Error { constructor(message, public statusCode) { super(message); this.name = "NetworkError"; } }`
+
+4. **What's exponential backoff and why use it?**
+   - Answer: Increasing delay between retries exponentially (1000ms, 2000ms, 4000ms...). Gives services time to recover and prevents overwhelming them.
+
+5. **What's the difference between `Error` and `TypeError`?**
+   - Answer: `TypeError` indicates a type-related failure (wrong type). `Error` is a general problem. Both are Error instances.
+
+6. **How do you handle partial failures with Promise.allSettled?**
+   - Answer: Check `result.status === "fulfilled"` for success or `"rejected"` for failure. Separate into two arrays for handling.
+
+7. **What are `unhandledRejection` and `uncaughtException` events?**
+   - Answer: `unhandledRejection` fires when a Promise rejects without handler. `uncaughtException` fires when thrown error isn't caught. Use for logging in production.
+
+8. **How do you implement structured error logging?**
+   - Answer: Create an object with timestamp, operation, inputs, error message, and stack. Log as JSON: `console.error(JSON.stringify(context))`
+
+9. **When should you re-throw an error?**
+   - Answer: When you can't fully handle it and upstream code needs to know. Always log before re-throwing for debugging.
+
+10. **How do you check if an error is retryable?**
+    - Answer: Add a `retryable` property to custom errors: `class NetworkError extends Error { constructor(msg, public retryable: boolean) }`
+
+---
+
+### Code Examples for YouTube Video (Topic 2)
+
+#### Example 5: Custom Error Classes
+
+```typescript
+// Network error with status code
+class NetworkError extends Error {
+  constructor(
+    message: string,
+    public statusCode: number,
+    public retryable: boolean
+  ) {
+    super(message);
+    this.name = "NetworkError";
+  }
+}
+
+// Validation error
+class ValidationError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "ValidationError";
+  }
+}
+
+// Usage with type checking
+try {
+  if (!email.includes("@")) {
+    throw new ValidationError("Invalid email");
+  }
+} catch (error) {
+  if (error instanceof ValidationError) {
+    console.log("Validation failed:", error.message);
+  } else if (error instanceof NetworkError) {
+    if (error.retryable) {
+      console.log("Retrying:", error.message);
+    } else {
+      console.log("Non-retryable error:", error.message);
+    }
+  }
+}
+```
+
+#### Example 6: Promise.all vs Promise.allSettled
+
+```typescript
+// Promise.all - fails fast
+async function failFast() {
+  try {
+    const results = await Promise.all([
+      fetch("/api/users"),
+      fetch("/api/posts"),
+      Promise.reject(new Error("Failed!")),
+    ]);
+    console.log("All succeeded:", results);
+  } catch (error) {
+    console.log("Failed fast:", error.message);
+  }
+}
+
+// Promise.allSettled - handles partial failures
+async function partialSuccess() {
+  const results = await Promise.allSettled([
+    fetch("/api/users"),
+    Promise.reject(new Error("Failed!")),
+    fetch("/api/posts"),
+  ]);
+
+  const successful = results
+    .filter(r => r.status === "fulfilled")
+    .map(r => (r as FulfilledResult<Response>).value);
+
+  const failed = results
+    .filter(r => r.status === "rejected")
+    .map(r => (r as RejectedResult<Error>).reason.message);
+
+  console.log("Successful:", successful.length);
+  console.log("Failed:", failed);
+}
+```
+
+#### Example 7: Retry with Exponential Backoff
+
+```typescript
+async function retryWithBackoff<T>(
+  operation: () => Promise<T>,
+  maxRetries: number = 3,
+  initialDelay: number = 1000
+): Promise<T> {
+  for (let attempt = 0; attempt < maxRetries; attempt++) {
+    try {
+      return await operation();
+    } catch (error) {
+      if (attempt === maxRetries - 1) throw error;
+
+      const delay = initialDelay * Math.pow(2, attempt);
+      console.log(`Retry ${attempt + 1}/${maxRetries} in ${delay}ms`);
+      await new Promise(resolve => setTimeout(resolve, delay));
+    }
+  }
+  throw new Error("Should not reach here");
+}
+
+// Usage with flaky operation
+let attempts = 0;
+const flaky = async (): Promise<string> => {
+  attempts++;
+  if (attempts < 3) throw new Error("Failed");
+  return "Success!";
+};
+
+await retryWithBackoff(flaky, 5, 100);
+// Output:
+// Retry 1/5 in 100ms
+// Retry 2/5 in 200ms
+// Result: "Success!"
+```
+
+#### Example 8: Structured Error Logging
+
+```typescript
+interface ErrorContext {
+  operation: string;
+  inputs?: Record<string, unknown>;
+  timestamp: string;
+  userId?: number;
+  requestId?: string;
+}
+
+function logError(error: Error, context: ErrorContext): void {
+  const logEntry = {
+    timestamp: context.timestamp || new Date().toISOString(),
+    operation: context.operation,
+    userId: context.userId,
+    requestId: context.requestId,
+    inputs: context.inputs,
+    error: {
+      name: error.name,
+      message: error.message,
+      stack: error.stack,
+    },
+  };
+
+  console.error(JSON.stringify(logEntry, null, 2));
+}
+
+// Usage
+try {
+  await createUser({ email: "invalid" });
+} catch (error) {
+  logError(error as Error, {
+    operation: "createUser",
+    inputs: { email: "invalid" },
+    timestamp: new Date().toISOString(),
+    userId: 123,
+    requestId: "req-abc-123",
+  });
+}
+```
+
+---
+
 ## Progress
 
 ### Completed: Topic 1 - Promises & Async/Await ✅
@@ -743,29 +1020,44 @@ await retry(() => fetch("/api/flaky-endpoint"), 5);
 - ✅ Retry logic implementation
 - ✅ Proper error handling patterns
 
-### Ready For: Topic 2 - Advanced Error Handling
+### Completed: Topic 2 - Advanced Error Handling ✅
 
-**Next:**
-- Custom error classes
-- Promise.all() vs Promise.allSettled()
-- Global error handlers
-- Logging with context
+- ✅ Custom error classes (NetworkError, ValidationError, DatabaseError)
+- ✅ Promise.all() fail-fast error handling
+- ✅ Promise.allSettled() for partial failures
+- ✅ Structured error logging with context
+- ✅ Retry with exponential backoff
+- ✅ Global error handlers (unhandledRejection, uncaughtException)
+- ✅ Error vs TypeError usage
+- ✅ Throwing inside catch blocks
+
+### Ready For: Next Module
+
+**Completed: 02-Async-Programming**
+**Next: 03-Node-and-Modules**
+- ES modules
+- Named/default exports
+- Dynamic imports
+- npm package management
 
 ---
 
-## Final Stats (Topic 1)
+## Final Stats (Topics 1-2)
 
-- **Exercises Completed**: 1 (Exercise 1: Async Programming)
-- **TODOs Completed**: 5 (4 main + 1 bonus)
-- **Mistakes Identified**: 6
-- **Key Concepts**: 6
-- **Interview Questions**: 8
-- **Code Examples**: 4
+- **Exercises Completed**: 2
+  - Exercise 1: Async Programming (Topic 1)
+  - Exercise 2: Error Handling (Topic 2)
+- **TODOs Completed**: 10 (8 main + 2 bonuses)
+- **Mistakes Identified**: 6 (Topic 1: 6, Topic 2: 0)
+- **Key Concepts**: 13
+- **Interview Questions**: 18
+- **Code Examples**: 8
 - **Promise Methods Mastered**: 4 (all, allSettled, race, any)
+- **Error Patterns Mastered**: 7
 
-**Estimated Study Time**: ~2-3 hours
-**Ready for Advanced Error Handling**: ✅ YES!
+**Estimated Study Time**: ~4-6 hours
+**Ready for Node.js & Modules**: ✅ YES!
 
 ---
 
-*This document covers Topic 1 (Promises & Async/Await). Continue with Topic 2 for advanced error handling patterns.*
+*This document covers Topics 1-2. Async Programming module complete!*

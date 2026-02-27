@@ -3,6 +3,7 @@
 // TODO: Complete each section marked with TODO
 // Run with: npx tsx exercise-02-errors.ts
 
+import { timeStamp } from "console";
 import { resolve } from "path";
 
 console.log("=== Exercise 2: Error Handling in Async Code ===\n");
@@ -76,21 +77,28 @@ console.log("\n");
 // - Create a constructor that accepts message, statusCode, and retryable
 
 // TODO: Your code here
-// class NetworkError extends Error {
-//   // Add properties and constructor
-// }
+class NetworkError extends Error {
+  constructor(
+    message: string, 
+    public statusCode: number,
+    public retryable: boolean
+  ) {
+    super(message)
+    this.name =  "NetworkError"
+  }
+}
 
 // Test TODO 2
 console.log("=== Testing TODO 2: Custom Error Class ===");
 // Uncomment after implementing:
-// try {
-//   throw new NetworkError("Connection timeout", 504, true);
-// } catch (error) {
-//   if (error instanceof NetworkError) {
-//     console.log(`✓ NetworkError caught: ${error.message}`);
-//     console.log(`  Status: ${error.statusCode}, Retryable: ${error.retryable}`);
-//   }
-// }
+try {
+  throw new NetworkError("Connection timeout", 504, true);
+} catch (error) {
+  if (error instanceof NetworkError) {
+    console.log(`✓ NetworkError caught: ${error.message}`);
+    console.log(`  Status: ${error.statusCode}, Retryable: ${error.retryable}`);
+  }
+}
 
 console.log("\n");
 
@@ -116,16 +124,26 @@ async function fetchMultipleUsersFailFast(userIds: number[]): Promise<Array<{ id
   };
 
   // Your code here
+  const promises = userIds.map(id => simulateFetch(id))
+  try {
+    const results = await Promise.all(promises)
+    return results
+  } catch (error) {
+    if (error instanceof Error) {
+      console.log("Fetch failed:", error.message)
+    }
+    throw error
+  }
 
-  throw new Error("TODO: Implement fail-fast error handling");
+  // throw new Error("TODO: Implement fail-fast error handling");
 }
 
 // Test TODO 3
 console.log("=== Testing TODO 3: Promise.all (fail-fast) ===");
 // Uncomment after implementing:
-// fetchMultipleUsersFailFast([1, 2, 0, 4])
-//   .then(users => console.log("✓ Fetched users:", users))
-//   .catch(err => console.log("✗ Failed:", err.message));
+fetchMultipleUsersFailFast([1, 2, 0, 4])
+  .then(users => console.log("✓ Fetched users:", users))
+  .catch(err => console.log("✗ Failed:", err.message));
 
 console.log("\n");
 
@@ -158,18 +176,36 @@ async function fetchMultipleUsersAllSettled(
   };
 
   // Your code here
+  const promises = userIds.map(id => simulateFetch(id))
+  const results = await Promise.allSettled(promises)
 
-  throw new Error("TODO: Implement allSettled error handling");
+  const successful: Array<{ id: number; name: string }> = []
+  const failed: Array<{ userId: number; error: string }> = []
+
+  results.forEach((result, index) => {
+    const userId = userIds[index];
+    if (result.status === "fulfilled") {
+      successful.push(result.value);
+      console.log(`User ${userId}: success`);
+    } else {
+      const errorMsg = result.reason instanceof Error ? result.reason.message : String(result.reason);
+      failed.push({ userId, error: errorMsg });
+      console.log(`User ${userId}: failed - ${errorMsg}`);
+    }
+  })
+  
+  return { successful, failed };
+  // throw new Error("TODO: Implement allSettled error handling");
 }
 
 // Test TODO 4
 console.log("=== Testing TODO 4: Promise.allSettled ===");
 // Uncomment after implementing:
-// fetchMultipleUsersAllSettled([1, 0, 3, 0, 5])
-//   .then(({ successful, failed }) => {
-//     console.log("✓ Successful:", successful);
-//     console.log("✗ Failed:", failed);
-//   });
+fetchMultipleUsersAllSettled([1, 0, 3, 0, 5])
+  .then(({ successful, failed }) => {
+    console.log("✓ Successful:", successful);
+    console.log("✗ Failed:", failed);
+  });
 
 console.log("\n");
 
@@ -189,18 +225,25 @@ function logErrorWithContext(error: Error, operation: string, input: Record<stri
   // TODO: Make output readable and searchable
 
   // Your code here
+  const context =  {
+    timeStamp: new Date().toISOString(),
+    operation,
+    input,
+    message: error.message,
+    stack: error.stack,
+  }
 
-  console.log("TODO: Implement error logging");
+  console.error(JSON.stringify(context, null, 2))
 }
 
 // Test TODO 5
 console.log("=== Testing TODO 5: Error Logging with Context ===");
 // Uncomment after implementing:
-// try {
-//   fetchUserData(-1);
-// } catch (error) {
-//   logErrorWithContext(error as Error, "fetchUserData", { userId: -1, source: "web" });
-// }
+try {
+  fetchUserData(-1);
+} catch (error) {
+  logErrorWithContext(error as Error, "fetchUserData", { userId: -1, source: "web" });
+}
 
 console.log("\n");
 
@@ -225,24 +268,38 @@ async function retryWithBackoff<T>(
   // TODO: Check if error is retryable
   // TODO: Log each retry attempt
   // TODO: Return result or throw after max retries
-
-  throw new Error("TODO: Implement retry with backoff");
+  let lastError: unknown;
+  for (let attempt = 0; attempt < maxRetries; attempt++) {
+      try {
+      return await operation() 
+    } catch (error) {
+      lastError = error
+      if (error instanceof NetworkError && !error.retryable)throw error
+      
+      if (attempt === maxRetries - 1) throw error
+      
+      const delay = initialDelay * Math.pow(2, attempt)
+      console.log(`Retry ${attempt + 1}/${maxRetries} in ${delay}ms...`);
+      await new Promise((resolve) => setTimeout(resolve, delay));
+    }
+  }
+  throw lastError
 }
 
 // Test BONUS
 console.log("=== BONUS: Retry with Backoff ===");
 // Uncomment after implementing:
-// let attempts = 0;
-// const flakyOperation = async (): Promise<string> => {
-//   attempts++;
-//   if (attempts < 3) {
-//     throw new NetworkError("Temporary failure", 503, true);
-//   }
-//   return "Success!";
-// };
-//
-// retryWithBackoff(flakyOperation, 3, 100)
-//   .then(result => console.log("✓ Result:", result))
-//   .catch(err => console.log("✗ Final error:", err.message));
+let attempts = 0;
+const flakyOperation = async (): Promise<string> => {
+  attempts++;
+  if (attempts < 3) {
+    throw new NetworkError("Temporary failure", 503, true);
+  }
+  return "Success!";
+};
+
+retryWithBackoff(flakyOperation, 3, 100)
+  .then(result => console.log("✓ Result:", result))
+  .catch(err => console.log("✗ Final error:", err.message));
 
 console.log("\n✅ Exercise complete!");
