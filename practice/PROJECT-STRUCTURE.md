@@ -74,8 +74,16 @@ practice/
 │
 ├── 03-node-and-modules/         # ES modules, npm, environment
 │   ├── practice/
-│   │   └── 01-modules.ts                     # ES modules, imports/exports, dynamic imports
-│   └── exercises/                           # TODO: Add exercises
+│   │   ├── 01-modules.ts                     # ES modules, imports/exports, dynamic imports
+│   │   ├── 02-npm.ts                         # npm, package.json, semantic versioning
+│   │   └── 03-env-vars.ts                    # Environment variables, type-safe config
+│   └── exercises/
+│       ├── exercise-01-imports.ts            # ES modules exercise
+│       ├── exercise-01-imports-solution.ts
+│       ├── exercise-02-scripts.ts            # npm scripts exercise
+│       ├── exercise-02-scripts-solution.ts
+│       ├── exercise-03-env.ts                # Environment variables exercise
+│       └── exercise-03-env-solution.ts
 │
 ├── 04-database-basics/          # Drizzle ORM, SQL basics
 │   ├── practice/                           # TODO: Add practice files
@@ -138,10 +146,10 @@ practice/
 - 2 exercise files with solutions
 - Covers: creating Promises, async/await, error handling, parallel operations, Promise.allSettled
 
-#### 03. Node.js and Modules (✅ Practice files complete)
-- 1 practice file: ES modules
-- Covers: named/default exports, imports, re-exports, dynamic imports
-- TODO: Add exercise files
+#### 03. Node.js and Modules (✅ Complete)
+- 3 practice files: ES modules, npm, environment variables
+- 3 exercise files with solutions
+- Covers: named/default exports, imports, re-exports, dynamic imports, package.json, semantic versioning, env vars, type-safe config
 
 #### 05. Web Server (✅ Practice files complete)
 - 1 practice file: Hono framework
@@ -214,7 +222,7 @@ Each section in README.md has:
 - ✅ **00-fundamentals**: Complete (4 practice + 4 exercises with solutions)
 - ✅ **01-typescript-basics**: Complete (4 practice + 3 exercises with solutions)
 - ✅ **02-async-programming**: Complete (2 practice + 2 exercises with solutions)
-- ✅ **03-node-and-modules**: Practice files complete (1 file)
+- ✅ **03-node-and-modules**: Complete (3 practice + 3 exercises with solutions)
 - ⚠️ **04-database-basics**: Structure only, needs content
 - ✅ **05-web-server**: Practice files complete (1 file)
 - ⚠️ **06-websocket-realtime**: Structure only, needs content

@@ -9,8 +9,8 @@ A comprehensive JavaScript/TypeScript learning roadmap for the OpenCoach AI heal
 ### Statistics
 
 - **Total Documentation**: 1,852 lines across 4 files
-- **TypeScript Files**: 30 files created
-- **Total Files**: 37 files (including config and docs)
+- **TypeScript Files**: 36 files created
+- **Total Files**: 43 files (including config and docs)
 - **Sections**: 11 learning sections (00-10)
 - **Interview Questions**: 50+ questions with answers
 - **Best Practices**: 40+ documented patterns
@@ -63,8 +63,10 @@ A comprehensive JavaScript/TypeScript learning roadmap for the OpenCoach AI heal
    - 01-promises.ts
    - 02-error-handling.ts
 
-4. **03-node-and-modules** (1 file) ✅ Complete
+4. **03-node-and-modules** (3 files) ✅ Complete
    - 01-modules.ts
+   - 02-npm.ts
+   - 03-env-vars.ts
 
 5. **05-web-server** (1 file) ✅ Complete
    - 02-hono.ts
@@ -85,6 +87,11 @@ A comprehensive JavaScript/TypeScript learning roadmap for the OpenCoach AI heal
    - exercise-01-async.ts + solution
    - exercise-02-errors.ts + solution
 
+4. **03-node-and-modules** (3 exercises + 3 solutions) ✅ Complete
+   - exercise-01-imports.ts + solution
+   - exercise-02-scripts.ts + solution
+   - exercise-03-env.ts + solution
+
 ### Directory Structure Created
 
 ```
@@ -92,7 +99,7 @@ code-need-to-understand/
 ├── 00-fundamentals/         ✅ Complete (4 practice + 4 exercises)
 ├── 01-typescript-basics/    ✅ Complete (4 practice + 3 exercises)
 ├── 02-async-programming/    ✅ Complete (2 practice + 2 exercises)
-├── 03-node-and-modules/     ✅ Practice (1 file)
+├── 03-node-and-modules/     ✅ Complete (3 practice + 3 exercises)
 ├── 04-database-basics/      ⚠️ Structure only
 ├── 05-web-server/           ✅ Practice (1 file)
 ├── 06-websocket-realtime/   ⚠️ Structure only
@@ -145,13 +152,13 @@ npx tsx 00-fundamentals/practice/01-variables-and-types.ts
 
 ### Completion Status
 
-**Fully Complete (3 sections)**:
+**Fully Complete (4 sections)**:
 - ✅ 00-fundamentals: 4 practice + 4 exercises with solutions
 - ✅ 01-typescript-basics: 4 practice + 3 exercises with solutions
 - ✅ 02-async-programming: 2 practice + 2 exercises with solutions
+- ✅ 03-node-and-modules: 3 practice + 3 exercises with solutions
 
-**Practice Complete (2 sections)**:
-- ✅ 03-node-and-modules: 1 practice file
+**Practice Complete (1 section)**:
 - ✅ 05-web-server: 1 practice file
 
 **Structure Created, Content Needed (5 sections)**:
@@ -167,7 +174,7 @@ npx tsx 00-fundamentals/practice/01-variables-and-types.ts
 ### Next Steps to Complete
 
 1. Add practice files for sections 04, 06-10
-2. Add exercise files for sections 03, 05-10 (01-02 already complete)
+2. Add exercise files for sections 05-10 (01-03 already complete)
 3. Add more OpenCoach code references
 4. Create bonus challenges for each section
 5. Add video scripts/outlines for YouTube
