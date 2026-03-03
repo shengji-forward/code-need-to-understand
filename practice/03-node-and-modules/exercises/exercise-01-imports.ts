@@ -14,6 +14,26 @@ console.log("=== Exercise 1: ES Modules ===\n");
 // - All functions take (a: number, b: number) and return number
 
 // TODO: Your code here
+// export class Calculator {
+//   add(a: number, b: number): number {
+//     return a + b
+//   }
+  
+//   subtract(a: number, b: number): number {
+//     return a - b
+//   }
+  
+//   multiply(a: number, b: number): number {
+//     return a * b
+//   }
+
+//   divide(a: number, b: number): number {
+//     return a / b
+//   }
+// }
+
+export const add = (a: number, b: number): number => a + b;
+export const subtract = (a: number, b: number): number => a - b;
 
 // ============================================
 // TODO 2: Create a default export
@@ -24,6 +44,19 @@ console.log("=== Exercise 1: ES Modules ===\n");
 // - Each method should log a message with a prefix
 
 // TODO: Your code here
+export default class Logger {
+  log(msg: string): void {
+    console.log(`Message: ${msg}`)
+  }
+  
+  warn(msg: string): void {
+    console.warn(`Warn: ${msg}`)
+  }
+
+  error(msg: string): void {
+    console.error(`Error: ${msg}`)
+  }
+}
 
 // ============================================
 // TODO 3: Create type exports
@@ -34,6 +67,15 @@ console.log("=== Exercise 1: ES Modules ===\n");
 // - Export both types
 
 // TODO: Your code here
+interface User {
+  id: number;
+  name: string;
+  email: string
+}
+
+type UserRole = "admin" | "user" | "guest"
+
+export { type User, type UserRole }
 
 // ============================================
 // TODO 4: Create a re-export barrel file
@@ -46,6 +88,17 @@ console.log("=== Exercise 1: ES Modules ===\n");
 // - This would normally be in index.ts
 
 // TODO: Your code here (as comments showing the re-export syntax)
+// In index.js
+// import { Calculator } from "./calculator.js"
+// import Logger from "./logger.js"
+// import { User, UserRole } from "./types.js"
+//
+// export { Calculator }
+// export { Logger as default }
+// export type { User, UserRole }
+//
+// In other places import all things from one place (index.js)
+// import Logger, { Calculator, type User, type UserRole } from "./index.js"
 
 // ============================================
 // TODO 5: Use type-only imports
@@ -55,6 +108,7 @@ console.log("=== Exercise 1: ES Modules ===\n");
 // - Import User and UserRole types (if they were in types.ts)
 
 // TODO: Your code here (as comments showing the import syntax)
+// import type { User, UserRole } from "./types.ts"
 
 // ============================================
 // BONUS CHALLENGE
@@ -65,6 +119,20 @@ console.log("=== Exercise 1: ES Modules ===\n");
 // - Log a message when the module is loaded
 
 // TODO: Your code here (as comments showing dynamic import)
+// Normal import: loaded when program starts
+// import { Calculator } from './calculator.js'
+
+// Dynamic import: loaded when this line runs
+// const { Calculator } = await import('./calculator.js')
+
+// async function add(a: number, b: number): Promise<number> {
+//   const { Calculator } = await import('./calculator.js')
+//   console.log("Calculator excuted the add function!")
+//   const calc = new Calculator()
+//   return calc.add(a, b)
+// }
+
 
 console.log("\n✅ Exercise complete!");
+
 export {};
