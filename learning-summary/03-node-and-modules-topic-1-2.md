@@ -1,7 +1,7 @@
-# Learning Summary: 03-Node-and-Modules Complete (Topic 1)
+# Learning Summary: 03-Node-and-Modules Complete (Topics 1-2)
 
-**Completed**: 2026-03-03
-**Topics**: ES Modules, Named/Default Exports, Type Exports, Re-exports, Dynamic Imports
+**Completed**: 2026-03-04
+**Topics**: ES Modules, Named/Default Exports, Type Exports, Re-exports, Dynamic Imports, npm Scripts, Semantic Versioning, Dependencies
 **Purpose**: Use this summary for AI interview practice, recap, and YouTube video preparation
 
 ---
@@ -508,6 +508,489 @@ import { fetchUser, type User } from './api.js';
 
 ---
 
+## Topic 2: npm & Package Management
+
+### What You Learned
+
+#### 1. package.json Structure
+
+**Your code:**
+```typescript
+const packageJson = {
+  name: "my-porject",
+  version: "1.0.0",
+  type: "module",
+  scripts: {
+    start: "npx tsx index.ts",
+    dev: "npx tsx watch index.ts",
+    build: "tsc",
+  },
+  dependencies: {
+    express: "^4.18.0"
+  },
+  devDependencies: {
+    typescript: "^5.0.0"
+  }
+}
+```
+
+**Key concept:**
+- `package.json` is the heart of every Node.js project
+- Contains metadata about the project and its dependencies
+- `name`: Unique identifier for the package
+- `version`: Follows semantic versioning (MAJOR.MINOR.PATCH)
+- `type: "module"`: Enables ES modules (critical for modern Node.js)
+- `scripts`: Define shortcuts for common commands
+- `dependencies`: Packages needed in production
+- `devDependencies`: Packages only needed during development
+
+**Essential fields:**
+```json
+{
+  "name": "my-project",
+  "version": "1.0.0",
+  "description": "A sample project",
+  "main": "index.js",
+  "type": "module",
+  "scripts": { ... },
+  "keywords": ["node", "javascript"],
+  "author": "Your Name",
+  "license": "MIT"
+}
+```
+
+#### 2. Semantic Versioning (Semver)
+
+**Your code:**
+```typescript
+// - 1.0.0 → 1.0.1 = PATCH changed
+// - 1.0.0 → 1.1.0 = MINOR changed
+// - 1.0.0 → 2.0.0 = MAJOR changed
+```
+
+**Key concept:**
+- Format: `MAJOR.MINOR.PATCH` (e.g., 2.4.1)
+- **MAJOR**: Breaking changes - upgrading might break your code
+- **MINOR**: New features - backward compatible
+- **PATCH**: Bug fixes - backward compatible
+
+**Version change examples:**
+```
+1.0.0 → 1.0.1  (PATCH: Bug fix)
+1.0.0 → 1.1.0  (MINOR: New feature, backward compatible)
+1.0.0 → 2.0.0  (MAJOR: Breaking changes, may need code updates)
+```
+
+**Why semver matters:**
+- Predictable updates
+- Clear communication of changes
+- Automated dependency management
+- Prevents breaking changes from sneaking in
+
+#### 3. Dependencies vs DevDependencies
+
+**Your code:**
+```typescript
+const productionDeps = ["express", "react", "lodash", "axios", "mongoose"]
+const devDeps = ["typescript", "jest", "eslint", "prettier", "nodemon"]
+```
+
+**Key concept:**
+- **dependencies**: Required for the app to run in production
+  - Install with: `npm install <package>`
+  - Examples: express, react, lodash, axios, mongoose
+  - These are deployed with your app
+
+- **devDependencies**: Only needed during development
+  - Install with: `npm install --save-dev <package>`
+  - Examples: typescript, jest, eslint, prettier, nodemon
+  - Testing, linting, building tools
+  - NOT installed in production
+
+**Installation commands:**
+```bash
+# Production dependency
+npm install express
+
+# Dev dependency
+npm install --save-dev typescript
+# or shorthand
+npm install -D typescript
+
+# Install all dependencies (both types)
+npm install
+```
+
+**Classification guide:**
+```
+PRODUCTION DEPENDENCIES:
+├── Frameworks: express, react, vue
+├── Libraries: lodash, axios, moment
+├── Database: mongoose, prisma, sequelize
+└── Utilities: dotenv, helmet
+
+DEV DEPENDENCIES:
+├── Compilers: typescript, babel
+├── Linters: eslint, prettier
+├── Testers: jest, mocha, cypress
+├── Runners: nodemon, tsx, ts-node
+└── Bundlers: webpack, vite, rollup
+```
+
+#### 4. Version Ranges
+
+**Your code:**
+```typescript
+//   - "^1.2.3" = >=1.2.3 <2.0.0 — same major, any minor/patch
+//   - "~1.2.3" = >=1.2.3 <1.3.0 — same major+minor, any patch
+//   - "1.2.3" = exactly 1.2.3 only
+//   - "*" = any version (avoid in production — too unpredictable)
+```
+
+**Key concept:**
+- **^1.2.3** (Caret): Allows 1.x.x updates, but not 2.0.0
+  - Updates: 1.2.3 → 1.2.4 ✅, 1.3.0 ✅, 2.0.0 ❌
+  - Most common for dependencies
+  - Balances stability and updates
+
+- **~1.2.3** (Tilde): Allows patch updates only (1.2.x)
+  - Updates: 1.2.3 → 1.2.4 ✅, 1.3.0 ❌, 2.0.0 ❌
+  - More conservative
+  - Good for stability-critical apps
+
+- **1.2.3** (Exact): Only version 1.2.3
+  - No updates allowed
+  - Maximum stability
+  - Used for locked dependencies
+
+- ***** (Wildcard): Any version
+  - **NOT recommended for production**
+  - Too unpredictable
+  - Can introduce breaking changes
+
+**Version range examples:**
+```json
+{
+  "dependencies": {
+    "express": "^4.18.0",    // 4.x.x (common)
+    "react": "~18.2.0",      // 18.2.x only (conservative)
+    "critical-lib": "1.2.3"  // exact version (locked)
+  }
+}
+```
+
+#### 5. Lifecycle Scripts
+
+**Your code:**
+```typescript
+// 1. preinstall
+//    Runs: Before npm install
+//    Use case: Check Node.js version, create necessary directories
+
+// 2. postinstall
+//    Runs: After npm install
+//    Use case: Build assets, setup database, run migrations
+
+// 3. prestart
+//    Runs: Before npm start
+//    Use case: Validate environment variables, create logs directory
+```
+
+**Key concept:**
+- Lifecycle scripts run automatically at specific times
+- Named with `pre` and `post` prefixes
+- Run in order: `pre<script>` → `<script>` → `post<script>`
+- Useful for automation and setup tasks
+
+**All lifecycle scripts:**
+```typescript
+preinstall    → Runs before npm install
+install       → Runs during npm install
+postinstall   → Runs after npm install
+prestart      → Runs before npm start
+start         → Runs during npm start
+poststart     → Runs after npm start
+pretest       → Runs before npm test
+test          → Runs during npm test
+posttest      → Runs after npm test
+```
+
+**Common npm scripts:**
+```json
+{
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "build": "tsc",
+    "test": "jest",
+    "lint": "eslint .",
+    "format": "prettier --write ."
+  }
+}
+```
+
+**Running scripts:**
+```bash
+npm start         # Runs start script
+npm run dev       # Runs custom scripts
+npm test          # Runs test script
+```
+
+#### 6. npm install vs npm ci vs npm update (Bonus!)
+
+**Your code:**
+```typescript
+// npm install
+// Reads package.json, installs missing packages
+// Updates package-lock.json if needed
+// Use: local development, after adding a new package
+
+// npm ci (clean install)
+// Reads package-lock.json only (ignores package.json ranges)
+// Deletes node_modules first, then installs exact versions
+// Fails if package-lock.json is missing or out of sync
+// Use: CI/CD pipelines, production builds — guarantees reproducible installs
+
+// npm update
+// Updates packages to the latest version allowed by the ^/~ ranges in package.json
+// Updates package-lock.json with new versions
+// Use: when you want to pull in latest bug fixes/features within your version constraints
+```
+
+**Key concept:**
+- **npm install**: For development
+  - Reads `package.json`
+  - Updates `package-lock.json` if needed
+  - Installs missing packages
+  - Use when: Adding packages, local development
+
+- **npm ci**: For production/CI
+  - Reads `package-lock.json` only (faster!)
+  - Deletes `node_modules` first
+  - Installs exact versions
+  - Fails if lock file is missing/outdated
+  - Use when: CI/CD, production deployments
+
+- **npm update**: For updates
+  - Updates packages within version ranges
+  - Updates `package-lock.json`
+  - Use when: Getting latest bug fixes/features
+
+**Command comparison:**
+```bash
+# Development workflow
+npm install              # Install dependencies
+npm install express      # Add new package
+npm update               # Update packages
+
+# Production workflow
+npm ci                   # Clean, fast install (CI/CD)
+
+# Other useful commands
+npm list                 # Show installed packages
+npm outdated             # Check for updates
+npm audit                # Check security
+npm audit fix            # Fix security issues
+```
+
+---
+
+### Mistakes You Made & Fixed (Topic 2)
+
+| TODO | Mistake | Fixed | Lesson |
+|-----|---------|-------|--------|
+| **1 - package.json** | Typo: `"my-porject"` instead of `"my-project"` | Fixed spelling | Check all string values in objects |
+
+---
+
+### Best Practices Learned (Topic 2)
+
+16. ✅ **Commit package-lock.json** to version control
+17. ✅ **Use `^` for most dependencies** (allows safe updates)
+18. ✅ **Separate production and dev dependencies** correctly
+19. ✅ **Use npm scripts** for common tasks (start, dev, build, test)
+20. ✅ **Run npm audit** regularly for security
+21. ✅ **Use npm ci** in CI/CD pipelines (faster, reproducible)
+22. ✅ **Keep dependencies updated** but test before major upgrades
+23. ✅ **Document why specific packages** are needed
+24. ✅ **Use `~` for conservative updates** when stability is critical
+25. ✅ **Avoid `*` or `latest`** in production dependencies
+26. ✅ **Don't commit node_modules/** (use .gitignore)
+27. ✅ **Use lifecycle scripts** for automation (preinstall, postinstall)
+28. ✅ **Check Node.js version** compatibility before installing
+29. ✅ **Use semantic versioning** consistently
+30. ✅ **Pin exact versions** for critical production dependencies
+
+---
+
+### Interview Questions (Topic 2)
+
+1. **What's the difference between `dependencies` and `devDependencies`?**
+   - Answer: `dependencies` are required for the app to run in production (e.g., express, react). `devDependencies` are only needed during development (e.g., typescript, jest, eslint). Production installs skip devDependencies.
+
+2. **What does `^1.2.3` mean in package.json?**
+   - Answer: Allows updates to 1.x.x but not 2.0.0. Accepts 1.2.3 → 1.2.4, 1.3.0, but not 2.0.0. Most common for dependencies.
+
+3. **What's semantic versioning?**
+   - Answer: Version format: MAJOR.MINOR.PATCH. MAJOR = breaking changes, MINOR = new features (backward compatible), PATCH = bug fixes. Example: 2.4.1
+
+4. **What's the difference between `npm install` and `npm ci`?**
+   - Answer: `npm install` reads package.json and updates package-lock.json (for development). `npm ci` only reads package-lock.json, deletes node_modules, and installs exact versions (for CI/CD - faster and reproducible).
+
+5. **What are npm lifecycle scripts?**
+   - Answer: Scripts that run automatically: `preinstall`, `postinstall`, `prestart`, `poststart`, etc. Used for setup, validation, and automation.
+
+6. **When should you use `~` vs `^` for version ranges?**
+   - Answer: `~1.2.3` allows patch updates only (1.2.x) - more conservative. `^1.2.3` allows minor updates (1.x.x) - more common. Use `~` for critical stability.
+
+7. **Should you commit package-lock.json to git?**
+   - Answer: YES! Ensures reproducible installs across machines and CI/CD. Only ignore node_modules/.
+
+8. **What does `npm update` do?**
+   - Answer: Updates packages to the latest version allowed by ^/~ ranges in package.json. Updates package-lock.json with new versions. Good for getting bug fixes.
+
+9. **What's the difference between `npm install` and `npm install --save-dev`?**
+   - Answer: `npm install <package>` adds to dependencies (production). `npm install --save-dev <package>` or `npm install -D <package>` adds to devDependencies (development only).
+
+10. **Why avoid `*` or `latest` in production dependencies?**
+    - Answer: Too unpredictable - can introduce breaking changes without warning. Use specific versions or ranges (`^1.2.3`) for stability.
+
+---
+
+### Code Examples for YouTube Video (Topic 2)
+
+#### Example 6: package.json Structure
+
+```json
+{
+  "name": "my-awesome-project",
+  "version": "1.0.0",
+  "description": "A sample Node.js project",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "build": "tsc",
+    "test": "jest",
+    "lint": "eslint ."
+  },
+  "keywords": ["node", "javascript", "express"],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.0",
+    "axios": "~1.4.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "jest": "^29.5.0",
+    "nodemon": "^2.0.22"
+  }
+}
+```
+
+#### Example 7: Semantic Versioning in Action
+
+```bash
+# Initial release
+npm version 1.0.0    # First release
+
+# Bug fix
+npm version patch    # 1.0.0 → 1.0.1
+
+# New feature
+npm version minor    # 1.0.1 → 1.1.0
+
+# Breaking changes
+npm version major    # 1.1.0 → 2.0.0
+```
+
+#### Example 8: Dependency Management
+
+```bash
+# ========== INSTALLING PACKAGES ==========
+# Production dependency
+npm install express
+
+# Dev dependency
+npm install --save-dev typescript
+# or
+npm install -D jest
+
+# Exact version
+npm install axios@1.4.0
+
+# ========== UPDATING PACKAGES ==========
+# Check for updates
+npm outdated
+
+# Update packages (within ranges)
+npm update
+
+# Update specific package
+npm update express
+
+# ========== USEFUL COMMANDS ==========
+npm list                    # Show all installed
+npm list --depth=0          # Show top-level only
+npm audit                   # Check security
+npm audit fix               # Fix security issues
+npm uninstall <package>     # Remove package
+npm info <package>          # Show package info
+```
+
+#### Example 9: npm Scripts
+
+```json
+{
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "build": "tsc",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "clean": "rm -rf dist",
+    "prebuild": "npm run clean",
+    "postinstall": "node setup.js"
+  }
+}
+```
+
+**Running scripts:**
+```bash
+npm start           # Run start script
+npm run dev         # Run custom dev script
+npm run build       # Runs prebuild → build → postbuild (if defined)
+```
+
+#### Example 10: CI/CD Workflow
+
+```bash
+# ========== DEVELOPMENT WORKFLOW ==========
+npm install              # Install dependencies
+npm run dev              # Start development server
+npm run build            # Build for production
+npm test                 # Run tests
+
+# ========== CI/CD PIPELINE ==========
+npm ci                   # Clean install (fast, exact versions)
+npm run lint            # Check code quality
+npm test                # Run all tests
+npm run build           # Build production bundle
+# Deploy to production...
+
+# ========== PRODUCTION DEPLOYMENT ==========
+npm ci --only=production # Skip devDependencies (faster)
+npm run build           # Build
+npm start               # Start server
+```
+
+---
+
 ## Progress
 
 ### Completed: Topic 1 - ES Modules ✅
@@ -521,32 +1004,42 @@ import { fetchUser, type User } from './api.js';
 - ✅ Common import patterns
 - ✅ Best practices for module organization
 
-### Ready For: Topic 2
+### Completed: Topic 2 - npm & Package Management ✅
 
-**Next: npm and Package Management**
-- `package.json` configuration
-- Installing packages with npm
-- Semantic versioning
-- Dependencies vs devDependencies
-- npm scripts
-- Environment variables
+- ✅ package.json structure and configuration
+- ✅ Semantic versioning (MAJOR.MINOR.PATCH)
+- ✅ Dependencies vs devDependencies classification
+- ✅ Version ranges (^, ~, exact, *)
+- ✅ npm scripts and lifecycle hooks
+- ✅ npm install vs npm ci vs npm update
+
+### Ready For: Topic 3
+
+**Next: Environment Variables & Security**
+- `process.env` for accessing environment variables
+- Using `dotenv` for loading .env files
+- Best practices for secrets management
+- Never committing .env files
+- Environment-specific configurations
 
 ---
 
-## Final Stats (Topic 1)
+## Final Stats (Topics 1-2)
 
-- **Exercises Completed**: 1
+- **Exercises Completed**: 2
   - Exercise 1: ES Modules (TODO 1-5 + Bonus)
-- **TODOs Completed**: 6 (5 main + 1 bonus)
-- **Mistakes Identified**: 4
-- **Key Concepts**: 7
-- **Interview Questions**: 10
-- **Code Examples**: 5
+  - Exercise 2: npm Scripts (TODO 1-5 + Bonus)
+- **TODOs Completed**: 12 (10 main + 2 bonuses)
+- **Mistakes Identified**: 5 (Topic 1: 4, Topic 2: 1)
+- **Key Concepts**: 13
+- **Interview Questions**: 20
+- **Code Examples**: 10
 - **Module Patterns Mastered**: 8
+- **npm Concepts Mastered**: 6
 
-**Estimated Study Time**: ~2-3 hours
-**Ready for npm & Package Management**: ✅ YES!
+**Estimated Study Time**: ~4-5 hours
+**Ready for Environment Variables**: ✅ YES!
 
 ---
 
-*This document covers Topic 1. Node.js & Modules module in progress.*
+*This document covers Topics 1-2. Node.js & Modules module in progress.*
