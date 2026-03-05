@@ -15,6 +15,11 @@ console.log("=== Exercise 3: Environment Variables ===\n");
 // - Handle the case where they might be undefined
 
 // TODO: Your code here
+const nodeEnv = process.env.NODE_ENV
+const port = process.env.PORT
+
+console.log(" NODE_ENV:", nodeEnv ?? "not set" )
+console.log(" Port:", port ?? "not set" )
 
 // ============================================
 // TODO 2: Create a getEnvVar helper function
@@ -26,6 +31,18 @@ console.log("=== Exercise 3: Environment Variables ===\n");
 // - If it doesn't exist and has no default, throw an error
 
 // TODO: Your code here
+function getEnvVar(key: string, defaultValue?: string): string {
+  const value = process.env[key]
+  
+  if ( value === undefined ) {
+    if ( defaultValue === undefined ) {
+      throw new Error(`Missing: ${key}`)
+    }
+    return defaultValue
+  }
+
+  return value
+}
 
 // ============================================
 // TODO 3: Create a type-safe config object
@@ -37,6 +54,11 @@ console.log("=== Exercise 3: Environment Variables ===\n");
 // - Convert port to a number
 
 // TODO: Your code here
+const config = {
+  port: Number(getEnvVar("PORT", "3000")),
+  nodeEnv: getEnvVar("NODE_ENV", "development"),
+  databaseUrl: getEnvVar("DATABASE_URL")
+}
 
 // ============================================
 // TODO 4: Add validation for required variables
@@ -47,6 +69,14 @@ console.log("=== Exercise 3: Environment Variables ===\n");
 // - List of required vars: DATABASE_URL, API_KEY
 
 // TODO: Your code here
+function validateEnv() {
+  const varList = ["DATABASE_URL", "API_KEY"] as const
+  for (const varName of varList) {
+    if (!process.env[varName]) {
+      throw new Error(`Missing: ${varName}`)
+    }
+  }
+}
 
 // ============================================
 // TODO 5: Create a secure logging pattern
@@ -57,6 +87,13 @@ console.log("=== Exercise 3: Environment Variables ===\n");
 // - Example: Hide password in "postgresql://user:pass@host:5432/db"
 
 // TODO: Your code here
+function logConfig(config: { port: number, nodeEnv: string, databaseUrl: string }): void {
+  console.log("Port:", config.port)
+  console.log("NodeEnv:", config.nodeEnv)
+
+  const safeUrl = config.databaseUrl.replace(/:.+@/, ":***@")
+  console.log("Database:", safeUrl)
+}
 
 // ============================================
 // BONUS CHALLENGE
@@ -67,6 +104,18 @@ console.log("=== Exercise 3: Environment Variables ===\n");
 // - Include an isProduction boolean helper
 
 // TODO: Your code here
+try {
+  validateEnv()
+} catch (error) {
+  console.error(error)
+  process.exit(1)
+}
+
+export const appConfig = {
+  ...config,
+  isProduction: config.nodeEnv === "production"
+}
 
 console.log("\n✅ Exercise complete!");
+
 export {};
