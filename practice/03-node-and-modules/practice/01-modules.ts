@@ -158,3 +158,5 @@ export default class UserService {
 // Use './file.js' not './file' (explicit about file type)
 
 console.log("\n✅ Practice complete!");
+
+export {}
