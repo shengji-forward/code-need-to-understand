@@ -21,7 +21,7 @@ console.log("=== Exercise 1: SQL Basics ===\n");
 
 // TODO: Your code here - Write the SQL query as a string
 const selectActiveUsers = `
-  -- Your SQL query here
+  SELECT name, email FROM users WHERE is_active = true
 `;
 
 console.log("--- TODO 1: SELECT Query ---");
@@ -40,7 +40,8 @@ console.log("");
 
 // TODO: Your code here
 const insertGoal = `
-  -- Your SQL query here
+  INSERT INTO goals (user_id, title, status, target_date)
+  VALUES (1, 'Lose 10 pounds', 'in_progress', NOW())
 `;
 
 console.log("--- TODO 2: INSERT Query ---");
@@ -58,7 +59,9 @@ console.log("");
 
 // TODO: Your code here
 const updateEmail = `
-  -- Your SQL query here
+  UPDATE users
+  SET email = 'newemail@example.com'
+  WHERE id = 1
 `;
 
 console.log("--- TODO 3: UPDATE Query ---");
@@ -78,7 +81,8 @@ console.log("");
 
 // TODO: Your code here
 const deleteOldSessions = `
-  -- Your SQL query here
+  DELETE FROM sessions
+  WHERE session_date < NOW() - INTERVAL '30 days'
 `;
 
 console.log("--- TODO 4: DELETE Query ---");
@@ -98,7 +102,9 @@ console.log("");
 
 // TODO: Your code here
 const goalsWithOwner = `
-  -- Your SQL query here
+  SELECT goals.title, users.name, goals.status
+  FROM goals
+  INNER JOIN users ON goals.user_id = users.id
 `;
 
 console.log("--- TODO 5: JOIN Query ---");
@@ -118,7 +124,10 @@ console.log("");
 
 // TODO: Your code here
 const recentSessions = `
-  -- Your SQL query here
+  SELECT *
+  FROM sessions
+  ORDER BY session_date DESC
+  LIMIT 5
 `;
 
 console.log("--- TODO 6: ORDER BY + LIMIT Query ---");
@@ -140,7 +149,16 @@ console.log("");
 
 // TODO: Your code here
 const createSessionTransaction = `
-  -- Your transaction SQL here
+  BEGIN
+
+  INSERT INTO sessions (user_id, duration, session_date, notes)
+  VALUES (1, 30, NOW(), 'First session');
+
+  UPDATE users
+  SET last_session_date = NOW()
+  WHERE id = 1;
+
+  COMMIT
 `;
 
 console.log("--- BONUS: Transaction ---");
