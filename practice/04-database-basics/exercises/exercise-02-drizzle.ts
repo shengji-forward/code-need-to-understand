@@ -22,13 +22,17 @@ console.log("=== Exercise 2: Drizzle ORM ===\n");
 //   - created_at: timestamp, default NOW()
 
 // TODO: Your code here
-/*
+
 import { pgTable, serial, text, integer, timestamp } from 'drizzle-orm/pg-core';
 
 export const users = pgTable('users', {
-  // Add columns here
+  id: serial('id').primaryKey(),
+  name: text('name').notNull(),
+  email: text('email').notNull().unique(),
+  age: integer('age'),
+  created_at: timestamp('created_at').defaultNow()
 });
-*/
+
 
 console.log("--- TODO 1: Users Table Schema ---");
 console.log("Define a users table schema");
@@ -47,11 +51,15 @@ console.log("");
 //   - status: text, default 'pending'
 
 // TODO: Your code here
-/*
+
 export const goals = pgTable('goals', {
-  // Add columns here
+  id: serial('id').primaryKey(),
+  userId: integer('user_id').references(() => users.id),
+  title: text('title').notNull(),
+  targetDate: timestamp('target_date'),
+  status: text('status').default('pending')
 });
-*/
+
 
 console.log("--- TODO 2: Goals Table Schema ---");
 console.log("Define a goals table with foreign key to users");
@@ -67,16 +75,22 @@ console.log("");
 // - The user should have: name = 'Alice', email = 'alice@example.com', age = 30
 
 // TODO: Your code here
-/*
+
 const insertUserQuery = async (db: DrizzleDB) => {
   return await db.insert(users).values({
-    // Add values here
+    name: 'Alice',
+    email: 'alice@example.com',
+    age: 30
   });
 };
-*/
+
 
 const insertUserExample = `
-  // Your code here
+  db.insert(users).values({
+    name: 'Alice',
+    email: 'alice@example.com',
+    age: 30
+  })
 `;
 
 console.log("--- TODO 3: Insert Query ---");
@@ -95,21 +109,26 @@ console.log("");
 // - Select only the name and email columns
 
 // TODO: Your code here
-/*
 import { gt } from 'drizzle-orm';
 
 const getUsersOlderThan25 = async (db: DrizzleDB) => {
   return await db
     .select({
-      // Add columns here
+      name: users.name,
+      email: users.email
     })
     .from(users)
     .where(gt(users.age, 25));
 };
-*/
 
 const selectExample = `
-  // Your code here
+  db
+  .select({
+    name: users.name,
+    email: users.email
+    })
+  .from(users)
+  .where(gt(users.age, 25));
 `;
 
 console.log("--- TODO 4: Select Query with WHERE ---");
@@ -128,21 +147,22 @@ console.log("");
 // - Use the eq helper for equality
 
 // TODO: Your code here
-/*
+
 import { eq } from 'drizzle-orm';
 
 const updateUserEmail = async (db: DrizzleDB) => {
   return await db
     .update(users)
     .set({
-      // Add update here
+      email: 'newemail@example.com'
     })
     .where(eq(users.id, 1));
 };
-*/
 
 const updateExample = `
-  // Your code here
+  db.update(users)
+    .set({ email: 'newemail@example.com' })
+    .where(eq(users.id, 1));
 `;
 
 console.log("--- TODO 5: Update Query ---");
@@ -161,19 +181,26 @@ console.log("");
 // - Select: goals.title, users.name, goals.status
 
 // TODO: Your code here
-/*
 const goalsWithOwner = async (db: DrizzleDB) => {
   return await db
     .select({
-      // Add columns here
+      title: goals.title, 
+      name: users.name, 
+      status: goals.status
     })
     .from(goals)
     .leftJoin(users, eq(goals.userId, users.id));
 };
-*/
 
 const joinExample = `
-  // Your code here
+  db.select({
+      title: goals.title, 
+      name: users.name, 
+      status: goals.status
+    })
+    .from(goals)
+    .leftJoin(users, eq(goals.userId, users.id));
+  };
 `;
 
 console.log("--- TODO 6: JOIN Query ---");
@@ -193,17 +220,18 @@ console.log("");
 // - Use the relations() function from Drizzle
 
 // TODO: Your code here
-/*
 import { relations } from 'drizzle-orm';
 
 export const usersRelations = relations(users, ({ many }) => ({
-  // Add relation here
+  goals: many(goals)
 }));
 
 export const goalsRelations = relations(goals, ({ one }) => ({
-  // Add relation here
+  user: one(users, {
+    fields: [goals.userId],
+    references: [users.id]
+  })
 }));
-*/
 
 const relationExample = `
   // Your code here
