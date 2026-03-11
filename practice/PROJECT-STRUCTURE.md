@@ -86,8 +86,14 @@ practice/
 │       └── exercise-03-env-solution.ts
 │
 ├── 04-database-basics/          # Drizzle ORM, SQL basics
-│   ├── practice/                           # TODO: Add practice files
-│   └── exercises/                           # TODO: Add exercises
+│   ├── practice/
+│   │   ├── 01-sql-basics.ts                 # SQL basics: SELECT, INSERT, UPDATE, DELETE, JOINs
+│   │   └── 02-drizzle.ts                    # Drizzle ORM: schemas, queries, migrations
+│   └── exercises/
+│       ├── exercise-01-sql.ts               # SQL exercise
+│       ├── exercise-01-sql-solution.ts
+│       ├── exercise-02-drizzle.ts           # Drizzle ORM exercise
+│       └── exercise-02-drizzle-solution.ts
 │
 ├── 05-web-server/               # Hono, API routes
 │   ├── practice/
@@ -151,6 +157,11 @@ practice/
 - 3 exercise files with solutions
 - Covers: named/default exports, imports, re-exports, dynamic imports, package.json, semantic versioning, env vars, type-safe config
 
+#### 04. Database Basics (✅ Complete)
+- 2 practice files: SQL basics, Drizzle ORM
+- 2 exercise files with solutions
+- Covers: SELECT, INSERT, UPDATE, DELETE, JOINs, indexes, Drizzle schemas, queries, migrations
+
 #### 05. Web Server (✅ Practice files complete)
 - 1 practice file: Hono framework
 - Covers: routes, middleware, request handling, validation, response formatting
@@ -160,7 +171,6 @@ practice/
 
 The following sections have directory structure created but need practice and exercise files:
 
-- **04. Database Basics**: Drizzle ORM, SQL basics
 - **06. WebSocket Realtime**: WebSocket server, events
 - **07. React Basics**: Components, hooks, JSX
 - **08. Next.js Fullstack**: App router, server components
@@ -223,7 +233,7 @@ Each section in README.md has:
 - ✅ **01-typescript-basics**: Complete (4 practice + 3 exercises with solutions)
 - ✅ **02-async-programming**: Complete (2 practice + 2 exercises with solutions)
 - ✅ **03-node-and-modules**: Complete (3 practice + 3 exercises with solutions)
-- ⚠️ **04-database-basics**: Structure only, needs content
+- ✅ **04-database-basics**: Complete (2 practice + 2 exercises with solutions)
 - ✅ **05-web-server**: Practice files complete (1 file)
 - ⚠️ **06-websocket-realtime**: Structure only, needs content
 - ⚠️ **07-react-basics**: Structure only, needs content
@@ -268,15 +278,15 @@ To add more content:
 
 ---
 
-**Total Files Created**: 36 files
+**Total Files Created**: 42 files
 - 1 comprehensive README.md
 - 1 quick start guide
 - 1 project structure file
 - 1 implementation summary
 - 1 CLAUDE.md guidance
 - 3 configuration files (package.json, tsconfig.json, .gitignore)
-- 13 practice files across 5 sections
-- 9 exercise/solution pairs across 3 sections (00: 4 pairs, 01: 3 pairs, 02: 2 pairs)
+- 15 practice files across 5 sections
+- 11 exercise/solution pairs across 4 sections (00: 4 pairs, 01: 3 pairs, 02: 2 pairs, 04: 2 pairs)
 
 **Estimated completion time for existing content**: 40-60 hours
 **Estimated completion time for full project**: 200+ hours
