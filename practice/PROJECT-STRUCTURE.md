@@ -95,10 +95,18 @@ practice/
 │       ├── exercise-02-drizzle.ts           # Drizzle ORM exercise
 │       └── exercise-02-drizzle-solution.ts
 │
-├── 05-web-server/               # Hono, API routes
+├── 05-web-server/               # HTTP basics, Hono, API design
 │   ├── practice/
-│   │   └── 02-hono.ts                        # Hono framework, routes, middleware, validation
-│   └── exercises/                           # TODO: Add exercises
+│   │   ├── 01-http-basics.ts                # HTTP methods, status codes, headers
+│   │   ├── 02-hono.ts                       # Hono framework, routes, middleware, validation
+│   │   └── 03-api-design.ts                 # RESTful API design, error handling, documentation
+│   └── exercises/
+│       ├── exercise-01-http.ts              # HTTP basics exercise
+│       ├── exercise-01-http-solution.ts
+│       ├── exercise-02-hono.ts              # Hono framework exercise
+│       ├── exercise-02-hono-solution.ts
+│       ├── exercise-03-api-design.ts        # API design exercise
+│       └── exercise-03-api-design-solution.ts
 │
 ├── 06-websocket-realtime/       # WebSocket server, events
 │   ├── practice/                           # TODO: Add practice files
@@ -162,10 +170,10 @@ practice/
 - 2 exercise files with solutions
 - Covers: SELECT, INSERT, UPDATE, DELETE, JOINs, indexes, Drizzle schemas, queries, migrations
 
-#### 05. Web Server (✅ Practice files complete)
-- 1 practice file: Hono framework
-- Covers: routes, middleware, request handling, validation, response formatting
-- TODO: Add exercise files
+#### 05. Web Server (✅ Complete)
+- 3 practice files: HTTP basics, Hono framework, API design
+- 3 exercise files with solutions
+- Covers: HTTP methods/status codes, Hono routes/middleware, request handling, validation, response formatting, RESTful API design
 
 ### Sections Needing Completion
 
@@ -234,7 +242,7 @@ Each section in README.md has:
 - ✅ **02-async-programming**: Complete (2 practice + 2 exercises with solutions)
 - ✅ **03-node-and-modules**: Complete (3 practice + 3 exercises with solutions)
 - ✅ **04-database-basics**: Complete (2 practice + 2 exercises with solutions)
-- ✅ **05-web-server**: Practice files complete (1 file)
+- ✅ **05-web-server**: Complete (3 practice + 3 exercises with solutions)
 - ⚠️ **06-websocket-realtime**: Structure only, needs content
 - ⚠️ **07-react-basics**: Structure only, needs content
 - ⚠️ **08-nextjs-fullstack**: Structure only, needs content
@@ -278,15 +286,15 @@ To add more content:
 
 ---
 
-**Total Files Created**: 42 files
+**Total Files Created**: 54 files
 - 1 comprehensive README.md
 - 1 quick start guide
 - 1 project structure file
 - 1 implementation summary
 - 1 CLAUDE.md guidance
 - 3 configuration files (package.json, tsconfig.json, .gitignore)
-- 15 practice files across 5 sections
-- 11 exercise/solution pairs across 4 sections (00: 4 pairs, 01: 3 pairs, 02: 2 pairs, 04: 2 pairs)
+- 18 practice files across 6 sections
+- 14 exercise/solution pairs across 5 sections (00: 4 pairs, 01: 3 pairs, 02: 2 pairs, 04: 2 pairs, 05: 3 pairs)
 
 **Estimated completion time for existing content**: 40-60 hours
 **Estimated completion time for full project**: 200+ hours
