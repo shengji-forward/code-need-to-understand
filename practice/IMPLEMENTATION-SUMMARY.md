@@ -9,8 +9,8 @@ A comprehensive JavaScript/TypeScript learning roadmap for the OpenCoach AI heal
 ### Statistics
 
 - **Total Documentation**: 1,852 lines across 4 files
-- **TypeScript Files**: 42 files created
-- **Total Files**: 49 files (including config and docs)
+- **TypeScript Files**: 54 files created (9 new files in section 06)
+- **Total Files**: 61 files (including config and docs)
 - **Sections**: 11 learning sections (00-10)
 - **Interview Questions**: 50+ questions with answers
 - **Best Practices**: 40+ documented patterns
@@ -72,10 +72,17 @@ A comprehensive JavaScript/TypeScript learning roadmap for the OpenCoach AI heal
    - 01-sql-basics.ts
    - 02-drizzle.ts
 
-6. **05-web-server** (1 file) ✅ Complete
+6. **05-web-server** (3 files) ✅ Complete
+   - 01-http-basics.ts
    - 02-hono.ts
+   - 03-api-design.ts
 
-#### Exercise Files (18 files)
+7. **06-websocket-realtime** (3 files) ✅ Complete
+   - 01-websocket-basics.ts
+   - 02-event-driven-arch.ts
+   - 03-realtime-patterns.ts
+
+#### Exercise Files (27 files)
 1. **00-fundamentals** (4 exercises + 4 solutions) ✅ Complete
    - exercise-01-basic-syntax.ts + solution
    - exercise-02-functions.ts + solution
@@ -100,6 +107,16 @@ A comprehensive JavaScript/TypeScript learning roadmap for the OpenCoach AI heal
    - exercise-01-sql.ts + solution
    - exercise-02-drizzle.ts + solution
 
+6. **05-web-server** (3 exercises + 3 solutions) ✅ Complete
+   - exercise-01-http.ts + solution
+   - exercise-02-hono.ts + solution
+   - exercise-03-api-design.ts + solution
+
+7. **06-websocket-realtime** (3 exercises + 3 solutions) ✅ Complete
+   - exercise-01-websocket.ts + solution
+   - exercise-02-events.ts + solution
+   - exercise-03-realtime.ts + solution
+
 ### Directory Structure Created
 
 ```
@@ -109,8 +126,8 @@ code-need-to-understand/
 ├── 02-async-programming/    ✅ Complete (2 practice + 2 exercises)
 ├── 03-node-and-modules/     ✅ Complete (3 practice + 3 exercises)
 ├── 04-database-basics/      ✅ Complete (2 practice + 2 exercises)
-├── 05-web-server/           ✅ Practice (1 file)
-├── 06-websocket-realtime/   ⚠️ Structure only
+├── 05-web-server/           ✅ Complete (3 practice + 3 exercises)
+├── 06-websocket-realtime/   ✅ Complete (3 practice + 3 exercises)
 ├── 07-react-basics/         ⚠️ Structure only
 ├── 08-nextjs-fullstack/     ⚠️ Structure only
 ├── 09-agent-systems/        ⚠️ Structure only
@@ -160,40 +177,38 @@ npx tsx 00-fundamentals/practice/01-variables-and-types.ts
 
 ### Completion Status
 
-**Fully Complete (5 sections)**:
+**Fully Complete (6 sections)**:
 - ✅ 00-fundamentals: 4 practice + 4 exercises with solutions
 - ✅ 01-typescript-basics: 4 practice + 3 exercises with solutions
 - ✅ 02-async-programming: 2 practice + 2 exercises with solutions
 - ✅ 03-node-and-modules: 3 practice + 3 exercises with solutions
 - ✅ 04-database-basics: 2 practice + 2 exercises with solutions
+- ✅ 05-web-server: 3 practice + 3 exercises with solutions
+- ✅ 06-websocket-realtime: 3 practice + 3 exercises with solutions
 
-**Practice Complete (1 section)**:
-- ✅ 05-web-server: 1 practice file
-
-**Structure Created, Content Needed (5 sections)**:
-- ⚠️ 06-websocket-realtime
+**Structure Created, Content Needed (4 sections)**:
 - ⚠️ 07-react-basics
 - ⚠️ 08-nextjs-fullstack
 - ⚠️ 09-agent-systems
 - ⚠️ 10-production-patterns
 
-**Total**: 5 complete sections, 1 practice-complete section, 5 structure-only sections
+**Total**: 6 complete sections, 4 structure-only sections
 
 ### Next Steps to Complete
 
-1. Add practice files for sections 06-10
-2. Add exercise files for sections 05-10 (01-04 already complete)
+1. Add practice files for sections 07-10
+2. Add exercise files for sections 07-10
 3. Add more OpenCoach code references
 4. Create bonus challenges for each section
 5. Add video scripts/outlines for YouTube
 
 ### Estimated Value
 
-- **Learning Time**: 70-90 hours for existing content
+- **Learning Time**: 100-120 hours for existing content
 - **Total Project**: 200+ hours when fully complete
 - **Interview Questions**: 50+ with detailed answers
-- **Practice Examples**: 15 comprehensive files
-- **Exercise Problems**: 11 complete with solutions
+- **Practice Examples**: 24 comprehensive files
+- **Exercise Problems**: 21 complete with solutions
 
 ### Success Criteria Met
 

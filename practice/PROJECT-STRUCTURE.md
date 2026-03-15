@@ -108,9 +108,18 @@ practice/
 │       ├── exercise-03-api-design.ts        # API design exercise
 │       └── exercise-03-api-design-solution.ts
 │
-├── 06-websocket-realtime/       # WebSocket server, events
-│   ├── practice/                           # TODO: Add practice files
-│   └── exercises/                           # TODO: Add exercises
+├── 06-websocket-realtime/       # WebSocket server, real-time communication
+│   ├── practice/
+│   │   ├── 01-websocket-basics.ts           # WebSocket lifecycle, connection management, heartbeat
+│   │   ├── 02-event-driven-arch.ts          # Event emitters, routing, validation, replay
+│   │   └── 03-realtime-patterns.ts          # Broadcast, rooms, presence, typing indicators
+│   └── exercises/
+│       ├── exercise-01-websocket.ts         # WebSocket basics exercise
+│       ├── exercise-01-websocket-solution.ts
+│       ├── exercise-02-events.ts            # Event-driven architecture exercise
+│       ├── exercise-02-events-solution.ts
+│       ├── exercise-03-realtime.ts          # Realtime patterns exercise
+│       └── exercise-03-realtime-solution.ts
 │
 ├── 07-react-basics/             # Components, hooks
 │   ├── practice/                           # TODO: Add practice files
@@ -175,11 +184,15 @@ practice/
 - 3 exercise files with solutions
 - Covers: HTTP methods/status codes, Hono routes/middleware, request handling, validation, response formatting, RESTful API design
 
+#### 06. WebSocket Realtime (✅ Complete)
+- 3 practice files: WebSocket basics, event-driven architecture, realtime patterns
+- 3 exercise files with solutions
+- Covers: WebSocket lifecycle, connection management, heartbeat, reconnection, event emitters, event routing, validation, dead letter queues, event replay, broadcast, rooms, presence tracking, typing indicators, state synchronization
+
 ### Sections Needing Completion
 
 The following sections have directory structure created but need practice and exercise files:
 
-- **06. WebSocket Realtime**: WebSocket server, events
 - **07. React Basics**: Components, hooks, JSX
 - **08. Next.js Fullstack**: App router, server components
 - **09. Agent Systems**: Mastra, AI integration
