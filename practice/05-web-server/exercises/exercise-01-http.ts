@@ -3,6 +3,8 @@
 // TODO: Complete each section marked with TODO
 // Run with: npx tsx 05-web-server/exercises/exercise-01-http.ts
 
+import { goals } from "../../04-database-basics/exercises/exercise-02-drizzle-solution";
+
 console.log("=== Exercise 1: HTTP Basics ===\n");
 
 // ============================================
@@ -25,22 +27,22 @@ const apiEndpoints = {
     description: "Get all users"
   },
   createGoal: {
-    method: "",          // TODO: What method for creating?
+    method: "POST",          // TODO: What method for creating?
     path: "/api/goals",
     description: "Create new goal"
   },
   updateUser: {
-    method: "",          // TODO: What method for full update?
+    method: "PUT",          // TODO: What method for full update?
     path: "/api/users/:id",
     description: "Replace entire user profile"
   },
   deleteSession: {
-    method: "",          // TODO: What method for deleting?
+    method: "DELETE",          // TODO: What method for deleting?
     path: "/api/sessions/:id",
     description: "Delete a session"
   },
   patchGoal: {
-    method: "",          // TODO: What method for partial update?
+    method: "PATCH",          // TODO: What method for partial update?
     path: "/api/goals/:id",
     description: "Update goal status only"
   }
@@ -64,35 +66,35 @@ console.log("");
 // TODO: Your code here - Fill in the correct status codes
 const scenarios = {
   successfulLogin: {
-    code: 0,             // TODO: User logged in successfully
+    code: 200,             // TODO: User logged in successfully
     description: "Login successful, returns user data"
   },
   userCreated: {
-    code: 0,             // TODO: New user account created
+    code: 201,             // TODO: New user account created
     description: "User created successfully, includes Location header"
   },
   deleted: {
-    code: 0,             // TODO: Resource deleted, no body returned
+    code: 204,             // TODO: Resource deleted, no body returned
     description: "Goal deleted successfully"
   },
   validationError: {
-    code: 0,             // TODO: Invalid request data
+    code: 400,             // TODO: Invalid request data
     description: "Email is missing from request body"
   },
   notAuthorized: {
-    code: 0,             // TODO: User not logged in
+    code: 401,             // TODO: User not logged in
     description: "No valid authentication token provided"
   },
   forbidden: {
-    code: 0,             // TODO: User logged in but can't access resource
+    code: 403,             // TODO: User logged in but can't access resource
     description: "User trying to delete another user's goal"
   },
   notFound: {
-    code: 0,             // TODO: Resource doesn't exist
+    code: 404,             // TODO: Resource doesn't exist
     description: "Goal with ID 123 doesn't exist"
   },
   serverError: {
-    code: 0,             // TODO: Something went wrong on server
+    code: 500,             // TODO: Something went wrong on server
     description: "Database connection failed"
   }
 };
@@ -115,14 +117,14 @@ console.log("");
 
 // TODO: Your code here - Write the RESTful URLs
 const urls = {
-  getAllUsers: "",                    // TODO: Get all users
-  getUserById: "",                    // TODO: Get specific user
-  getUserGoals: "",                   // TODO: Get all goals for a user
-  getSpecificGoal: "",                // TODO: Get specific goal
-  getUserSessions: "",                // TODO: Get sessions for a user
-  getHealthMetrics: "",               // TODO: Get health metrics for user
-  searchGoals: "",                    // TODO: Search goals with query string
-  paginatedUsers: "",                 // TODO: Get paginated list of users
+  getAllUsers: "api/users",                    // TODO: Get all users
+  getUserById: "api/users/:id",                    // TODO: Get specific user
+  getUserGoals: "api/users/:id/goals",                   // TODO: Get all goals for a user
+  getSpecificGoal: "api/users/:id/goals/:goalId",                // TODO: Get specific goal
+  getUserSessions: "api/users/:id/sessions",                // TODO: Get sessions for a user
+  getHealthMetrics: "api/users/:id/health-metrics",               // TODO: Get health metrics for user
+  searchGoals: "api/goals?q=searchterm",                    // TODO: Search goals with query string
+  paginatedUsers: "api/users?page=2&limit=10",                 // TODO: Get paginated list of users
 };
 
 console.log("--- TODO 3: RESTful URL Design ---");
@@ -150,11 +152,11 @@ console.log("");
 
 // TODO: Your code here - Match headers to purposes
 const headerPurposes = {
-  "": "Tells server what format the client wants in response",
-  "": "Tells client what format the response body is",
-  "": "Contains authentication credentials (token or API key)",
-  "": "URL of newly created resource (for 201 responses)",
-  "": "Instructions for caching the response"
+  "Accept": "Tells server what format the client wants in response",
+  "Content-Type": "Tells client what format the response body is",
+  "Authorization": "Contains authentication credentials (token or API key)",
+  "Location": "URL of newly created resource (for 201 responses)",
+  "Cache-Control": "Instructions for caching the response"
 };
 
 console.log("--- TODO 4: HTTP Headers ---");
@@ -174,10 +176,10 @@ console.log("");
 
 // TODO: Your code here - Mark true/false for idempotent
 const idempotencyCheck = {
-  "GET /api/users": false,      // TODO: Is this idempotent?
+  "GET /api/users": true,      // TODO: Is this idempotent?
   "POST /api/users": false,     // TODO: Is this idempotent?
-  "PUT /api/users/1": false,    // TODO: Is this idempotent?
-  "DELETE /api/users/1": false, // TODO: Is this idempotent?
+  "PUT /api/users/1": true,    // TODO: Is this idempotent?
+  "DELETE /api/users/1": true, // TODO: Is this idempotent?
   "PATCH /api/counters/1": false // TODO: Is this idempotent?
 };
 
@@ -201,19 +203,33 @@ console.log("");
 // TODO: Your code here - Design the full API interaction
 const createGoalInteraction = {
   request: {
-    method: "",        // TODO: What HTTP method?
-    url: "",           // TODO: What URL?
+    method: "POST",        // TODO: What HTTP method?
+    url: "/api/users/:userId/goals",           // TODO: What URL?
     headers: {         // TODO: What headers are needed?
-      "": "",
+      "Content-Type": "application/json",
+      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIs...",
+      "Accept": "application/json"
     },
-    body: {}           // TODO: What does the request body look like?
+    body: {
+      title: "Lose weight",
+      target: "10kg",
+      deadline: "2026-12-31"
+    }           // TODO: What does the request body look like?
   },
   response: {
-    status: 0,         // TODO: What status code?
+    status: 201,         // TODO: What status code?
     headers: {         // TODO: What headers in response?
-      "": ""
+      "Location": "/api/users/123/goals/456"
     },
-    body: {}           // TODO: What does the response body look like?
+    body: {
+      id: 1,
+      userId: 123,
+      title: "Lose weight",
+      target: "10kg",
+      deadline: "2026-12-31",
+      status: "active",
+      createdAt: "2026-03-19T10:00:00Z"
+    }           // TODO: What does the response body look like?
   }
 };
 
