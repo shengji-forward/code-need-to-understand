@@ -1,13 +1,14 @@
 ---
-title: "Source Academy"
-source: "https://sourceacademy.org/sicpjs/foreword02"
+
+## title: "Source Academy"
+source: "[https://sourceacademy.org/sicpjs/foreword02](https://sourceacademy.org/sicpjs/foreword02)"
 author:
 published:
 created: 2026-02-26
 description: "Immersive experiential environment for learning programming, developed in the School of Computing at the National University of Singapore."
 tags:
   - "clippings"
----
+
 ## Foreword
 
 I had the pleasure of meeting the amazing Alan Perlis and talking with him a few times, when I was still a student. He and I had in common a deep love and respect for two very different programming languages: Lisp and APL. Following in his footsteps is a daunting task, even though he blazed an excellent trail. Still, I would like to reexamine one comment he made in the original foreword to this book (and, please, I suggest that you read *his* foreword, which immediately follows this one, before you finish this one). Is it really true that it is better to have 100 functions operate on one data structure than to have 10 functions operate on 10 data structures?
@@ -48,4 +49,5 @@ As you read this book, please pay attention not only to the programming language
 
 Primitives, means of combination, functional abstraction, naming, and conventions for using a universal data structure in specialized ways by drawing distinctions: these are the fundamental building blocks of a good programming language. From there, imagination and good engineering judgment based on experience can do the rest.
 
-> \- Guy L. Steele Jr., *Lexington, Massachusetts, 2021*
+>  Guy L. Steele Jr., *Lexington, Massachusetts, 2021*
+
