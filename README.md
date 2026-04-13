@@ -38,14 +38,14 @@ Theory courses covering computer science fundamentals and programming principles
 
 **Start here:** `knowledge/README.md`
 
-### learning-summary/ - Progress Documentation
+### learning-summary/ - Progress Documentation & Video Learning Paths
 
-Conceptual hierarchies and learning progress tracking.
+Learning progress tracking and YouTube video learning paths (Feynman method).
 
 **What's inside:**
-- Module learning summaries
-- JavaScript/TypeScript hierarchy diagrams
-- Architecture documentation
+- **learn-claude-code-typescript/** -- 21-video agent engineering path
+- **cs61a-sicp-js/** -- 97-video SICP JavaScript Edition path
+- Module learning summaries and hierarchy diagrams
 
 **Start here:** `learning-summary/README.md`
 

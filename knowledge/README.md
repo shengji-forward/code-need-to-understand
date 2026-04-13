@@ -39,11 +39,22 @@ Interactive online platform for CS61A JavaScript Edition:
 
 ```
 knowledge/
-└── sicp-js/              # CS61A SICP JavaScript Edition materials
-    ├── chapters/         # Course chapters and sections
-    ├── exercises/        # Practice exercises and solutions
-    └── notes/            # Supplementary notes and explanations
+└── cs61a-structure-and-interpretation-of-computer-programs-javascript-edition/
+    ├── Foreword.md, Preface.md, Acknowledgments.md    # Front matter
+    ├── 1 Building Abstractions with Functions/         # Chapter 1
+    │   ├── 1.1  The Elements of Programming/           # Sections 1.1.1-1.1.8
+    │   ├── 1.2  Functions and the Processes.../         # Sections 1.2.1-1.2.6
+    │   └── 1.3  Formulating Abstractions.../            # Sections 1.3.1-1.3.4
+    └── 2 Building Abstractions with Data/              # Chapter 2 (partial)
+        └── 2.1  Introduction to Data Abstraction/      # Sections 2.1.1-2.1.4
 ```
+
+Content through Section 2.1 is available locally. For later sections, use [Source Academy SICP JS](https://sourceacademy.org/sicpjs/).
+
+### Video Learning Path
+
+A 97-video YouTube learning path for SICP JS is tracked at:
+`learning-summary/cs61a-sicp-js/`
 
 ## Learning Philosophy
 
