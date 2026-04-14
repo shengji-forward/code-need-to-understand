@@ -9,42 +9,56 @@
 
 - [ ] **Video 00** -- Architecture Overview
   - [ ] Learn session with Claude Code
+  - [ ] Mentor monitors session + assists with quizzes
+  - [ ] Mentor generates learning-report.md
   - [ ] Create transcript.md
   - [ ] Create slides.html
   - [ ] Record and upload video
 
 - [ ] **Video 01** -- The Agent Loop
   - [ ] Learn session with Claude Code
+  - [ ] Mentor monitors session + assists with quizzes
+  - [ ] Mentor generates learning-report.md
   - [ ] Create transcript.md
   - [ ] Create slides.html
   - [ ] Record and upload video
 
 - [ ] **Video 02** -- Tool Use
   - [ ] Learn session with Claude Code
+  - [ ] Mentor monitors session + assists with quizzes
+  - [ ] Mentor generates learning-report.md
   - [ ] Create transcript.md
   - [ ] Create slides.html
   - [ ] Record and upload video
 
 - [ ] **Video 03** -- TodoWrite / Planning
   - [ ] Learn session with Claude Code
+  - [ ] Mentor monitors session + assists with quizzes
+  - [ ] Mentor generates learning-report.md
   - [ ] Create transcript.md
   - [ ] Create slides.html
   - [ ] Record and upload video
 
 - [ ] **Video 04** -- Subagent
   - [ ] Learn session with Claude Code
+  - [ ] Mentor monitors session + assists with quizzes
+  - [ ] Mentor generates learning-report.md
   - [ ] Create transcript.md
   - [ ] Create slides.html
   - [ ] Record and upload video
 
 - [ ] **Video 05** -- Skill Loading
   - [ ] Learn session with Claude Code
+  - [ ] Mentor monitors session + assists with quizzes
+  - [ ] Mentor generates learning-report.md
   - [ ] Create transcript.md
   - [ ] Create slides.html
   - [ ] Record and upload video
 
 - [ ] **Video 06** -- Context Compact
   - [ ] Learn session with Claude Code
+  - [ ] Mentor monitors session + assists with quizzes
+  - [ ] Mentor generates learning-report.md
   - [ ] Create transcript.md
   - [ ] Create slides.html
   - [ ] Record and upload video
@@ -55,30 +69,40 @@
 
 - [ ] **Video 07** -- Permission System
   - [ ] Learn session with Claude Code
+  - [ ] Mentor monitors session + assists with quizzes
+  - [ ] Mentor generates learning-report.md
   - [ ] Create transcript.md
   - [ ] Create slides.html
   - [ ] Record and upload video
 
 - [ ] **Video 08** -- Hook System
   - [ ] Learn session with Claude Code
+  - [ ] Mentor monitors session + assists with quizzes
+  - [ ] Mentor generates learning-report.md
   - [ ] Create transcript.md
   - [ ] Create slides.html
   - [ ] Record and upload video
 
 - [ ] **Video 09** -- Memory System
   - [ ] Learn session with Claude Code
+  - [ ] Mentor monitors session + assists with quizzes
+  - [ ] Mentor generates learning-report.md
   - [ ] Create transcript.md
   - [ ] Create slides.html
   - [ ] Record and upload video
 
 - [ ] **Video 10** -- System Prompt
   - [ ] Learn session with Claude Code
+  - [ ] Mentor monitors session + assists with quizzes
+  - [ ] Mentor generates learning-report.md
   - [ ] Create transcript.md
   - [ ] Create slides.html
   - [ ] Record and upload video
 
 - [ ] **Video 11** -- Error Recovery
   - [ ] Learn session with Claude Code
+  - [ ] Mentor monitors session + assists with quizzes
+  - [ ] Mentor generates learning-report.md
   - [ ] Create transcript.md
   - [ ] Create slides.html
   - [ ] Record and upload video
@@ -89,18 +113,24 @@
 
 - [ ] **Video 12** -- Task System
   - [ ] Learn session with Claude Code
+  - [ ] Mentor monitors session + assists with quizzes
+  - [ ] Mentor generates learning-report.md
   - [ ] Create transcript.md
   - [ ] Create slides.html
   - [ ] Record and upload video
 
 - [ ] **Video 13** -- Background Tasks
   - [ ] Learn session with Claude Code
+  - [ ] Mentor monitors session + assists with quizzes
+  - [ ] Mentor generates learning-report.md
   - [ ] Create transcript.md
   - [ ] Create slides.html
   - [ ] Record and upload video
 
 - [ ] **Video 14** -- Cron Scheduler
   - [ ] Learn session with Claude Code
+  - [ ] Mentor monitors session + assists with quizzes
+  - [ ] Mentor generates learning-report.md
   - [ ] Create transcript.md
   - [ ] Create slides.html
   - [ ] Record and upload video
@@ -111,30 +141,40 @@
 
 - [ ] **Video 15** -- Agent Teams
   - [ ] Learn session with Claude Code
+  - [ ] Mentor monitors session + assists with quizzes
+  - [ ] Mentor generates learning-report.md
   - [ ] Create transcript.md
   - [ ] Create slides.html
   - [ ] Record and upload video
 
 - [ ] **Video 16** -- Team Protocols
   - [ ] Learn session with Claude Code
+  - [ ] Mentor monitors session + assists with quizzes
+  - [ ] Mentor generates learning-report.md
   - [ ] Create transcript.md
   - [ ] Create slides.html
   - [ ] Record and upload video
 
 - [ ] **Video 17** -- Autonomous Agents
   - [ ] Learn session with Claude Code
+  - [ ] Mentor monitors session + assists with quizzes
+  - [ ] Mentor generates learning-report.md
   - [ ] Create transcript.md
   - [ ] Create slides.html
   - [ ] Record and upload video
 
 - [ ] **Video 18** -- Worktree Isolation
   - [ ] Learn session with Claude Code
+  - [ ] Mentor monitors session + assists with quizzes
+  - [ ] Mentor generates learning-report.md
   - [ ] Create transcript.md
   - [ ] Create slides.html
   - [ ] Record and upload video
 
 - [ ] **Video 19** -- MCP & Plugin
   - [ ] Learn session with Claude Code
+  - [ ] Mentor monitors session + assists with quizzes
+  - [ ] Mentor generates learning-report.md
   - [ ] Create transcript.md
   - [ ] Create slides.html
   - [ ] Record and upload video
@@ -145,6 +185,8 @@
 
 - [ ] **Video 20** -- Full System Capstone
   - [ ] Learn session with Claude Code
+  - [ ] Mentor monitors session + assists with quizzes
+  - [ ] Mentor generates learning-report.md
   - [ ] Create transcript.md
   - [ ] Create slides.html
   - [ ] Record and upload video
@@ -164,4 +206,4 @@
 
 ---
 
-**Last Updated**: 2026-04-12
+**Last Updated**: 2026-04-14

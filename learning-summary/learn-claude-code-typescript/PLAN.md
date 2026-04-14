@@ -15,6 +15,41 @@
 
 ---
 
+## Three-Agent Workflow
+
+Each session follows the same workflow with three cooperating agents:
+
+### Agent Roles
+
+| Agent | Platform | Responsibilities |
+|-------|----------|-----------------|
+| **Orchestrator** | Cursor sidebar (main chat) | Provides session prompts, creates slides/transcripts from learning reports, tracks progress |
+| **Teacher** | Claude Code terminal | Teaches the session interactively, asks checkpoint questions, gives quizzes |
+| **Mentor** | Cursor sidebar (separate chat) | Monitors the terminal session, assists with quizzes via Socratic method, generates learning reports |
+
+### Per-Session Flow
+
+1. Orchestrator provides the session prompt (from `SESSION-PROMPTS.md`)
+2. Student pastes the prompt into the Claude Code terminal
+3. Student opens a Mentor chat (from `MENTOR-SYSTEM-PROMPT.md`) and tells the Mentor which session is starting
+4. Teacher teaches the session; student periodically attaches transcript snippets to the Mentor
+5. Mentor monitors progress, assists when the student is stuck (guides, never answers directly)
+6. When the session ends, Mentor generates `learning-report.md` in the chapter folder
+7. Student returns to the orchestrator; the learning report is the primary input for creating slides and transcript
+
+### Learning Report
+
+The Mentor-generated learning report is the key artifact that bridges learning and teaching. It contains:
+- Concepts covered and how well they were understood
+- Checkpoint question and quiz performance
+- Key insights in the student's own words
+- Areas of confusion and how they were resolved
+- Readiness assessment for the next session
+
+The orchestrator uses this report to create accurate, experience-based slides and transcripts.
+
+---
+
 ## Stage 1: Core Loop (Sessions 00-06)
 
 ### Session 00: Architecture Overview
@@ -379,4 +414,4 @@ By the end you should be able to:
 
 ---
 
-**Last Updated**: 2026-04-12
+**Last Updated**: 2026-04-14

@@ -28,24 +28,47 @@ This path follows the **Feynman method**: learn each subsection deeply, then tea
 
 ## How It Works
 
+### Three-Agent System
+
+| Agent | Where | Role |
+|-------|-------|------|
+| **Orchestrator** | Cursor sidebar | Supervises the learning path, provides session prompts, creates slides/transcripts |
+| **Teacher** | Claude Code terminal | Teaches each session interactively with checkpoint questions and quizzes |
+| **TA** | Cursor sidebar (separate chat) | Monitors sessions, assists with quizzes (Socratic method), generates learning reports |
+
 ### Workflow per Chapter
 
 ```
-Orchestrator (Cursor)           You                Claude Code (Terminal)
-─────────────────────          ─────              ──────────────────────
-1. Gives session prompt   →    2. Pastes prompt   →   3. Guides learning
-                               4. Learns session  ←   (interactive Q&A)
-5. Creates slides/transcript ← 6. Reports back
-7. Updates progress
-8. Gives next prompt      →    ...repeat...
+Orchestrator (Cursor)     You          Teacher (Terminal)     TA (Cursor sidebar)
+─────────────────────    ─────        ──────────────────     ───────────────────
+1. Gives session prompt → 2. Pastes → 3. Teaches session
+                          4. Learns ← (interactive Q&A)
+                          5. Shares transcript ──────────→ 6. Monitors + assists
+                          7. Gets help ←──────────────────  (Socratic guidance)
+                          8. Completes session ──────────→ 9. Generates learning report
+10. Reads learning report ←──────────────────────────────── learning-report.md
+11. Creates slides/transcript
+12. Updates progress
+13. Gives next prompt → ...repeat...
 ```
 
 ### What Each Chapter Produces
 
-| Artifact | Purpose |
-|----------|---------|
-| `transcript.md` | Teaching script for the YouTube video |
-| `slides.html` | Reveal.js presentation for screen recording |
+| Artifact | Created By | Purpose |
+|----------|-----------|---------|
+| `learning-report.md` | TA agent | Detailed record of what was learned, checkpoint/quiz results, areas of confusion |
+| `transcript.md` | Orchestrator | Teaching script for the YouTube video (based on the learning report) |
+| `slides.html` | Orchestrator | Reveal.js presentation for screen recording |
+
+### How to Use the TA Agent
+
+1. Open a **new Cursor sidebar chat** (separate from the orchestrator chat)
+2. Paste the prompt from [`TA-SYSTEM-PROMPT.md`](./TA-SYSTEM-PROMPT.md)
+3. Tell the TA which session you are starting
+4. During the session, periodically attach terminal transcript snippets to the TA chat
+5. Ask the TA for help when stuck on checkpoint questions or quizzes -- it will guide you without giving answers
+6. When the session ends, say "Session complete" and the TA generates `learning-report.md`
+7. Return to the orchestrator chat -- the learning report is the input for creating slides and transcripts
 
 ---
 
@@ -298,21 +321,23 @@ cs61a-sicp-js/
 ├── PLAN.md                                            ← detailed session-by-session breakdown
 ├── TODO.md                                            ← progress tracker
 ├── SESSION-PROMPTS.md                                 ← copy-paste prompts for Claude Code
+├── TA-SYSTEM-PROMPT.md                                ← copy-paste prompt for Cursor TA agent
 ├── 1.1-elements-of-programming.md                     ← existing learning note (preserved)
 ├── 00-overview-and-philosophy/
+│   ├── learning-report.md                             ← TA-generated session report
 │   ├── transcript.md
 │   └── slides.html
 ├── 01-1.1.1-expressions/
-│   ├── transcript.md
-│   └── slides.html
-├── 02-1.1.2-naming-and-environment/
+│   ├── learning-report.md
 │   ├── transcript.md
 │   └── slides.html
 ├── ...
 ├── 95-5.5.7-interfacing-compiled-code/
+│   ├── learning-report.md
 │   ├── transcript.md
 │   └── slides.html
 └── 96-capstone-full-book/
+    ├── learning-report.md
     ├── transcript.md
     └── slides.html
 ```
@@ -359,5 +384,5 @@ By video 96, you should be able to:
 
 ---
 
-**Last Updated**: 2026-04-12
+**Last Updated**: 2026-04-14
 **Current Focus**: Session 00 -- Overview & Programming Philosophy
