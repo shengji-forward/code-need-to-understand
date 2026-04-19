@@ -2,7 +2,7 @@
 
 ## Overview
 
-21 sessions covering agent harness engineering from zero to a multi-agent platform. Each session learns one mechanism, then produces a YouTube-ready Reveal.js slide deck and teaching transcript.
+12 mainline sessions + 1 capstone covering agent harness engineering from zero to a multi-agent platform. Each session learns one mechanism, then produces a YouTube-ready Reveal.js slide deck and teaching transcript. Mirrors the Python repo's 12-session mainline structure.
 
 ---
 
@@ -50,33 +50,7 @@ The orchestrator uses this report to create accurate, experience-based slides an
 
 ---
 
-## Stage 1: Core Loop (Sessions 00-06)
-
-### Session 00: Architecture Overview
-
-**Source files:**
-- `docs/en/s00-architecture-overview.md`
-- `docs/en/s00a-query-control-plane.md`
-- `docs/en/s00b-one-request-lifecycle.md`
-- `docs/en/s00c-query-transition-model.md`
-- `docs/en/s00d-chapter-order-rationale.md`
-- `docs/en/s00e-reference-module-map.md`
-- `docs/en/s00f-code-reading-order.md`
-- `docs/en/glossary.md`
-- `docs/en/teaching-scope.md`
-- `docs/en/data-structures.md`
-- `docs/en/entity-map.md`
-
-**Learning objectives:**
-- Understand the full system map before diving into any mechanism
-- Learn what "the model is the agent" and "harness vs agent" mean
-- Memorize the four stages and why the order matters
-- Know what data structures the system uses
-- Understand the query lifecycle: user message -> model -> tool_use -> tool_result -> loop
-
-**Video output:** The global map video -- sets the stage for everything that follows.
-
----
+## Phase 1: THE LOOP (Sessions 01-02)
 
 ### Session 01: The Agent Loop
 
@@ -89,7 +63,7 @@ The orchestrator uses this report to create accurate, experience-based slides an
 - Understand why `tool_result` is the center of the loop
 - Know the minimum state: `messages[]`, one model call, one tool
 
-**Video output:** "One loop & Bash is all you need"
+**Motto:** *"One loop & Bash is all you need"*
 
 ---
 
@@ -97,8 +71,8 @@ The orchestrator uses this report to create accurate, experience-based slides an
 
 **Source files:**
 - `docs/en/s02-tool-use.md`
-- `docs/en/s02a-tool-control-plane.md`
-- `docs/en/s02b-tool-execution-runtime.md`
+- `docs/extras/en/s02a-tool-control-plane.md`
+- `docs/extras/en/s02b-tool-execution-runtime.md`
 - `agents/s02_tool_use.ts`
 
 **Learning objectives:**
@@ -107,9 +81,11 @@ The orchestrator uses this report to create accurate, experience-based slides an
 - Understand tool_use and tool_result message flow
 - See how adding a new tool does NOT change the loop
 
-**Video output:** "Adding a tool means adding one handler"
+**Motto:** *"Adding a tool means adding one handler"*
 
 ---
+
+## Phase 2: PLANNING & KNOWLEDGE (Sessions 03-06)
 
 ### Session 03: TodoWrite / Planning
 
@@ -122,7 +98,7 @@ The orchestrator uses this report to create accurate, experience-based slides an
 - See how a simple todo list tool keeps multi-step work on track
 - Know where the plan state lives and how it updates
 
-**Video output:** "An agent without a plan drifts"
+**Motto:** *"An agent without a plan drifts"*
 
 ---
 
@@ -137,7 +113,7 @@ The orchestrator uses this report to create accurate, experience-based slides an
 - See how a subagent gets a fresh `messages[]`
 - Know when to spawn a subagent vs keep using the main context
 
-**Video output:** "Break big tasks down; each subtask gets a clean context"
+**Motto:** *"Break big tasks down; each subtask gets a clean context"*
 
 ---
 
@@ -153,7 +129,7 @@ The orchestrator uses this report to create accurate, experience-based slides an
 - Know why loading everything into the system prompt is wasteful
 - See the skill file format and how the agent discovers skills
 
-**Video output:** "Load knowledge when you need it, not upfront"
+**Motto:** *"Load knowledge when you need it, not upfront"*
 
 ---
 
@@ -168,111 +144,33 @@ The orchestrator uses this report to create accurate, experience-based slides an
 - Learn the three-layer compression strategy
 - Know when to trigger compaction and what gets preserved
 
-**Video output:** "Context will fill up; you need a way to make room"
+**Motto:** *"Context will fill up; you need a way to make room"*
 
 ---
 
-## Stage 2: System Hardening (Sessions 07-11)
+## Phase 3: PERSISTENCE (Sessions 07-08)
 
-### Session 07: Permission System
-
-**Source files:**
-- `docs/en/s07-permission-system.md`
-- `agents/s07_permission_system.ts`
-
-**Learning objectives:**
-- Understand why dangerous tools need a gate
-- See the allow/deny check before tool execution
-- Know the difference between model intent and safe execution
-
-**Video output:** "Dangerous tools need a gate"
-
----
-
-### Session 08: Hook System
+### Session 07: Task System
 
 **Source files:**
-- `docs/en/s08-hook-system.md`
-- `agents/s08_hook_system.ts`
-
-**Learning objectives:**
-- Understand lifecycle hooks (pre/post tool call, session events)
-- See how hooks extend behavior without changing the loop
-- Know where hooks register and how they fire
-
-**Video output:** "Extend behavior without rewriting the loop"
-
----
-
-### Session 09: Memory System
-
-**Source files:**
-- `docs/en/s09-memory-system.md`
-- `agents/s09_memory_system.ts`
-
-**Learning objectives:**
-- Understand durable key-value memory that survives sessions
-- Know the difference between context (session) and memory (cross-session)
-- See the memory read/write tool interface
-
-**Video output:** "Some facts must survive the session"
-
----
-
-### Session 10: System Prompt
-
-**Source files:**
-- `docs/en/s10-system-prompt.md`
-- `docs/en/s10a-message-prompt-pipeline.md`
-- `agents/s10_system_prompt.ts`
-
-**Learning objectives:**
-- Understand section-based prompt assembly vs one monolithic string
-- See how stable rules and runtime state combine into the system message
-- Know the message and prompt pipeline end to end
-
-**Video output:** "Assemble the prompt from stable rules and runtime state"
-
----
-
-### Session 11: Error Recovery
-
-**Source files:**
-- `docs/en/s11-error-recovery.md`
-- `agents/s11_error_recovery.ts`
-
-**Learning objectives:**
-- Understand continuation and retry branches
-- See how the loop handles API errors, tool failures, and partial results
-- Know the graceful degradation strategy
-
-**Video output:** "When the loop breaks, continue from where you left off"
-
----
-
-## Stage 3: Task Runtime (Sessions 12-14)
-
-### Session 12: Task System
-
-**Source files:**
-- `docs/en/s12-task-system.md`
-- `agents/s12_task_system.ts`
+- `docs/en/s07-task-system.md`
+- `agents/s07_task_system.ts`
 
 **Learning objectives:**
 - Understand persistent task graph with dependencies
 - See file-based CRUD for task state
 - Know how tasks differ from session-only planning (s03)
 
-**Video output:** "Break big goals into small tasks, order them, persist to disk"
+**Motto:** *"Break big goals into small tasks, order them, persist to disk"*
 
 ---
 
-### Session 13: Background Tasks
+### Session 08: Background Tasks
 
 **Source files:**
-- `docs/en/s13-background-tasks.md`
-- `docs/en/s13a-runtime-task-model.md`
-- `agents/s13_background_tasks.ts`
+- `docs/en/s08-background-tasks.md`
+- `docs/extras/en/s13a-runtime-task-model.md`
+- `agents/s08_background_tasks.ts`
 - `agents/task-worker.ts`
 
 **Learning objectives:**
@@ -280,32 +178,17 @@ The orchestrator uses this report to create accurate, experience-based slides an
 - See the notification queue pattern
 - Know the runtime task model
 
-**Video output:** "Run slow operations in the background; the agent keeps thinking"
+**Motto:** *"Run slow operations in the background; the agent keeps thinking"*
 
 ---
 
-### Session 14: Cron Scheduler
+## Phase 4: TEAMS (Sessions 09-12)
+
+### Session 09: Agent Teams
 
 **Source files:**
-- `docs/en/s14-cron-scheduler.md`
-- `agents/s14_cron_scheduler.ts`
-
-**Learning objectives:**
-- Understand time-based task triggers
-- See the Node.js event loop scheduler implementation
-- Know how cron completes the task runtime
-
-**Video output:** "When the time comes, the agent wakes itself"
-
----
-
-## Stage 4: Multi-Agent Platform (Sessions 15-19)
-
-### Session 15: Agent Teams
-
-**Source files:**
-- `docs/en/s15-agent-teams.md`
-- `agents/s15_agent_teams.ts`
+- `docs/en/s09-agent-teams.md`
+- `agents/s09_agent_teams.ts`
 - `agents/teammate-worker.ts`
 
 **Learning objectives:**
@@ -313,31 +196,31 @@ The orchestrator uses this report to create accurate, experience-based slides an
 - See how the lead agent delegates to teammates
 - Know the teammate worker architecture
 
-**Video output:** "When the task is too big for one, delegate to teammates"
+**Motto:** *"When the task is too big for one, delegate to teammates"*
 
 ---
 
-### Session 16: Team Protocols
+### Session 10: Team Protocols
 
 **Source files:**
-- `docs/en/s16-team-protocols.md`
-- `docs/en/team-task-lane-model.md`
-- `agents/s16_team_protocols.ts`
+- `docs/en/s10-team-protocols.md`
+- `docs/extras/en/team-task-lane-model.md`
+- `agents/s10_team_protocols.ts`
 
 **Learning objectives:**
 - Understand request-response coordination patterns
 - See shutdown and plan approval FSM
 - Know the team-task-lane model
 
-**Video output:** "Teammates need shared communication rules"
+**Motto:** *"Teammates need shared communication rules"*
 
 ---
 
-### Session 17: Autonomous Agents
+### Session 11: Autonomous Agents
 
 **Source files:**
-- `docs/en/s17-autonomous-agents.md`
-- `agents/s17_autonomous_agents.ts`
+- `docs/en/s11-autonomous-agents.md`
+- `agents/s11_autonomous_agents.ts`
 - `agents/autonomous-worker.ts`
 
 **Learning objectives:**
@@ -345,58 +228,58 @@ The orchestrator uses this report to create accurate, experience-based slides an
 - See how agents self-organize without lead assignment
 - Know the autonomous worker lifecycle
 
-**Video output:** "Teammates scan the board and claim tasks themselves"
+**Motto:** *"Teammates scan the board and claim tasks themselves"*
 
 ---
 
-### Session 18: Worktree Isolation
+### Session 12: Worktree & Task Isolation
 
 **Source files:**
-- `docs/en/s18-worktree-task-isolation.md`
-- `agents/s18_worktree_task_isolation.ts`
+- `docs/en/s12-worktree-task-isolation.md`
+- `agents/s12_worktree_task_isolation.ts`
 
 **Learning objectives:**
 - Understand isolated execution lanes via git worktrees
 - See how task IDs bind to worktree directories
 - Know when isolation prevents interference
 
-**Video output:** "Each works in its own directory, no interference"
+**Motto:** *"Each works in its own directory, no interference"*
 
 ---
 
-### Session 19: MCP & Plugin
-
-**Source files:**
-- `docs/en/s19-mcp-plugin.md`
-- `docs/en/s19a-mcp-capability-layers.md`
-- `agents/s19_mcp_plugin.ts`
-
-**Learning objectives:**
-- Understand the Model Context Protocol for external capability routing
-- See the plugin system architecture
-- Know the MCP capability layers
-
-**Video output:** "Route capabilities through a standard interface"
-
----
-
-## Capstone (Session 20)
-
-### Session 20: Full System
+## Capstone: Full System
 
 **Source files:**
 - `agents/s_full.ts`
-- All bridge docs for cross-reference
-- `docs/en/entity-map.md`
+- `docs/extras/en/entity-map.md`
 - `docs/en/data-structures.md`
+- `docs/extras/en/teaching-scope.md`
 
 **Learning objectives:**
-- See all 19 mechanisms combined in one file
+- See all 12 mechanisms combined in one file
 - Trace a full request through the complete system
 - Identify which mechanism handles which concern
 - Be able to rebuild the system from scratch
 
-**Video output:** "The complete agent harness -- all mechanisms in one system"
+**Video output:** "The complete agent harness -- all 12 mechanisms in one system"
+
+---
+
+## Extras (Reference Only)
+
+The following topics are archived in the source repo under `agents/extras/` and `docs/extras/en/`. They are NOT part of the mainline learning path but available for self-study:
+
+| Topic | Source Files | Motto |
+|-------|-------------|-------|
+| Permission System | `docs/extras/en/s07-permission-system.md`, `agents/extras/s07_permission_system.ts` | *A safety gate before execution* |
+| Hook System | `docs/extras/en/s08-hook-system.md`, `agents/extras/s08_hook_system.ts` | *Extension points around the loop* |
+| Memory System | `docs/extras/en/s09-memory-system.md`, `agents/extras/s09_memory_system.ts` | *Durable cross-session knowledge* |
+| System Prompt | `docs/extras/en/s10-system-prompt.md`, `agents/extras/s10_system_prompt.ts` | *Section-based prompt assembly* |
+| Error Recovery | `docs/extras/en/s11-error-recovery.md`, `agents/extras/s11_error_recovery.ts` | *Continuation and retry branches* |
+| Cron Scheduler | `docs/extras/en/s14-cron-scheduler.md`, `agents/extras/s14_cron_scheduler.ts` | *Time-based triggers* |
+| MCP & Plugin | `docs/extras/en/s19-mcp-plugin.md`, `agents/extras/s19_mcp_plugin.ts` | *External capability routing* |
+
+The 19-mechanism capstone combining all mainline + extras is preserved at `agents/extras/s_full_all19.ts`.
 
 ---
 
@@ -406,12 +289,11 @@ By the end you should be able to:
 
 1. Explain the agent loop and why `tool_result` is its center
 2. Add tools, planning, subagents, and context control to any agent
-3. Harden an agent with permissions, hooks, memory, and prompt assembly
-4. Build a persistent task runtime with background execution
-5. Coordinate multiple agents with teams, protocols, and autonomy
-6. Isolate parallel work and route external capabilities via MCP
-7. **Teach all of the above clearly to others**
+3. Build a persistent task runtime with background execution
+4. Coordinate multiple agents with teams, protocols, and autonomy
+5. Isolate parallel work via git worktrees
+6. **Teach all 12 mechanisms clearly to others**
 
 ---
 
-**Last Updated**: 2026-04-14
+**Last Updated**: 2026-04-19

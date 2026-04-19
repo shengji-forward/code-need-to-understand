@@ -1,19 +1,11 @@
 # TODO: Learn Claude Code TypeScript -- Video Progress
 
 **Started**: 2026-04-12
-**Target**: 21 YouTube videos with Reveal.js slides + teaching transcripts
+**Target**: 13 YouTube videos (12 mainline + 1 capstone) with Reveal.js slides + teaching transcripts
 
 ---
 
-## Stage 1: Core Loop
-
-- [ ] **Video 00** -- Architecture Overview
-  - [ ] Learn session with Claude Code
-  - [ ] Mentor monitors session + assists with quizzes
-  - [ ] Mentor generates learning-report.md
-  - [ ] Create transcript.md
-  - [ ] Create slides.html
-  - [ ] Record and upload video
+## Phase 1: THE LOOP
 
 - [ ] **Video 01** -- The Agent Loop
   - [ ] Learn session with Claude Code
@@ -30,6 +22,10 @@
   - [ ] Create transcript.md
   - [ ] Create slides.html
   - [ ] Record and upload video
+
+---
+
+## Phase 2: PLANNING & KNOWLEDGE
 
 - [ ] **Video 03** -- TodoWrite / Planning
   - [ ] Learn session with Claude Code
@@ -65,9 +61,9 @@
 
 ---
 
-## Stage 2: System Hardening
+## Phase 3: PERSISTENCE
 
-- [ ] **Video 07** -- Permission System
+- [ ] **Video 07** -- Task System
   - [ ] Learn session with Claude Code
   - [ ] Mentor monitors session + assists with quizzes
   - [ ] Mentor generates learning-report.md
@@ -75,31 +71,7 @@
   - [ ] Create slides.html
   - [ ] Record and upload video
 
-- [ ] **Video 08** -- Hook System
-  - [ ] Learn session with Claude Code
-  - [ ] Mentor monitors session + assists with quizzes
-  - [ ] Mentor generates learning-report.md
-  - [ ] Create transcript.md
-  - [ ] Create slides.html
-  - [ ] Record and upload video
-
-- [ ] **Video 09** -- Memory System
-  - [ ] Learn session with Claude Code
-  - [ ] Mentor monitors session + assists with quizzes
-  - [ ] Mentor generates learning-report.md
-  - [ ] Create transcript.md
-  - [ ] Create slides.html
-  - [ ] Record and upload video
-
-- [ ] **Video 10** -- System Prompt
-  - [ ] Learn session with Claude Code
-  - [ ] Mentor monitors session + assists with quizzes
-  - [ ] Mentor generates learning-report.md
-  - [ ] Create transcript.md
-  - [ ] Create slides.html
-  - [ ] Record and upload video
-
-- [ ] **Video 11** -- Error Recovery
+- [ ] **Video 08** -- Background Tasks
   - [ ] Learn session with Claude Code
   - [ ] Mentor monitors session + assists with quizzes
   - [ ] Mentor generates learning-report.md
@@ -109,9 +81,9 @@
 
 ---
 
-## Stage 3: Task Runtime
+## Phase 4: TEAMS
 
-- [ ] **Video 12** -- Task System
+- [ ] **Video 09** -- Agent Teams
   - [ ] Learn session with Claude Code
   - [ ] Mentor monitors session + assists with quizzes
   - [ ] Mentor generates learning-report.md
@@ -119,7 +91,7 @@
   - [ ] Create slides.html
   - [ ] Record and upload video
 
-- [ ] **Video 13** -- Background Tasks
+- [ ] **Video 10** -- Team Protocols
   - [ ] Learn session with Claude Code
   - [ ] Mentor monitors session + assists with quizzes
   - [ ] Mentor generates learning-report.md
@@ -127,7 +99,7 @@
   - [ ] Create slides.html
   - [ ] Record and upload video
 
-- [ ] **Video 14** -- Cron Scheduler
+- [ ] **Video 11** -- Autonomous Agents
   - [ ] Learn session with Claude Code
   - [ ] Mentor monitors session + assists with quizzes
   - [ ] Mentor generates learning-report.md
@@ -135,43 +107,7 @@
   - [ ] Create slides.html
   - [ ] Record and upload video
 
----
-
-## Stage 4: Multi-Agent Platform
-
-- [ ] **Video 15** -- Agent Teams
-  - [ ] Learn session with Claude Code
-  - [ ] Mentor monitors session + assists with quizzes
-  - [ ] Mentor generates learning-report.md
-  - [ ] Create transcript.md
-  - [ ] Create slides.html
-  - [ ] Record and upload video
-
-- [ ] **Video 16** -- Team Protocols
-  - [ ] Learn session with Claude Code
-  - [ ] Mentor monitors session + assists with quizzes
-  - [ ] Mentor generates learning-report.md
-  - [ ] Create transcript.md
-  - [ ] Create slides.html
-  - [ ] Record and upload video
-
-- [ ] **Video 17** -- Autonomous Agents
-  - [ ] Learn session with Claude Code
-  - [ ] Mentor monitors session + assists with quizzes
-  - [ ] Mentor generates learning-report.md
-  - [ ] Create transcript.md
-  - [ ] Create slides.html
-  - [ ] Record and upload video
-
-- [ ] **Video 18** -- Worktree Isolation
-  - [ ] Learn session with Claude Code
-  - [ ] Mentor monitors session + assists with quizzes
-  - [ ] Mentor generates learning-report.md
-  - [ ] Create transcript.md
-  - [ ] Create slides.html
-  - [ ] Record and upload video
-
-- [ ] **Video 19** -- MCP & Plugin
+- [ ] **Video 12** -- Worktree & Task Isolation
   - [ ] Learn session with Claude Code
   - [ ] Mentor monitors session + assists with quizzes
   - [ ] Mentor generates learning-report.md
@@ -183,7 +119,7 @@
 
 ## Capstone
 
-- [ ] **Video 20** -- Full System Capstone
+- [ ] **Capstone Video** -- Full System
   - [ ] Learn session with Claude Code
   - [ ] Mentor monitors session + assists with quizzes
   - [ ] Mentor generates learning-report.md
@@ -195,15 +131,15 @@
 
 ## Summary
 
-| Stage | Videos | Status |
+| Phase | Videos | Status |
 |-------|--------|--------|
-| Core Loop | 00-06 | Not started |
-| System Hardening | 07-11 | Not started |
-| Task Runtime | 12-14 | Not started |
-| Multi-Agent Platform | 15-19 | Not started |
-| Capstone | 20 | Not started |
-| **Total** | **21** | **0/21 complete** |
+| THE LOOP | 01-02 | Not started |
+| PLANNING & KNOWLEDGE | 03-06 | Not started |
+| PERSISTENCE | 07-08 | Not started |
+| TEAMS | 09-12 | Not started |
+| Capstone | 1 | Not started |
+| **Total** | **13** | **0/13 complete** |
 
 ---
 
-**Last Updated**: 2026-04-14
+**Last Updated**: 2026-04-19
