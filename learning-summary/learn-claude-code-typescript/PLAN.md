@@ -2,7 +2,12 @@
 
 ## Overview
 
-12 mainline sessions + 1 capstone covering agent harness engineering from zero to a multi-agent platform. Each session learns one mechanism, then produces a YouTube-ready Reveal.js slide deck and teaching transcript. Mirrors the Python repo's 12-session mainline structure.
+12 mainline sessions + 1 capstone covering agent harness engineering from zero to a multi-agent platform. Each session learns one mechanism. **Session 00** is a public preface video for the playlist. Mirrors the Python repo's 12-session mainline structure.
+
+### YouTube vs private learning artifacts
+
+- **`transcript.md` and `slides.html`** are **for YouTube viewers** learning [learn-claude-code-typescript](../../../learn-claude-code-typescript/) session by session. The Orchestrator writes them in a **mentor / instructor** voice from the **session’s curriculum sources** — the files named in `SESSION-PROMPTS.md` (“READ THESE FILES”) plus, for Session 00, the shared framing in [learn-claude-code/README.md](../../../learn-claude-code/README.md) and the TypeScript repo README. They are **not** meant to be a verbatim retelling of one student’s `learning-report.md`.
+- **`learning-report.md`** remains valuable for **you**: what you understood, quiz results, gaps. The Mentor creates it after each Teacher session. You may attach it when asking the Orchestrator for slides, but **curriculum repos are the primary source of truth** for public video wording.
 
 ---
 
@@ -23,7 +28,7 @@ Each session follows the same workflow with three cooperating agents:
 
 | Agent | Platform | Responsibilities |
 |-------|----------|-----------------|
-| **Orchestrator** | Cursor sidebar (main chat) | Provides session prompts, creates slides/transcripts from learning reports, tracks progress |
+| **Orchestrator** | Cursor sidebar (main chat) | Provides session prompts, creates **YouTube** slides/transcripts from **curriculum sources** (and optional learning report), tracks progress |
 | **Teacher** | Claude Code terminal | Teaches the session interactively, asks checkpoint questions, gives quizzes |
 | **Mentor** | Cursor sidebar (separate chat) | Monitors the terminal session, assists with quizzes via Socratic method, generates learning reports |
 
@@ -35,18 +40,18 @@ Each session follows the same workflow with three cooperating agents:
 4. Teacher teaches the session; student periodically attaches transcript snippets to the Mentor
 5. Mentor monitors progress, assists when the student is stuck (guides, never answers directly)
 6. When the session ends, Mentor generates `learning-report.md` in the chapter folder
-7. Student returns to the orchestrator; the learning report is the primary input for creating slides and transcript
+7. Student returns to the orchestrator; Orchestrator generates **YouTube** `transcript.md` and `slides.html` from **session curriculum files** (see `SESSION-PROMPTS.md`). Optionally attach `learning-report.md` for extra context.
 
 ### Learning Report
 
-The Mentor-generated learning report is the key artifact that bridges learning and teaching. It contains:
+The Mentor-generated learning report is the key **private** artifact for **your** learning. It contains:
 - Concepts covered and how well they were understood
 - Checkpoint question and quiz performance
 - Key insights in the student's own words
 - Areas of confusion and how they were resolved
 - Readiness assessment for the next session
 
-The orchestrator uses this report to create accurate, experience-based slides and transcripts.
+**Public videos** should follow **repository curriculum**, not the report as the main script. The report can still inform tone or emphasis when the Orchestrator merges it with the canonical sources.
 
 ---
 
@@ -296,4 +301,4 @@ By the end you should be able to:
 
 ---
 
-**Last Updated**: 2026-04-19
+**Last Updated**: 2026-04-21

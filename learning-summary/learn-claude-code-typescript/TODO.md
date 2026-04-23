@@ -1,7 +1,21 @@
 # TODO: Learn Claude Code TypeScript -- Video Progress
 
 **Started**: 2026-04-12
-**Target**: 13 YouTube videos (12 mainline + 1 capstone) with Reveal.js slides + teaching transcripts
+**Target**: 14 YouTube videos (Session 00 preface + 12 mainline + 1 capstone) with Reveal.js slides + teaching transcripts
+
+**Video materials**: `transcript.md` / `slides.html` are **playlist-facing** (mentor voice, **curriculum sources** from the TypeScript repo + Session 00 lineage from `learn-claude-code` README). `learning-report.md` is **private** (Mentor); see learning-summary `README.md` / `PLAN.md`.
+
+---
+
+## Phase 0: PREFACE
+
+- [ ] **Video 00** -- Preface (plan, schedule pattern, repo framing)
+  - [x] Learn session with Claude Code (Session 00 prompt in `SESSION-PROMPTS.md`)
+  - [x] Mentor monitors session + assists with checkpoints
+  - [x] Mentor generates learning-report.md (`00-preface/learning-report.md`)
+  - [x] Orchestrator creates transcript.md (`00-preface/transcript.md`) — YouTube / curriculum sources
+  - [x] Orchestrator creates slides.html (`00-preface/slides.html`) — YouTube / curriculum sources
+  - [ ] Record and upload video
 
 ---
 
@@ -133,13 +147,14 @@
 
 | Phase | Videos | Status |
 |-------|--------|--------|
+| PREFACE | 00 | Ready to record (report + transcript + slides done) |
 | THE LOOP | 01-02 | Not started |
 | PLANNING & KNOWLEDGE | 03-06 | Not started |
 | PERSISTENCE | 07-08 | Not started |
 | TEAMS | 09-12 | Not started |
 | Capstone | 1 | Not started |
-| **Total** | **13** | **0/13 complete** |
+| **Total** | **14** | **0/14 complete** |
 
 ---
 
-**Last Updated**: 2026-04-19
+**Last Updated**: 2026-04-20

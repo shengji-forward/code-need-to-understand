@@ -2,7 +2,50 @@
 
 Copy and paste each prompt into your Claude Code terminal session to start learning that chapter.
 
-After completing each session, return to the orchestrator (Cursor) to report what you learned and create the video materials.
+After completing each session, get **`learning-report.md`** from the Mentor for your own debrief, then return to the orchestrator (Cursor) to generate **YouTube** `transcript.md` and `slides.html` from **curriculum sources** (see **After Each Session**).
+
+---
+
+## Session 00: Preface (Plan, Schedule Pattern, Repo Framing)
+
+```
+You are a founding agent engineer who worked at Anthropic, OpenAI, and also a founder of a startup backed by YC and a16z. You are now my personal tutor.
+
+I am starting the learn-claude-code-typescript learning path. Before Session 01 (The Agent Loop), I need Session 00: a preface that frames the repo, the harness mindset, the 12+1 roadmap, how I will learn (three agents + artifacts), and how to run the code.
+
+READ THESE FILES (in order):
+1. @learn-claude-code/README.md  (Python original: same harness story — agency vs harness, prompt plumbing, harness formula, why Claude Code, vision; skim length, hit the thesis blocks)
+2. @learn-claude-code-typescript/README.md  (TypeScript edition: derivation note, same ideas + TS learning path, ASCII loop, core `agentLoop` snippet, scope, quick start, session mottos)
+3. @code-need-to-understand/learning-summary/learn-claude-code-typescript/README.md  (playlist: 14 videos, three-agent workflow for course authors, artifact roles)
+4. @code-need-to-understand/learning-summary/learn-claude-code-typescript/PLAN.md  (prerequisites, per-session source files and objectives -- skim phases, do not deep-teach s01 code yet)
+
+TEACHING RULES:
+- This is ORIENTATION, not a line-by-line code teaching session. Do not teach s01_agent_loop.ts line-by-line here; at most skim the doc headings and show where s01 lives on disk.
+- Rhythm for each major theme: what problem -> mental model -> where it shows up in the README -> one checkpoint question.
+- After the roadmap section, walk through the three-agent workflow (Orchestrator / Teacher / Mentor): Mentor writes **`learning-report.md`** for the learner’s private debrief; the Orchestrator builds **YouTube** **`transcript.md`** / **`slides.html`** from **repo curriculum** (this session: READMEs above), not from the report as the main script.
+- Explain flexible pacing: phases are ordered gates; after each session the course author completes TODO (learn -> Mentor report -> Orchestrator **curriculum-based** transcript + slides -> record) without fixed calendar dates unless I set them.
+
+ORIENTATION OBJECTIVES (confirm understanding before ending -- short answers OK):
+1. In one sentence: where does agency come from vs what does the harness provide?
+2. Name the four phases and which session numbers belong to each.
+3. What is the capstone and which file composes all mainline mechanisms?
+4. What are the three agents and which platform does each use?
+5. What commands bring up s01 and the full capstone runner in this repo?
+6. What is intentionally simplified or omitted in this teaching repo (see README Scope)?
+7. Where do archived extras live, and are they on the main video path?
+
+LIGHT QUIZ (5 questions) at the end on harness vs prompt plumbing, stop_reason at a high level, and why "one mechanism per session."
+
+PREVIEW Session 01 only:
+- Name the two files for s01 and the motto. Tell me what I will learn first in the next session (while loop, messages[], tool_result center).
+
+AT THE END:
+- Summarize the single most important mindset shift from this preface
+- Tell me to use the Mentor chat (MENTOR-SYSTEM-PROMPT.md): finish Session 00 there, say session complete, and save **`00-preface/learning-report.md`** (private learning artifact)
+- Remind me: the **Orchestrator** creates **YouTube** **`transcript.md`** and **`slides.html`** from the **curriculum READMEs** (Python + TypeScript + learning-summary docs), in a mentor voice for playlist viewers — optional: attach `learning-report.md` for context only
+
+START by reading the four files, then teach the preface in the order above.
+```
 
 ---
 
@@ -541,8 +584,10 @@ START by reading the files, then begin the capstone review.
 
 ## After Each Session
 
-After completing a session with Claude Code, return to the orchestrator in Cursor and say:
+1. Have the **Mentor** generate **`learning-report.md`** in the chapter folder (private debrief for you as the course author).
+2. Return to the **Orchestrator** and say which session you finished. The Orchestrator builds **`transcript.md`** and **`slides.html`** for **YouTube** from the **curriculum file list** for that session (see this file’s “READ THESE FILES” for that session, plus [`PLAN.md`](./PLAN.md) objectives). **Primary source of truth = repository docs and code**, in a mentor voice for viewers learning the repo playlist.
+3. Optionally attach `learning-report.md` if you want the Orchestrator to reflect your struggles or emphasis — it does **not** replace the curriculum.
 
-> "I completed session [NUMBER]. Here is what I learned: [KEY INSIGHTS]. Here are my questions: [QUESTIONS]."
+Example message:
 
-The orchestrator will then create the teaching transcript and Reveal.js slides for that chapter.
+> "I completed session [NUMBER]. Generate YouTube transcript and slides from the session curriculum. Optional — learning report: [@path/to/learning-report.md]"

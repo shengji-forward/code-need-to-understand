@@ -2,9 +2,19 @@
 
 ## Overview
 
-A structured learning path through [learn-claude-code-typescript](../../../learn-claude-code-typescript/), producing 13 YouTube tutorial videos (12 mainline + 1 capstone) using Reveal.js HTML slide presentations and teaching transcripts.
+A structured learning path through [learn-claude-code-typescript](../../../learn-claude-code-typescript/), producing **14 YouTube tutorial videos** (Session 00 preface + 12 mainline + 1 capstone) using Reveal.js HTML slide presentations and teaching transcripts.
 
-This path follows the **Feynman method**: learn each agent mechanism deeply, then teach it to others through video. Teaching forces real understanding -- if you can't explain it simply, you don't understand it well enough.
+This path follows the **Feynman method** for the **course author**: learn each mechanism deeply with Teacher + Mentor, then teach it through video. Teaching forces real understanding -- if you can't explain it simply, you don't understand it well enough.
+
+### Who the YouTube videos are for
+
+The **on-camera audience** is anyone learning **[learn-claude-code-typescript](../../../learn-claude-code-typescript/)** from the playlist: Session **00** (preface), **01–12** (one harness mechanism per video), then the **capstone** (full system). Videos use a **mentor / instructor** voice directed at **you the viewer**, not a diary of one private tutoring session.
+
+### What `transcript.md` and `slides.html` are based on
+
+**YouTube materials are curriculum-first.** For each session, the Orchestrator builds `transcript.md` and `slides.html` from the **canonical sources for that chapter** — the same files listed under “READ THESE FILES” in [`SESSION-PROMPTS.md`](./SESSION-PROMPTS.md) (docs + `agents/` code in the TypeScript repo, and for **Session 00** also the shared mental model in [learn-claude-code/README.md](../../../learn-claude-code/README.md) as the **Python original** lineage). **All on-screen code and diagrams come from those repositories** — no invented snippets.
+
+The Mentor’s **`learning-report.md`** is a **private learning artifact** (what you understood, checkpoints, quizzes). The Orchestrator may read it for optional context, but **it is not the primary script** for the public YouTube transcript or slides.
 
 ---
 
@@ -21,7 +31,7 @@ This path follows the **Feynman method**: learn each agent mechanism deeply, the
 
 - **The model IS the agent.** Your job is to build the harness -- the world the intelligence inhabits.
 - **Learn one mechanism per session.** Never mix sessions.
-- **Teach what you just learned.** Each session produces a video-ready slide deck and transcript.
+- **Teach what you just learned** (course author), then turn **curriculum sources** into a **YouTube** slide deck and transcript for **viewers**.
 - **All code comes from the repo.** Never invent code for slides -- use the actual implementation.
 
 ---
@@ -46,8 +56,8 @@ Orchestrator (Cursor)     You          Teacher (Terminal)     Mentor (Cursor sid
                           5. Shares transcript ──────────→ 6. Monitors + assists
                           7. Gets help ←──────────────────  (Socratic guidance)
                           8. Completes session ──────────→ 9. Generates learning report
-10. Reads learning report ←──────────────────────────────── learning-report.md
-11. Creates slides/transcript
+10. Reads session sources + optional learning report ←────── repo docs + learning-report.md
+11. Creates slides/transcript (YouTube / curriculum-first)
 12. Updates progress
 13. Gives next prompt → ...repeat...
 ```
@@ -56,9 +66,9 @@ Orchestrator (Cursor)     You          Teacher (Terminal)     Mentor (Cursor sid
 
 | Artifact | Created By | Purpose |
 |----------|-----------|---------|
-| `learning-report.md` | Mentor agent | Detailed record of what was learned, checkpoint/quiz results, areas of confusion |
-| `transcript.md` | Orchestrator | Teaching script for the YouTube video (based on the learning report) |
-| `slides.html` | Orchestrator | Reveal.js presentation for screen recording |
+| `learning-report.md` | Mentor agent | Private debrief: what *you* learned, checkpoints, quizzes — not the YouTube script |
+| `transcript.md` | Orchestrator | **YouTube** teaching script: mentor voice, **curriculum sources** for that session |
+| `slides.html` | Orchestrator | **YouTube** Reveal.js deck: same curriculum sources, repo-native code only |
 
 ### How to Use the Mentor Agent
 
@@ -68,11 +78,17 @@ Orchestrator (Cursor)     You          Teacher (Terminal)     Mentor (Cursor sid
 4. During the session, periodically attach terminal transcript snippets to the Mentor chat
 5. Ask the Mentor for help when stuck on checkpoint questions or quizzes -- it will guide you without giving answers
 6. When the session ends, say "Session complete" and the Mentor generates `learning-report.md`
-7. Return to the orchestrator chat -- the learning report is the input for creating slides and transcripts
+7. Return to the orchestrator when the session is done. **Attach `learning-report.md`** if you want the Orchestrator to see your private debrief; **say which session you finished** so it can pull the **curriculum file list** from `SESSION-PROMPTS.md` / `PLAN.md` and generate **`transcript.md`** + **`slides.html`** for YouTube (repo-first, not report-first).
 
 ---
 
-## Video Collection (13 Videos)
+## Video Collection (14 Videos)
+
+### Phase 0: PREFACE (Video 00)
+
+| Video | Title | Source | Motto | Duration Target |
+|-------|-------|--------|-------|-----------------|
+| 00 | Preface | [learn-claude-code/README.md](../../../learn-claude-code/README.md) (shared harness story) + [learn-claude-code-typescript/README.md](../../../learn-claude-code-typescript/README.md) + learning-summary `README.md` / `PLAN.md` | *(orientation)* | 10-15 min |
 
 ### Phase 1: THE LOOP (Videos 01-02)
 
@@ -146,6 +162,11 @@ learn-claude-code-typescript/
 ├── TODO.md                          <- progress tracker
 ├── SESSION-PROMPTS.md               <- copy-paste prompts for Claude Code
 ├── MENTOR-SYSTEM-PROMPT.md          <- copy-paste prompt for Cursor Mentor agent
+├── 00-preface/
+│   ├── README.md                    <- artifact roles (Mentor report vs YouTube deck)
+│   ├── learning-report.md           <- from Mentor (private debrief)
+│   ├── transcript.md                <- from Orchestrator (YouTube; curriculum sources)
+│   └── slides.html                  <- from Orchestrator (YouTube; curriculum sources)
 ├── 01-agent-loop/
 │   ├── learning-report.md
 │   ├── transcript.md
@@ -211,9 +232,9 @@ By the capstone, you should be able to:
 - Coordinate multiple agents with teams, protocols, and autonomy
 - Isolate parallel work via git worktrees
 
-**If you can teach all 13 videos clearly, you truly understand agent engineering.**
+**If you can teach all 14 videos clearly, you truly understand agent engineering.**
 
 ---
 
-**Last Updated**: 2026-04-19
-**Current Focus**: Session 01 -- The Agent Loop
+**Last Updated**: 2026-04-23
+**Current Focus**: **Session 01 -- The Agent Loop** — run the Teacher prompt in `SESSION-PROMPTS.md`, Mentor in a separate chat (`MENTOR-SYSTEM-PROMPT.md`), then save `01-agent-loop/learning-report.md`. When the session is done, return here for YouTube `transcript.md` + `slides.html` from curriculum (`docs/en/s01-the-agent-loop.md`, `agents/s01_agent_loop.ts`). Video 00 materials remain in `00-preface/` (record when ready).
