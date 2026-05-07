@@ -14,7 +14,7 @@ Rebuild the CS61A learning materials from the old SICP JavaScript Edition (5 cha
 
 | Decision | Choice | Rationale |
 |----------|--------|-----------|
-| Old content | Delete completely | 33 knowledge files (Ch1 + Ch2.1), 3 practice files, 97 empty session dirs, 0/97 videos completed. All based on old SICP JS Edition; not reusable for new course structure. |
+| Old content | Delete completely | 33 knowledge files (Ch1 + Ch2.1), 3 practice files + 3 solutions + 1 README, 97 empty session dirs, 0/97 videos completed. All based on old SICP JS Edition; not reusable for new course structure. |
 | JS style | Idiomatic modern JS | ES2020+, closures over nonlocal, arrow functions, class syntax |
 | Chapter 3 | JS interpreter in JS | Metacircular evaluator — more practical than Scheme |
 | Folder structure | 3-folder pattern | knowledge/, practice/, learning-summary/ — matches repo philosophy |
