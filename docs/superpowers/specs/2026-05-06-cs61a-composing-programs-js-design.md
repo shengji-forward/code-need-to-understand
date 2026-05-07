@@ -23,6 +23,7 @@ Rebuild the CS61A learning materials from the old SICP JavaScript Edition (5 cha
 | Learning path | Adapted video path | ~30 sessions (not 97), topic-cluster grouping |
 | Build approach | Chapter-First | Build Ch1 fully, validate, then expand |
 | Root LEARNING-PATH-CS61A.md | Rewrite | Will be rewritten to reflect the new 4-chapter Composing Programs structure |
+| Attribution | CC BY-SA 3.0 | Composing Programs is licensed CC BY-SA 3.0. All translated knowledge files must include attribution and a link to the original source. |
 
 ## Directory Structure
 
@@ -46,6 +47,7 @@ knowledge/cs61a-composing-programs/
 practice/cs61a-composing-programs/
 ├── README.md
 ├── shared/                          # Shared utilities (pairs, linked lists, trees)
+│   ├── helpers.js
 │   ├── pairs.js
 │   ├── linked-list.js
 │   └── tree.js
@@ -80,6 +82,8 @@ Each knowledge file is a self-contained markdown document translated from compos
 # 1.2 Elements of Programming
 
 > Based on [Composing Programs 1.2](https://composingprograms.com/pages/12-elements-of-programming.html)
+> by John DeNero. Licensed under [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).
+> Translated from Python to JavaScript.
 
 ## Key Concepts
 - Expressions and call expressions
@@ -115,17 +119,19 @@ All practice files use ES module syntax (`import`/`export`), never `module.expor
 import { range, assertEqual } from "../../shared/helpers.js";
 
 // Exercise 1: Expressions
-const result1 = // TODO: your code here
+// TODO: Write an expression that computes 2 + 3 * 4
+const result1 = undefined;
 assertEqual("Exercise 1", result1, 14);
 
 // Exercise 2: Names and the Environment
-const radius = // TODO: your code here
-const area = // TODO: your code here
+// TODO: Create a name 'radius' bound to 10, then compute the area of a circle
+const radius = undefined;   // TODO: replace with your value
+const area = undefined;     // TODO: replace with your expression
 assertEqual("Exercise 2", area, Math.PI * 10 * 10);
 ```
 
-- `console.log` assertions for self-checking (via shared `assertEqual` helper)
-- `TODO` markers where students write code
+- `assertEqual` helper for self-checking (from shared/helpers.js)
+- `undefined` as placeholder for TODOs — parseable JS that fails assertions until filled in. Each TODO has a comment above explaining the task.
 - One file per section
 - `solutions.js` has identical structure with TODOs filled in
 - Exercises progress: fill-in-blank → write from scratch → debug/extend
@@ -227,7 +233,27 @@ Review sessions (08, 16, 22, 28, 29) produce a lighter artifact set: just `learn
 | 3.2 Functional Programming (Scheme) | Functional JS patterns — closures, immutability, pure functions |
 | 3.3 Exceptions (try/except) | Exceptions — try/catch/finally, custom Error subclasses |
 | 3.4 Calculator (Scheme-syntax) | Calculator interpreter — S-expression parser, arithmetic evaluator in JS |
-| 3.5 Full Scheme interpreter | JS interpreter — parse JS-like syntax, eval/apply, environment model, closures |
+| 3.5 Full Scheme interpreter | JS interpreter (see scope below) |
+
+### Chapter 3 Section 3.5: JS Interpreter Scope
+
+The interpreter (Session 21) is the capstone of Chapter 3. To keep it educational and implementable, the scope is pinned:
+
+**Grammar subset** (what the interpreter must parse and evaluate):
+- Literal values: numbers, strings, booleans, `null`
+- Variable references and assignment (`let x = ...;`)
+- Function definitions (`function name(params) { body }` and arrow functions)
+- Function application (`f(arg1, arg2)`)
+- Conditionals (`if/else`)
+- Return statements
+- Block scope (`{ }`)
+- No classes, no loops, no async, no destructuring
+
+**Parser strategy**: Recursive descent parser. Tokenize into tokens (number, string, identifier, operator, punctuation), then parse into an AST. No external parser libraries — students build the tokenizer and parser from scratch.
+
+**Allowed dependencies**: None beyond Node.js built-ins. The interpreter is self-contained.
+
+**Architecture**: `tokenize(code) → tokens`, `parse(tokens) → AST`, `evaluate(ast, env) → value`. The `evaluate` function dispatches on AST node type, following the eval/apply pattern from the original course. Environment model uses a `Frame` class with parent-chain lookup.
 
 ## Chapter 4 Adaptation: Data Processing
 
@@ -247,12 +273,16 @@ Review sessions (08, 16, 22, 28, 29) produce a lighter artifact set: just `learn
 ### Phase 0: Cleanup
 1. Delete old content:
    - `knowledge/cs61a-structure-and-interpretation-of-computer-programs-javascript-edition/` (33 knowledge files)
-   - `practice/cs61a-sicp-js/` (3 practice files + 3 solutions)
+   - `practice/cs61a-sicp-js/` (3 practice files + 3 solutions + 1 README)
    - `learning-summary/cs61a-sicp-js/` (6 root files + 97 empty session dirs)
    - `LEARNING-PATH-CS61A.md` at repo root
-2. Create new `cs61a-composing-programs` folder structure in all 3 locations
-3. Create `practice/cs61a-composing-programs/shared/` with helpers.js, pairs.js, linked-list.js, tree.js
-4. Write root README files for each location
+2. Update parent index docs that contain stale SICP references:
+   - `README.md` (repo root) — remove SICP-specific navigation, update CS61A references to Composing Programs
+   - `knowledge/README.md` — update CS61A section to reference new course structure
+   - `learning-summary/README.md` — update CS61A section to reference new course structure
+3. Create new `cs61a-composing-programs` folder structure in all 3 locations
+4. Create `practice/cs61a-composing-programs/shared/` with helpers.js, pairs.js, linked-list.js, tree.js
+5. Write root README files for each location
 
 ### Phase 1: Chapter 1 — Full Build
 1. Translate all 7 knowledge files from composingprograms.com
