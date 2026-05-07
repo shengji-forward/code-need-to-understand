@@ -6,9 +6,11 @@
 
 **Architecture:** Three-folder pattern (knowledge/, practice/, learning-summary/) under `cs61a-composing-programs/`. Knowledge files are markdown translated from composingprograms.com. Practice files are runnable JS with `undefined` TODO placeholders and `assertEqual` self-checks. Shared utilities in `practice/cs61a-composing-programs/shared/`.
 
-**Tech Stack:** Node.js >= 18 LTS, ES modules (.js files), no external dependencies beyond Node built-ins.
+**Tech Stack:** Node.js >= 18 LTS, ES modules (.js files), no external dependencies beyond Node built-ins. The existing `practice/package.json` has `"type": "module"`, so bare `.js` files run as ES modules.
 
 **Spec:** `docs/superpowers/specs/2026-05-06-cs61a-composing-programs-js-design.md`
+
+**Import path convention:** Practice files live 3 levels deep under `practice/cs61a-composing-programs/01-.../<section>/`. From any practice file, `../../shared/helpers.js` resolves to `practice/cs61a-composing-programs/shared/helpers.js`. Always use `../../shared/`, never `../../../shared/`.
 
 ---
 
@@ -84,6 +86,8 @@ Theory courses covering computer science fundamentals, translated to JavaScript.
 - CS61A Composing Programs (JavaScript Edition) — UC Berkeley's CS61A translated from Python to JS
 - Foundational programming concepts
 ```
+
+Also remove any remaining "Source Academy" references. Search the file for "Source Academy" and remove or replace those lines.
 
 Replace the learning-summary CS61A line:
 ```
@@ -832,13 +836,35 @@ Run: `curl -s https://composingprograms.com/pages/14-designing-functions.html | 
 
 - [ ] **Step 2: Write 1.4-designing-functions.md**
 
-Translate following the same format. Key content to cover:
-- Design principles: domain, range, preconditions
-- Each function should do one thing
-- Locally defined functions (nested function declarations)
-- Default parameter values in JS
+Fetch the source content from Step 1 and produce a complete knowledge file following **exactly** the same template as 1.1-1.3:
 
-The file should follow the established markdown template with `> Based on` attribution, `## Key Concepts`, `## Content` with subsections, and `## Python vs JavaScript Notes`.
+```
+# 1.4 Designing Functions
+
+> Based on [Composing Programs 1.4](https://composingprograms.com/pages/14-designing-functions.html)
+> by John DeNero. Licensed under [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).
+> Translated from Python to JavaScript.
+
+## Key Concepts
+(list 4-6 key concepts from the source)
+
+## Content
+
+### (subsection matching the source structure)
+(translated theory with JavaScript code examples)
+
+## Python vs JavaScript Notes
+(only where translation is non-obvious)
+```
+
+Key content to cover (translate each subsection from the source):
+- Design principles: domain, range, preconditions, side effects
+- Each function should do one thing
+- Locally defined functions (nested function declarations in JS)
+- Default parameter values in JS: `function f(x = 0) { }`
+- Abstraction and the environment model
+
+Every Python code example in the source must have a corresponding idiomatic JavaScript example.
 
 - [ ] **Step 3: Commit**
 
@@ -860,12 +886,17 @@ Run: `curl -s https://composingprograms.com/pages/15-control.html | head -500`
 
 - [ ] **Step 2: Write 1.5-control.md**
 
-Translate following the format. Key content:
+Fetch the source content from Step 1 and produce a complete knowledge file using the same template as 1.1-1.3 (attribution, key concepts, content subsections, Python vs JS notes).
+
+Key content to cover (translate each subsection from the source):
 - Statements vs expressions in JS
+- Compound statements: blocks with `{ }`
 - Conditional statements: `if`/`else if`/`else`
 - Iteration: `while` loops
 - Testing: `console.assert()`, simple test patterns
-- Boolean context and truthiness in JS (different from Python — JS has more falsy values)
+- Boolean context and truthiness in JS (different from Python — JS has more falsy values: `""`, `0`, `null`, `undefined`, `NaN`, `false`)
+
+Every Python code example in the source must have a corresponding idiomatic JavaScript example.
 
 - [ ] **Step 3: Commit**
 
@@ -887,17 +918,20 @@ Run: `curl -s https://composingprograms.com/pages/16-higher-order-functions.html
 
 - [ ] **Step 2: Write 1.6-higher-order-functions.md**
 
-Translate following the format. Key content:
-- Functions as arguments: `applyToAll`, custom iterators
-- Functions as general methods: golden ratio search, improve pattern
-- Functions as return values: `compose1`, `makeAdder`
-- Newton's method using higher-order functions
-- Currying: `curry2`, `uncurry2`
-- Lambda expressions → arrow functions
-- Function decorators → HOF wrappers
-- First-class functions concept
+Fetch the source content from Step 1 and produce a complete knowledge file using the same template as 1.1-1.3 (attribution, key concepts, content subsections, Python vs JS notes).
 
-This is the most substantial knowledge file in Chapter 1.
+This is the most substantial knowledge file in Chapter 1. Translate all subsections from the source:
+- 1.6.1 Functions as Arguments — `map`/`filter` patterns, generalize with HOFs
+- 1.6.2 Functions as General Methods — golden ratio search, `improve` pattern
+- 1.6.3 Definitions and Names in Local Frames — nested environments
+- 1.6.4 Functions as Return Values — `compose1`, `makeAdder`
+- 1.6.5 Newton's Method — using HOFs (`improve`, `approx_eq`, `newton_update`)
+- 1.6.6 Currying — `curry2`, `uncurry2`
+- 1.6.7 Lambda Expressions — `lambda` → arrow functions `() =>`
+- 1.6.8 Abstractions and First-Class Functions — first-class elements
+- 1.6.9 Function Decorators — `@decorator` → HOF wrapper pattern
+
+Every Python code example in the source must have a corresponding idiomatic JavaScript example. The decorator translation uses explicit HOF wrapping: `const decorated = decorator(fn)`.
 
 - [ ] **Step 3: Commit**
 
@@ -919,12 +953,16 @@ Run: `curl -s https://composingprograms.com/pages/17-recursive-functions.html | 
 
 - [ ] **Step 2: Write 1.7-recursive-functions.md**
 
-Translate following the format. Key content:
-- Anatomy of recursion: base case + recursive step
-- `factorial` example
-- Mutual recursion: `isEven`/`isOdd`
-- Tree recursion: `fibonacci`, `countPartitions`
-- Printing vs returning in recursive functions
+Fetch the source content from Step 1 and produce a complete knowledge file using the same template as 1.1-1.3 (attribution, key concepts, content subsections, Python vs JS notes).
+
+Key content to cover (translate all subsections from the source):
+- 1.7.1 Recursion in Functions — base cases and recursive calls; `factorial` example
+- 1.7.2 The Anatomy of Recursive Functions — base case + recursive step structure
+- 1.7.3 Mutual Recursion — `isEven`/`isOdd` using ternary/conditional
+- 1.7.4 Printing vs Returning — avoid `console.log` in recursive functions
+- 1.7.5 Tree Recursion — `fibonacci`, `countPartitions`
+
+Every Python code example in the source must have a corresponding idiomatic JavaScript example.
 
 - [ ] **Step 3: Commit**
 
@@ -953,7 +991,7 @@ git commit -m "docs: add CS61A 1.7 Recursive Functions knowledge file"
  * Run: node practice/cs61a-composing-programs/01-building-abstractions-with-functions/1.1-getting-started/practice.js
  */
 
-import { assertEqual } from "../../../shared/helpers.js";
+import { assertEqual, assertApprox } from "../../shared/helpers.js";
 
 // ============================================
 // Exercise 1: Arithmetic Expressions
@@ -994,18 +1032,40 @@ assertEqual("Exercise 4", root, 12);
 // TODO: Compute the area of a circle with radius 5
 // Formula: Math.PI * radius * radius
 const circleArea = undefined;
-// Use assertApprox since floating point isn't exact
+assertApprox("Exercise 5", circleArea, Math.PI * 25);
 ```
 
 - [ ] **Step 2: Write solutions.js**
 
-Same structure with all TODOs filled in:
 ```javascript
+/**
+ * CS61A Composing Programs - 1.1 Getting Started
+ * Based on: https://composingprograms.com/pages/11-getting-started.html
+ *
+ * Run: node practice/cs61a-composing-programs/01-building-abstractions-with-functions/1.1-getting-started/solutions.js
+ */
+
+import { assertEqual, assertApprox } from "../../shared/helpers.js";
+
+// Exercise 1: Arithmetic Expressions
 const sum = 12 + 8;
+assertEqual("Exercise 1", sum, 20);
+
+// Exercise 2: String Expressions
 const greeting = "hello" + " " + "world";
+assertEqual("Exercise 2", greeting, "hello world");
+
+// Exercise 3: The typeof Operator
 const typeOfNumber = typeof 42;
+assertEqual("Exercise 3", typeOfNumber, "number");
+
+// Exercise 4: Math Functions
 const root = Math.sqrt(144);
+assertEqual("Exercise 4", root, 12);
+
+// Exercise 5: Nested Expressions
 const circleArea = Math.PI * 5 * 5;
+assertApprox("Exercise 5", circleArea, Math.PI * 25);
 ```
 
 - [ ] **Step 3: Run solutions.js to verify all pass**
@@ -1030,11 +1090,14 @@ git commit -m "feat: add CS61A 1.1 Getting Started practice and solutions"
 
 - [ ] **Step 1: Write practice.js**
 
-Exercises covering:
-- Call expressions with `Math` functions
-- Names and `const` bindings
-- Evaluating nested expressions
-- Pure vs non-pure (`Math.sqrt` vs `console.log`)
+Follow the exact format established in Task 11 (header comment with source URL, import from `../../shared/helpers.js`). Include 5-6 exercises covering:
+- Exercise 1: Call expression — `Math.max(a, b, c)` to find the largest of three numbers
+- Exercise 2: Names — `const` binding, then use in an expression (e.g., `const pi = 3.14159; const circumference = 2 * pi * 10;`)
+- Exercise 3: Nested expressions — `Math.pow(2 + 3, 4 - 1)` equivalent
+- Exercise 4: `typeof` operator — check types of different values
+- Exercise 5: Pure vs non-pure — identify which function returns a value vs side effect
+
+Each exercise uses `undefined` as placeholder, `assertEqual` for checking, and has a `// TODO:` comment explaining the task above the line.
 
 - [ ] **Step 2: Write solutions.js**
 
@@ -1062,11 +1125,15 @@ git commit -m "feat: add CS61A 1.2 Elements of Programming practice and solution
 
 - [ ] **Step 1: Write practice.js**
 
-Exercises covering:
-- Writing simple functions (`square`, `cube`)
-- Function composition (`areaOfCircle` using `square`)
-- Local names and scope
-- Default parameters
+Follow the exact format from Task 11 (header, import from `../../shared/helpers.js`). 5-6 exercises:
+- Exercise 1: Define a `square(x)` function
+- Exercise 2: Define a `cube(x)` function using `square`
+- Exercise 3: Define `areaOfCircle(radius)` using `square` and `Math.PI`
+- Exercise 4: Define `celsiusToFahrenheit(c)` with formula `c * 9/5 + 32`
+- Exercise 5: Define a function with a default parameter: `greet(name, greeting = "Hello")`
+- Exercise 6: Function composition — define `hypotenuse(a, b)` using `square` and `Math.sqrt`
+
+Each exercise: `// TODO:` comment, `undefined` body, `assertEqual` check. For function exercises, the function signature is given but body is `undefined` (e.g., `function square(x) { return undefined; }`).
 
 - [ ] **Step 2: Write solutions.js**
 
@@ -1092,10 +1159,13 @@ git commit -m "feat: add CS61A 1.3 Defining New Functions practice and solutions
 
 - [ ] **Step 1: Write practice.js**
 
-Exercises covering:
-- Designing functions with clear domain/range
-- Locally defined (nested) functions
-- Function documentation patterns
+Follow the exact format from Task 11. 4-5 exercises:
+- Exercise 1: Design a `clamp(value, low, high)` function — returns `low` if value < low, `high` if value > high, else value
+- Exercise 2: Locally defined function — `areaBetweenCircles(r1, r2)` with a local `areaOfCircle` helper
+- Exercise 3: Function with precondition — `isPrime(n)` where n must be positive
+- Exercise 4: Compose a solution using multiple small functions — `distance(x1, y1, x2, y2)` using `square` and `Math.sqrt`
+
+Each exercise: `// TODO:` comment, function body with `return undefined`, `assertEqual` check.
 
 - [ ] **Step 2: Write solutions.js**
 
@@ -1123,11 +1193,15 @@ git commit -m "feat: add CS61A 1.4 Designing Functions practice and solutions"
 
 - [ ] **Step 1: Write practice.js**
 
-Exercises covering:
-- `if`/`else` conditionals
-- `while` loops
-- Boolean logic and truthiness
-- Simple assertions/testing
+Follow the exact format from Task 11. 5-6 exercises:
+- Exercise 1: `absoluteValue(n)` using `if/else` (no `Math.abs`)
+- Exercise 2: `classifyAngle(degrees)` — returns "acute", "right", "obtuse", or "straight" using `if/else if/else`
+- Exercise 3: `sumToN(n)` using a `while` loop
+- Exercise 4: `fibonacci(n)` using a `while` loop (iterative version)
+- Exercise 5: `countDigits(n)` using a `while` loop
+- Exercise 6: Simple test — write a function `isLeapYear(year)` and verify with multiple `assertEqual` calls
+
+Each exercise: `// TODO:` comment, function body with `return undefined`, `assertEqual` check.
 
 - [ ] **Step 2: Write solutions.js**
 
@@ -1153,14 +1227,17 @@ git commit -m "feat: add CS61A 1.5 Control practice and solutions"
 
 - [ ] **Step 1: Write practice.js**
 
-Exercises covering:
-- Functions as arguments (write a `map`/`filter` using HOFs)
-- Functions as return values (`makeAdder`, `compose`)
-- Currying
-- Arrow functions as anonymous functions
-- Newton's method (guided implementation)
+Follow the exact format from Task 11. This is the most substantial practice file. 7-8 exercises:
+- Exercise 1: `applyTwice(f, x)` — applies `f` to `x` twice
+- Exercise 2: `makeAdder(n)` — returns a function that adds `n` to its argument
+- Exercise 3: `compose(f, g)` — returns `x => f(g(x))`
+- Exercise 4: `myMap(arr, f)` — implement map using a loop (no `Array.map`)
+- Exercise 5: `myFilter(arr, predicate)` — implement filter using a loop
+- Exercise 6: `curry2(f)` — convert 2-arg function to curried form: `f(a, b)` → `a => b => f(a, b)`
+- Exercise 7: `repeated(f, n)` — returns a function that applies `f` `n` times
+- Exercise 8: `improve(update, close, guess)` — Newton's method helper (guided, partial code given)
 
-This is the most substantial practice file in Chapter 1.
+Each exercise: `// TODO:` comment, function body with `return undefined`, `assertEqual` check.
 
 - [ ] **Step 2: Write solutions.js**
 
@@ -1186,11 +1263,16 @@ git commit -m "feat: add CS61A 1.6 Higher-Order Functions practice and solutions
 
 - [ ] **Step 1: Write practice.js**
 
-Exercises covering:
-- Writing recursive functions (`factorial`, `sumToN`)
-- Mutual recursion (`isEven`/`isOdd`)
-- Tree recursion (`fibonacci`, `countPartitions`)
-- Debugging: returning vs printing
+Follow the exact format from Task 11. 6-7 exercises:
+- Exercise 1: `factorial(n)` — classic recursion
+- Exercise 2: `sumToN(n)` — recursive sum 1+2+...+n
+- Exercise 3: `isEven(n)` and `isOdd(n)` — mutual recursion (both functions given as stubs)
+- Exercise 4: `fibonacci(n)` — tree recursion
+- Exercise 5: `countPartitions(n, m)` — partition counting (guided with helper structure)
+- Exercise 6: `sumDigits(n)` — recursive digit sum
+- Exercise 7: `reverseString(s)` — recursive string reversal
+
+Each exercise: `// TODO:` comment, function body with `return undefined`, `assertEqual` check.
 
 - [ ] **Step 2: Write solutions.js**
 
@@ -1312,6 +1394,8 @@ done
 Expected: All PASS for all 7 sections.
 
 - [ ] **Step 2: Run all practice files (should all FAIL — TODOs are undefined)**
+
+Note: Practice files use `undefined` as placeholders. This is safe as long as exercises don't call methods on `undefined`. If any file crashes with a TypeError (e.g., `undefined.toUpperCase()`), fix that exercise to use a safe default like `""` or `0` instead of `undefined`.
 
 ```bash
 for dir in practice/cs61a-composing-programs/01-building-abstractions-with-functions/*/; do
