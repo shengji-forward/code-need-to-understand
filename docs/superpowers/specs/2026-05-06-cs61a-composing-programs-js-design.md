@@ -6,25 +6,29 @@
 
 ## Overview
 
-Rebuild the CS61A learning materials in this repository from the old SICP JavaScript Edition (5 chapters, mostly empty scaffolding) to the modern Composing Programs curriculum (4 chapters), translated from Python to idiomatic modern JavaScript with Node.js runtime.
+Rebuild the CS61A learning materials from the old SICP JavaScript Edition (5 chapters) to the modern Composing Programs curriculum (4 chapters), translated from Python to idiomatic modern JavaScript with Node.js runtime.
+
+**Folder name:** `cs61a-composing-programs` — used consistently across all three locations (knowledge/, practice/, learning-summary/).
 
 ## Decisions
 
 | Decision | Choice | Rationale |
 |----------|--------|-----------|
-| Old content | Delete completely | Was mostly empty scaffolding (0/97 videos, 3 practice files) |
+| Old content | Delete completely | 33 knowledge files (Ch1 + Ch2.1), 3 practice files, 97 empty session dirs, 0/97 videos completed. All based on old SICP JS Edition; not reusable for new course structure. |
 | JS style | Idiomatic modern JS | ES2020+, closures over nonlocal, arrow functions, class syntax |
 | Chapter 3 | JS interpreter in JS | Metacircular evaluator — more practical than Scheme |
 | Folder structure | 3-folder pattern | knowledge/, practice/, learning-summary/ — matches repo philosophy |
-| File format | .js + Node.js | ES modules (import/export), run with `node` |
+| File format | .js + Node.js | ES modules (import/export), run with `node`. Coexists with existing .ts practice modules (00-10). |
+| Node.js version | >= 18 LTS | Supports ES2020+ features, ES modules, top-level await |
 | Learning path | Adapted video path | ~30 sessions (not 97), topic-cluster grouping |
 | Build approach | Chapter-First | Build Ch1 fully, validate, then expand |
+| Root LEARNING-PATH-CS61A.md | Rewrite | Will be rewritten to reflect the new 4-chapter Composing Programs structure |
 
 ## Directory Structure
 
-```
-cs61a-composing-programs-js/ (in each of knowledge/, practice/, learning-summary/)
+The folder name `cs61a-composing-programs` is used identically in all three parent directories. The new `.js` content coexists with the existing TypeScript practice modules (00-10) in the same `practice/` parent — the existing `package.json` with `"type": "module"` enables ES module `.js` files alongside the `.ts` files.
 
+```
 knowledge/cs61a-composing-programs/
 ├── README.md
 ├── 01-building-abstractions-with-functions/
@@ -41,6 +45,10 @@ knowledge/cs61a-composing-programs/
 
 practice/cs61a-composing-programs/
 ├── README.md
+├── shared/                          # Shared utilities (pairs, linked lists, trees)
+│   ├── pairs.js
+│   ├── linked-list.js
+│   └── tree.js
 ├── 01-building-abstractions-with-functions/
 │   ├── 1.1-getting-started/
 │   │   ├── practice.js
@@ -94,24 +102,43 @@ Each knowledge file is a self-contained markdown document translated from compos
 
 ## Practice File Format
 
-Each `practice.js` follows this pattern:
+All practice files use ES module syntax (`import`/`export`), never `module.exports`. They run via `node practice.js` (the existing `practice/package.json` has `"type": "module"`).
 
 ```javascript
 /**
  * CS61A Composing Programs - 1.2 Elements of Programming
- * Run: node 1.2-elements-of-programming/practice.js
+ * Based on: https://composingprograms.com/pages/12-elements-of-programming.html
+ *
+ * Run: node practice/cs61a-composing-programs/01-building-abstractions-with-functions/1.2-elements-of-programming/practice.js
  */
+
+import { range, assertEqual } from "../../shared/helpers.js";
 
 // Exercise 1: Expressions
 const result1 = // TODO: your code here
-console.log("Exercise 1:", result1 === 14 ? "PASS" : "FAIL");
+assertEqual("Exercise 1", result1, 14);
+
+// Exercise 2: Names and the Environment
+const radius = // TODO: your code here
+const area = // TODO: your code here
+assertEqual("Exercise 2", area, Math.PI * 10 * 10);
 ```
 
-- `console.log` assertions for self-checking (no test framework)
+- `console.log` assertions for self-checking (via shared `assertEqual` helper)
 - `TODO` markers where students write code
 - One file per section
 - `solutions.js` has identical structure with TODOs filled in
 - Exercises progress: fill-in-blank → write from scratch → debug/extend
+- Files that need shared data structures (pairs, linked lists, trees) import from `practice/cs61a-composing-programs/shared/`
+
+### Shared Utilities (`practice/cs61a-composing-programs/shared/`)
+
+Common helpers provided so students aren't blocked by boilerplate:
+
+- `helpers.js` — `assertEqual(name, actual, expected)`, `range(n)`, `assertApprox(name, actual, expected, tolerance)`
+- `pairs.js` — `pair(a, b)`, `head(p)`, `tail(p)` (for Ch2 data abstraction)
+- `linked-list.js` — `link(first, rest)`, `first(lst)`, `rest(lst)`, `isEmpty(lst)` (for Ch2 sequences)
+- `tree.js` — `tree(label, branches)`, `label(t)`, `branches(t)`, `isLeaf(t)` (for Ch2 trees)
 
 ## Python-to-JS Translation Guide
 
@@ -121,8 +148,8 @@ console.log("Exercise 1:", result1 === 14 ? "PASS" : "FAIL");
 | `def f(x):` | `function f(x) {}` or `const f = (x) =>` | Context-dependent |
 | `lambda x: x+1` | `(x) => x + 1` | Arrow functions |
 | `import math` | Node built-ins or inline | |
-| `@decorator` | HOF wrapper | `const decorated = decorator(fn)` |
-| `nonlocal x` | Closures | Idiomatic JS — no keyword needed |
+| `@decorator` | HOF wrapper | `const decorated = dec2(dec1(fn))` — compose explicitly. Decorators stack via nested calls. |
+| `nonlocal x` | Closures with `let` | Must use `let` (not `const`) for mutable closure state. `const` for the function itself, `let` for the enclosed variable. |
 | `class Foo:` | `class Foo { constructor() {} }` | |
 | `for x in seq:` | `for (const x of seq)` | |
 | `[f(x) for x in s if p(x)]` | `s.filter(p).map(f)` | Method chains |
@@ -130,8 +157,8 @@ console.log("Exercise 1:", result1 === 14 ? "PASS" : "FAIL");
 | `True/False` | `true/false` | |
 | `None` | `null` or `undefined` | Context-dependent |
 | `len(x)` | `x.length` | |
-| `range(n)` | `Array.from({length: n}, (_, i) => i)` | |
-| `dict` | Plain objects or `Map` | |
+| `range(n)` | `range(n)` (shared helper) | Provided as utility. Students use `range(n)`, not `Array.from(...)`. |
+| `dict` | Plain objects (Ch1-2), `Map` (Ch3+) | Plain objects for teaching simplicity; `Map` when interpreter needs non-string keys. |
 | `try/except` | `try/catch` | |
 | `raise ValueError(...)` | `throw new Error(...)` | |
 | `yield` | `yield` in `function*` | Nearly identical |
@@ -139,6 +166,16 @@ console.log("Exercise 1:", result1 === 14 ? "PASS" : "FAIL");
 | `threading.Thread` | `worker_threads.Worker` | |
 | `multiprocessing.Process` | `worker_threads.Worker` | |
 | `queue.Queue` | `MessageChannel` | |
+
+### Closure/const interaction
+
+```javascript
+// CLOSURE STATE: const for the function, let for the enclosed variable
+const makeCounter = () => {
+  let count = 0;              // Must be let, not const
+  return () => { count += 1; return count; };
+};
+```
 
 ## Video Learning Path (~30 Sessions)
 
@@ -162,7 +199,7 @@ console.log("Exercise 1:", result1 === 14 ? "PASS" : "FAIL");
 | 15 | Recursive Objects | 2.9 — linked list class, tree class, BST | 2 |
 | 16 | Ch2 Review | Chapter 2 comprehensive review | 2 |
 | 17 | Programming Languages | 3.1 — intro to interpreters | 3 |
-| 18 | Functional JS Patterns | 3.2 — closures, immutability, pure functions | 3 |
+| 18 | Functional Programming in JS | 3.2 — expressions as values, function definitions, compound data (pairs/lists in functional style), symbolic data. Maps the Scheme FP content to JS equivalents using closures and functional patterns. | 3 |
 | 19 | Exceptions | 3.3 — try/catch, custom errors | 3 |
 | 20 | Calculator Interpreter | 3.4 — parsing, expression trees, evaluation | 3 |
 | 21 | JS Interpreter | 3.5 — eval/apply, environments, data as programs | 3 |
@@ -179,6 +216,8 @@ Each session produces 3 artifacts:
 - `learning-report.md` — key insights and connections
 - `transcript.md` — teaching script
 - `slides.html` — Reveal.js slides
+
+Review sessions (08, 16, 22, 28, 29) produce a lighter artifact set: just `learning-report.md` with summary notes and practice problems. No transcript or slides required for reviews.
 
 ## Chapter 3 Adaptation: JS Interpreter in JS
 
@@ -206,9 +245,14 @@ Each session produces 3 artifacts:
 ## Implementation Order
 
 ### Phase 0: Cleanup
-1. Delete old `cs61a-sicp-js` content from knowledge/, practice/, learning-summary/
+1. Delete old content:
+   - `knowledge/cs61a-structure-and-interpretation-of-computer-programs-javascript-edition/` (33 knowledge files)
+   - `practice/cs61a-sicp-js/` (3 practice files + 3 solutions)
+   - `learning-summary/cs61a-sicp-js/` (6 root files + 97 empty session dirs)
+   - `LEARNING-PATH-CS61A.md` at repo root
 2. Create new `cs61a-composing-programs` folder structure in all 3 locations
-3. Write root README files for each location
+3. Create `practice/cs61a-composing-programs/shared/` with helpers.js, pairs.js, linked-list.js, tree.js
+4. Write root README files for each location
 
 ### Phase 1: Chapter 1 — Full Build
 1. Translate all 7 knowledge files from composingprograms.com
