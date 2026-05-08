@@ -1,6 +1,6 @@
 # CS61A Composing Programs JS — Phase 0 Cleanup & Chapter 1 Build
 
-> **For agentic workers:** REQUIRED: Use superpowers:subagent-driven-development (if subagents available) or superpowers:executing-plans to implement this plan. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** Follow the checkbox (`- [ ]`) steps and update them as work completes. If `superpowers:subagent-driven-development` or `superpowers:executing-plans` is available, use it; otherwise execute the checklist manually.
 
 **Goal:** Delete old SICP JS content, scaffold new Composing Programs structure, and build Chapter 1 completely (knowledge + practice + learning summary) as a validated template for Chapters 2-4.
 
@@ -48,8 +48,8 @@ Expected: knowledge/ shows only README.md. practice/ shows no cs61a-sicp-js. lea
 - [ ] **Step 6: Commit**
 
 ```bash
-git add -A
-git commit -m "chore: delete old SICP JS Edition content (33 knowledge files, 6 practice files, 103 summary files)"
+git add -A knowledge/cs61a-structure-and-interpretation-of-computer-programs-javascript-edition/ practice/cs61a-sicp-js/ learning-summary/cs61a-sicp-js/ LEARNING-PATH-CS61A.md
+git commit -m "chore: delete old SICP JS Edition content"
 ```
 
 ---
@@ -304,10 +304,13 @@ Write `practice/cs61a-composing-programs/shared/helpers.js`:
  * Provides assertion and utility functions.
  */
 
+import { isDeepStrictEqual } from "node:util";
+
 export function assertEqual(name, actual, expected) {
-  const pass = actual === expected;
+  const pass = isDeepStrictEqual(actual, expected);
   const status = pass ? "PASS" : "FAIL";
   if (!pass) {
+    process.exitCode = 1;
     console.log(`${status}: ${name} — expected ${JSON.stringify(expected)}, got ${JSON.stringify(actual)}`);
   } else {
     console.log(`${status}: ${name}`);
@@ -318,6 +321,7 @@ export function assertApprox(name, actual, expected, tolerance = 0.0001) {
   const pass = Math.abs(actual - expected) < tolerance;
   const status = pass ? "PASS" : "FAIL";
   if (!pass) {
+    process.exitCode = 1;
     console.log(`${status}: ${name} — expected ~${expected}, got ${actual}`);
   } else {
     console.log(`${status}: ${name}`);
@@ -436,9 +440,9 @@ git commit -m "feat: scaffold CS61A Composing Programs folder structure and shar
 
 - [ ] **Step 1: Fetch source content from composingprograms.com**
 
-Run: `curl -s https://composingprograms.com/pages/11-getting-started.html | head -500`
+Run: `curl -Ls https://composingprograms.com/pages/11-getting-started.html -o /tmp/cs61a-1.1-getting-started.html`
 
-Review the Python examples and translate to JS in the knowledge file.
+Review the complete source page, then translate the Python examples to JS in the knowledge file.
 
 - [ ] **Step 2: Write 1.1-getting-started.md**
 
@@ -566,7 +570,7 @@ git commit -m "docs: add CS61A 1.1 Getting Started knowledge file"
 
 - [ ] **Step 1: Fetch source content from composingprograms.com**
 
-Run: `curl -s https://composingprograms.com/pages/12-elements-of-programming.html | head -500`
+Run: `curl -Ls https://composingprograms.com/pages/12-elements-of-programming.html -o /tmp/cs61a-1.2-elements-of-programming.html`
 
 Review and prepare for translation.
 
@@ -699,7 +703,7 @@ git commit -m "docs: add CS61A 1.2 Elements of Programming knowledge file"
 
 - [ ] **Step 1: Fetch source content from composingprograms.com**
 
-Run: `curl -s https://composingprograms.com/pages/13-defining-new-functions.html | head -500`
+Run: `curl -Ls https://composingprograms.com/pages/13-defining-new-functions.html -o /tmp/cs61a-1.3-defining-new-functions.html`
 
 - [ ] **Step 2: Write 1.3-defining-new-functions.md**
 
@@ -832,7 +836,7 @@ git commit -m "docs: add CS61A 1.3 Defining New Functions knowledge file"
 
 - [ ] **Step 1: Fetch source content from composingprograms.com**
 
-Run: `curl -s https://composingprograms.com/pages/14-designing-functions.html | head -500`
+Run: `curl -Ls https://composingprograms.com/pages/14-designing-functions.html -o /tmp/cs61a-1.4-designing-functions.html`
 
 - [ ] **Step 2: Write 1.4-designing-functions.md**
 
@@ -882,7 +886,7 @@ git commit -m "docs: add CS61A 1.4 Designing Functions knowledge file"
 
 - [ ] **Step 1: Fetch source content from composingprograms.com**
 
-Run: `curl -s https://composingprograms.com/pages/15-control.html | head -500`
+Run: `curl -Ls https://composingprograms.com/pages/15-control.html -o /tmp/cs61a-1.5-control.html`
 
 - [ ] **Step 2: Write 1.5-control.md**
 
@@ -914,7 +918,7 @@ git commit -m "docs: add CS61A 1.5 Control knowledge file"
 
 - [ ] **Step 1: Fetch source content from composingprograms.com**
 
-Run: `curl -s https://composingprograms.com/pages/16-higher-order-functions.html | head -500`
+Run: `curl -Ls https://composingprograms.com/pages/16-higher-order-functions.html -o /tmp/cs61a-1.6-higher-order-functions.html`
 
 - [ ] **Step 2: Write 1.6-higher-order-functions.md**
 
@@ -949,7 +953,7 @@ git commit -m "docs: add CS61A 1.6 Higher-Order Functions knowledge file"
 
 - [ ] **Step 1: Fetch source content from composingprograms.com**
 
-Run: `curl -s https://composingprograms.com/pages/17-recursive-functions.html | head -500`
+Run: `curl -Ls https://composingprograms.com/pages/17-recursive-functions.html -o /tmp/cs61a-1.7-recursive-functions.html`
 
 - [ ] **Step 2: Write 1.7-recursive-functions.md**
 
@@ -1125,7 +1129,7 @@ git commit -m "feat: add CS61A 1.2 Elements of Programming practice and solution
 
 - [ ] **Step 1: Write practice.js**
 
-Follow the exact format from Task 11 (header, import from `../../shared/helpers.js`). 5-6 exercises:
+Follow the exact format from Task 11 (header, import `{ assertEqual, assertApprox }` from `../../shared/helpers.js`). 5-6 exercises:
 - Exercise 1: Define a `square(x)` function
 - Exercise 2: Define a `cube(x)` function using `square`
 - Exercise 3: Define `areaOfCircle(radius)` using `square` and `Math.PI`
@@ -1159,7 +1163,7 @@ git commit -m "feat: add CS61A 1.3 Defining New Functions practice and solutions
 
 - [ ] **Step 1: Write practice.js**
 
-Follow the exact format from Task 11. 4-5 exercises:
+Follow the exact format from Task 11 (import `{ assertEqual, assertApprox }` from `../../shared/helpers.js`). 4-5 exercises:
 - Exercise 1: Design a `clamp(value, low, high)` function — returns `low` if value < low, `high` if value > high, else value
 - Exercise 2: Locally defined function — `areaBetweenCircles(r1, r2)` with a local `areaOfCircle` helper
 - Exercise 3: Function with precondition — `isPrime(n)` where n must be positive
@@ -1237,7 +1241,7 @@ Follow the exact format from Task 11. This is the most substantial practice file
 - Exercise 7: `repeated(f, n)` — returns a function that applies `f` `n` times
 - Exercise 8: `improve(update, close, guess)` — Newton's method helper (guided, partial code given)
 
-Each exercise: `// TODO:` comment, function body with `return undefined`, `assertEqual` check.
+Each exercise: `// TODO:` comment, function body placeholder, `assertEqual` check. For functions that return functions (`makeAdder`, `compose`, `curry2`, `repeated`), use `return () => undefined;` as the stub. For `curry2`, use `return () => () => undefined;`. For all other value-returning exercises, use `return undefined;`.
 
 - [ ] **Step 2: Write solutions.js**
 
@@ -1367,7 +1371,7 @@ Write `learning-summary/cs61a-composing-programs/TODO.md` with unchecked checkbo
 
 - [ ] **Step 5: Write SESSION-PROMPTS.md**
 
-Write `learning-summary/cs61a-composing-programs/SESSION-PROMPTS.md` with copy-paste prompts for sessions 00-08 (Chapter 1). Later chapters will be added as they're built.
+Write `learning-summary/cs61a-composing-programs/SESSION-PROMPTS.md` with explicit copy-paste prompts for sessions 00-08 (Chapter 1). Each session prompt must include: (1) the session number and title, (2) which knowledge file to read, (3) which practice file to work through, and (4) a Feynman-method teaching instruction. Later sessions (09-29) may be listed as planned placeholders matching the session table in PLAN.md. Do NOT leave any session 00-08 prompt as a "follows the same pattern" placeholder — each must be explicit.
 
 - [ ] **Step 6: Commit**
 
@@ -1419,6 +1423,6 @@ Expected: 30
 - [ ] **Step 5: Final commit if any fixes needed**
 
 ```bash
-git add -A
+git add README.md knowledge/README.md learning-summary/README.md knowledge/cs61a-composing-programs/ practice/cs61a-composing-programs/ learning-summary/cs61a-composing-programs/
 git commit -m "fix: address validation issues in CS61A Chapter 1"
 ```

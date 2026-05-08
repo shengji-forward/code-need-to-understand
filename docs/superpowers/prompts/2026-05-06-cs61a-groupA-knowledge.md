@@ -60,7 +60,7 @@ Translate these subsections:
 
 Python→JS: `from math import sqrt` → `Math.sqrt()`, `max(a,b)` → `Math.max(a,b)`, `radius = 10` → `const radius = 10`, `print(x)` returns None → `console.log(x)` returns undefined.
 
-Commit: `git commit -m "docs: add CS61A 1.2 Elements of Programming knowledge file"`
+Commit: `git add knowledge/cs61a-composing-programs/01-building-abstractions-with-functions/1.2-elements-of-programming.md && git commit -m "docs: add CS61A 1.2 Elements of Programming knowledge file"`
 
 ### File 3: knowledge/cs61a-composing-programs/01-building-abstractions-with-functions/1.3-defining-new-functions.md
 
@@ -76,7 +76,7 @@ Translate these subsections:
 
 Python→JS: `def f(x):` → `function f(x) { }`, indentation → braces, `return` optional in Python (returns None) → `return` required in JS (returns undefined without it), docstrings → JSDoc, `def f(x=0)` → `function f(x = 0)`.
 
-Commit: `git commit -m "docs: add CS61A 1.3 Defining New Functions knowledge file"`
+Commit: `git add knowledge/cs61a-composing-programs/01-building-abstractions-with-functions/1.3-defining-new-functions.md && git commit -m "docs: add CS61A 1.3 Defining New Functions knowledge file"`
 
 ### File 4: knowledge/cs61a-composing-programs/01-building-abstractions-with-functions/1.4-designing-functions.md
 
@@ -89,7 +89,7 @@ Translate ALL subsections from the source:
 - Default parameter values: `function f(x = 0) { }`
 - Abstractions and environment model
 
-Commit: `git commit -m "docs: add CS61A 1.4 Designing Functions knowledge file"`
+Commit: `git add knowledge/cs61a-composing-programs/01-building-abstractions-with-functions/1.4-designing-functions.md && git commit -m "docs: add CS61A 1.4 Designing Functions knowledge file"`
 
 ### File 5: knowledge/cs61a-composing-programs/01-building-abstractions-with-functions/1.5-control.md
 
@@ -103,7 +103,7 @@ Translate ALL subsections from the source:
 - Testing (`console.assert()`, simple test patterns)
 - Boolean context and truthiness in JS — highlight that JS has more falsy values than Python: `""`, `0`, `null`, `undefined`, `NaN`, `false` are all falsy. Python only has `False`, `0`, `""`, `None`, `[]`, `{}`.
 
-Commit: `git commit -m "docs: add CS61A 1.5 Control knowledge file"`
+Commit: `git add knowledge/cs61a-composing-programs/01-building-abstractions-with-functions/1.5-control.md && git commit -m "docs: add CS61A 1.5 Control knowledge file"`
 
 ### File 6: knowledge/cs61a-composing-programs/01-building-abstractions-with-functions/1.6-higher-order-functions.md
 
@@ -120,7 +120,7 @@ This is the most substantial file — the source has 9 subsections. Translate AL
 - 1.6.8 Abstractions and First-Class Functions — first-class elements
 - 1.6.9 Function Decorators — Python `@decorator` → JS HOF wrapper: `const decorated = decorator(fn)`
 
-Commit: `git commit -m "docs: add CS61A 1.6 Higher-Order Functions knowledge file"`
+Commit: `git add knowledge/cs61a-composing-programs/01-building-abstractions-with-functions/1.6-higher-order-functions.md && git commit -m "docs: add CS61A 1.6 Higher-Order Functions knowledge file"`
 
 ### File 7: knowledge/cs61a-composing-programs/01-building-abstractions-with-functions/1.7-recursive-functions.md
 
@@ -133,7 +133,7 @@ Translate ALL subsections from the source:
 - 1.7.4 Printing vs Returning — avoid console.log in recursive functions
 - 1.7.5 Tree Recursion — fibonacci, countPartitions
 
-Commit: `git commit -m "docs: add CS61A 1.7 Recursive Functions knowledge file"`
+Commit: `git add knowledge/cs61a-composing-programs/01-building-abstractions-with-functions/1.7-recursive-functions.md && git commit -m "docs: add CS61A 1.7 Recursive Functions knowledge file"`
 
 ## Process
 
