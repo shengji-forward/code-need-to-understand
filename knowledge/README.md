@@ -1,78 +1,50 @@
 # Knowledge - Programming Fundamentals
 
-Theory courses covering computer science fundamentals and programming principles.
+Theory courses covering computer science fundamentals, translated to idiomatic JavaScript.
 
-## Overview
+## CS61A Composing Programs (JavaScript Edition)
 
-This collection contains foundational programming courses that provide the theoretical background for practical development work.
+**Composing Programs** by John DeNero (UC Berkeley), translated from Python to JavaScript.
 
-## CS61A SICP JavaScript Edition
+Based on the legendary CS61A course, this JavaScript edition covers fundamental programming concepts through idiomatic modern JS (ES2020+, Node.js runtime).
 
-**Structure and Interpretation of Computer Programs** - JavaScript adaptation
+**License:** Original content licensed under [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).
 
-The legendary CS61A course from UC Berkeley, teaching fundamental programming concepts through JavaScript.
+### Course Structure
 
-### What You'll Learn
-
-- Functional programming patterns
-- Recursion and iteration
-- Data abstractions
-- Interpretation and compilation
-- Metalinguistic abstraction
-- Concurrent programming
-
-### How to Use Alongside practice/
-
-1. **Practice-first approach** - Start with hands-on exercises in `practice/` collection
-2. **Reference when stuck** - Use SICP materials to deepen understanding of concepts
-3. **Theory to practice** - Apply SICP principles to real TypeScript code
-
-### Source Academy
-
-Interactive online platform for CS61A JavaScript Edition:
-
-- **Website**: [Source Academy](https://sourceacademy.org/)
-- **Textbook**: [SICP JavaScript](https://sourceacademy.org/sicpjs/)
-- **Exercises**: Built-in coding challenges and visualizations
+| Chapter | Topic | Sections |
+|---------|-------|----------|
+| 1 | Building Abstractions with Functions | 1.1-1.7 |
+| 2 | Building Abstractions with Data | 2.1-2.9 |
+| 3 | Interpreting Computer Programs | 3.1-3.5 |
+| 4 | Data Processing | 4.1-4.8 |
 
 ### Directory Structure
 
 ```
-knowledge/
-└── cs61a-structure-and-interpretation-of-computer-programs-javascript-edition/
-    ├── Foreword.md, Preface.md, Acknowledgments.md    # Front matter
-    ├── 1 Building Abstractions with Functions/         # Chapter 1
-    │   ├── 1.1  The Elements of Programming/           # Sections 1.1.1-1.1.8
-    │   ├── 1.2  Functions and the Processes.../         # Sections 1.2.1-1.2.6
-    │   └── 1.3  Formulating Abstractions.../            # Sections 1.3.1-1.3.4
-    └── 2 Building Abstractions with Data/              # Chapter 2 (partial)
-        └── 2.1  Introduction to Data Abstraction/      # Sections 2.1.1-2.1.4
+knowledge/cs61a-composing-programs/
+├── README.md
+├── 01-building-abstractions-with-functions/    # Chapter 1
+├── 02-building-abstractions-with-data/         # Chapter 2
+├── 03-interpreting-computer-programs/          # Chapter 3
+└── 04-data-processing/                         # Chapter 4
 ```
 
-Content through Section 2.1 is available locally. For later sections, use [Source Academy SICP JS](https://sourceacademy.org/sicpjs/).
+### How to Use
 
-### Video Learning Path
+1. **Practice-first** — Start with exercises in `practice/cs61a-composing-programs/`
+2. **Reference when stuck** — Read knowledge files to deepen understanding
+3. **Theory to practice** — Apply concepts in your own code
 
-A 97-video YouTube learning path for SICP JS is tracked at:
-`learning-summary/cs61a-sicp-js/`
+### Source Material
+
+- **Original course:** [composingprograms.com](https://www.composingprograms.com/)
+- **CS61A Berkeley:** [cs61a.org](https://cs61a.org/)
 
 ## Learning Philosophy
 
-**Theory supports practice.**
+**Theory supports practice.** Use these materials to clarify concepts you encounter in practical work.
 
-- **practice/** - Build muscle memory through hands-on coding
-- **knowledge/** - Understand why things work the way they do
-- **learning-summary/** - Document your insights and connections
-
-Don't get stuck in theory. Use these materials to clarify concepts you encounter in practical work.
-
-## When to Reference This Collection
-
-- Confused about recursion? → SICP Chapter 1
-- Understanding data structures? → SICP Chapter 2
-- Learning about interpreters? → SICP Chapter 4
-- Need functional patterns? → SICP throughout
-
----
-
-**Remember**: The best way to learn is by doing. Use theory to deepen practice, not replace it.
+- **practice/** — Build muscle memory through hands-on coding
+- **knowledge/** — Understand why things work the way they do
+- **learning-summary/** — Document your insights and connections

@@ -29,11 +29,10 @@ Hands-on practice collection with progressive modules (00-10) taking you from Ja
 
 ### knowledge/ - Programming Fundamentals
 
-Theory courses covering computer science fundamentals and programming principles.
+Theory courses covering computer science fundamentals, translated to JavaScript.
 
 **What's inside:**
-- CS61A SICP JavaScript Edition
-- Source Academy course materials
+- CS61A Composing Programs (JavaScript Edition) — UC Berkeley's CS61A translated from Python to JS
 - Foundational programming concepts
 
 **Start here:** `knowledge/README.md`
@@ -44,7 +43,7 @@ Learning progress tracking and YouTube video learning paths (Feynman method).
 
 **What's inside:**
 - **learn-claude-code-typescript/** -- 21-video agent engineering path
-- **cs61a-sicp-js/** -- 97-video SICP JavaScript Edition path
+- **cs61a-composing-programs/** -- 30-session Composing Programs JS video path
 - Module learning summaries and hierarchy diagrams
 
 **Start here:** `learning-summary/README.md`
@@ -82,7 +81,7 @@ See `practice/QUICKSTART.md` for complete getting started guide.
 ## Navigation
 
 - **New to programming?** Start with `practice/README.md` → Module 00
-- **Want theory first?** Check `knowledge/README.md` → CS61A SICP
+- **Want theory first?** Check `knowledge/README.md` → CS61A Composing Programs
 - **Tracking progress?** Review `learning-summary/README.md` → Your summaries
 
 ## How to Contribute

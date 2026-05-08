@@ -15,7 +15,7 @@ Structured learning paths producing video tutorials using Reveal.js slides and t
 | Path | Videos | Topic |
 |------|--------|-------|
 | `learn-claude-code-typescript/` | 21 | Agent harness engineering from zero to multi-agent platform |
-| `cs61a-sicp-js/` | 97 | SICP JavaScript Edition -- computational thinking from expressions to compilers |
+| `cs61a-composing-programs/` | 30 | Composing Programs JS Edition -- functions, data, interpreters, data processing |
 
 ### Module Summaries
 
@@ -74,9 +74,9 @@ learning-summary/
 ├── learn-claude-code-typescript/   # 21-video agent engineering path
 │   ├── README.md / PLAN.md / TODO.md / SESSION-PROMPTS.md
 │   └── 00-architecture-overview/ ... 20-capstone-full-system/
-├── cs61a-sicp-js/                  # 97-video SICP JS path
+├── cs61a-composing-programs/       # 30-session Composing Programs JS path
 │   ├── README.md / PLAN.md / TODO.md / SESSION-PROMPTS.md
-│   └── 00-overview-and-philosophy/ ... 96-capstone-full-book/
+│   └── sessions/00-course-overview/ ... 29-capstone/
 ├── practice/                       # Module summaries and hierarchies
 │   ├── 00-fundamentals-topic-1-4-complete.md
 │   ├── 01-typescript-basics-topics-1-3.md
