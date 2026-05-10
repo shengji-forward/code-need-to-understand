@@ -42,10 +42,15 @@ assertEqual("7 is prime", isPrime(7), true);
 assertEqual("4 is not prime", isPrime(4), false);
 assertEqual("1 is not prime", isPrime(1), false);
 
+// --- Helper for Exercise 4 ---
+function square(x) {
+  return x * x;
+}
+
 // --- Exercise 4: distance ---
-// Euclidean distance between two points using Math.sqrt.
+// Euclidean distance between two points. Use square() and Math.sqrt.
 function distance(x1, y1, x2, y2) {
-  return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+  return Math.sqrt(square(x2 - x1) + square(y2 - y1));
 }
 
 assertApprox("distance(0,0,3,4)", distance(0, 0, 3, 4), 5);
