@@ -70,7 +70,7 @@ assertEqual("repeated(inc, 0)(10)", repeated(x => x + 1, 0)(10), 10);
 // Guided iterative improvement: repeatedly apply update to guess until close(guess) is true.
 function improve(update, close, guess) {
   while (!close(guess)) {
-    // TODO: update guess
+    return undefined; // TODO: replace with guess = update(guess)
   }
   return guess;
 }
