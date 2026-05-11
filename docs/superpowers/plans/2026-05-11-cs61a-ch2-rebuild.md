@@ -63,7 +63,7 @@ export async function assertThrows(name, fn, expectedMessage) {
 
 **`linked-list.js`** — Add these exports:
 ```javascript
-export function listToString(lst) { ... }     // "())" style for display
+export function listToString(lst) { ... }     // e.g. "(1, 2, 3)" for a list of 1,2,3
 export function listToArray(lst) { ... }      // Convert to JS array for testing
 export function listFromArray(arr) { ... }    // Build from JS array
 export function mapList(lst, fn) { ... }      // Map over linked list
@@ -296,7 +296,16 @@ practice/cs61a-composing-programs/02-building-abstractions-with-data/
     └── solutions.js
 ```
 
-Each practice.js follows the Chapter 1 format:
+Each practice.js follows the Chapter 1 format, with an additional safe-stub rule for Chapter 2:
+
+**Safe-stub rule:** Every placeholder in practice.js must be safe to execute without `TypeError`, `ReferenceError`, or infinite loops. This means:
+- **Classes** must include a `constructor` (storing params) and placeholder methods returning `undefined`
+- **Factory functions** must return a callable or object with callable properties (not bare `undefined`)
+- **Static methods** (e.g., `LinkedList.fromArray`) must exist and return a safe placeholder instance
+- **Array-returning functions** used with destructuring must return `[undefined, undefined]`, not bare `undefined`
+- **Destructuring** must not be applied to `undefined` — guard with `=== undefined ? undefined : ...` if needed
+- The goal: practice.js runs end-to-end producing only `FAIL` assertions, never crashing
+
 ```javascript
 /**
  * CS61A Composing Programs - 2.X Section Title
@@ -345,8 +354,8 @@ mkdir -p practice/cs61a-composing-programs/02-building-abstractions-with-data/{2
 **Validation:**
 ```bash
 node -e "import('./practice/cs61a-composing-programs/shared/helpers.js').then(m => { m.assertEqual('test', 1+1, 2) })"
-node -e "import('./practice/cs61a-composing-programs/shared/linked-list.js').then(m => { const l = m.listFromArray([1,2,3]); m.assertEqual('listFromArray', m.listToArray(l), [1,2,3]) })"
-node -e "import('./practice/cs61a-composing-programs/shared/tree.js').then(m => { const t = m.tree(1, [m.tree(2), m.tree(3)]); m.assertEqual('treeSize', m.treeSize(t), 3) })"
+node -e "import('./practice/cs61a-composing-programs/shared/linked-list.js').then(m => { const { isDeepStrictEqual } = await import('node:util'); const l = m.listFromArray([1,2,3]); console.log(isDeepStrictEqual(m.listToArray(l), [1,2,3]) ? 'PASS: listFromArray→listToArray' : 'FAIL') })"
+node -e "import('./practice/cs61a-composing-programs/shared/tree.js').then(async m => { const { isDeepStrictEqual } = await import('node:util'); const t = m.tree(1, [m.tree(2), m.tree(3)]); console.log(isDeepStrictEqual(m.treeSize(t), 3) ? 'PASS: treeSize' : 'FAIL') })"
 ```
 **Commit:** `feat: extend CS61A shared utilities for Chapter 2 (linked-list, tree, assertThrows)`
 **Parallelizable:** No — practice files depend on these exports.
@@ -548,48 +557,56 @@ assertEqual("Exercise 5: typeof array", typeArray, ["number", "string", "boolean
 
 ### 2.2 Data Abstraction (6 exercises)
 
+**Teaching order:** Pairs first, then gcd, then makeRational (already reduced), then arithmetic. This ensures every arithmetic test expects reduced results from the start.
+
 ```javascript
 import { assertEqual, assertApprox } from "../../shared/helpers.js";
 import { pair, head, tail } from "../../shared/pairs.js";
 
-// Exercise 1: Rational constructor and selectors
-// TODO: Complete makeRational and numer/denom using pair
+// Exercise 1: Pair operations — demonstrate closure pairs
+// TODO: Use pair(), head(), tail() to create and query a pair
+const p = pair(10, 20);
+assertEqual("Exercise 1: head(pair(10,20))", head(p), 10);
+assertEqual("Exercise 1: tail(pair(10,20))", tail(p), 20);
+assertEqual("Exercise 1: pair is function", typeof p, "function");
+
+// Exercise 2: GCD helper (needed before makeRational for reduction)
+// TODO: Implement gcd using Euclidean algorithm: gcd(a, b) = gcd(b, a % b), base case b === 0
+function gcd(a, b) { return undefined; }
+assertEqual("Exercise 2: gcd(12, 8)", gcd(12, 8), 4);
+assertEqual("Exercise 2: gcd(7, 3)", gcd(7, 3), 1);
+assertEqual("Exercise 2: gcd(6, 4)", gcd(6, 4), 2);
+
+// Exercise 3: Rational constructor and selectors — makeRational reduces using gcd
+// TODO: Complete makeRational (store reduced n/d using gcd), numer, denom using pair
 function makeRational(n, d) { return undefined; }
 function numer(r) { return undefined; }
 function denom(r) { return undefined; }
 const half = makeRational(1, 2);
-assertEqual("Exercise 1: numer(half)", numer(half), 1);
-assertEqual("Exercise 1: denom(half)", denom(half), 2);
+assertEqual("Exercise 3: numer(half)", numer(half), 1);
+assertEqual("Exercise 3: denom(half)", denom(half), 2);
+const reduced = makeRational(6, 4);
+assertEqual("Exercise 3: reduced numer", numer(reduced), 3);
+assertEqual("Exercise 3: reduced denom", denom(reduced), 2);
 
-// Exercise 2: Rational addition
+// Exercise 4: Rational addition — result is automatically reduced by makeRational
 // TODO: Implement addRational using makeRational, numer, denom
 function addRational(r1, r2) { return undefined; }
 const sum = addRational(makeRational(1, 3), makeRational(1, 6));
-assertEqual("Exercise 2: 1/3 + 1/6 numer", numer(sum), 1);
-assertEqual("Exercise 2: 1/3 + 1/6 denom", denom(sum), 2);
+assertEqual("Exercise 4: 1/3 + 1/6 numer", numer(sum), 1);
+assertEqual("Exercise 4: 1/3 + 1/6 denom", denom(sum), 2);
 
-// Exercise 3: Rational multiplication
+// Exercise 5: Rational multiplication — result is automatically reduced by makeRational
 function mulRational(r1, r2) { return undefined; }
 const product = mulRational(makeRational(2, 3), makeRational(3, 4));
-assertEqual("Exercise 3: 2/3 * 3/4 numer", numer(product), 1);
-assertEqual("Exercise 3: 2/3 * 3/4 denom", denom(product), 2);
+assertEqual("Exercise 5: 2/3 * 3/4 numer", numer(product), 1);
+assertEqual("Exercise 5: 2/3 * 3/4 denom", denom(product), 2);
 
-// Exercise 4: GCD helper for reducing rationals
-function gcd(a, b) { return undefined; }
-assertEqual("Exercise 4: gcd(12, 8)", gcd(12, 8), 4);
-assertEqual("Exercise 4: gcd(7, 3)", gcd(7, 3), 1);
-
-// Exercise 5: Abstraction barrier — rewrite makeRational to reduce using gcd
-function makeRationalReduced(n, d) { return undefined; }
-const reduced = makeRationalReduced(6, 4);
-assertEqual("Exercise 5: reduced numer", numer(reduced), 3);
-assertEqual("Exercise 5: reduced denom", denom(reduced), 2);
-
-// Exercise 6: Pair operations — demonstrate closure pairs are opaque
-const p = pair(10, 20);
-assertEqual("Exercise 6: head(pair(10,20))", head(p), 10);
-assertEqual("Exercise 6: tail(pair(10,20))", tail(p), 20);
-assertEqual("Exercise 6: pair is function", typeof p, "function");
+// Exercise 6: Abstraction barrier — verify implementation independence
+// Demonstrate that numer/denom work regardless of whether the internal pair
+// stores reduced or unreduced values. (No TODO — just run the assertions.)
+const r1 = makeRational(4, 6);
+assertEqual("Exercise 6: abstraction barrier", numer(r1) / denom(r1), 2 / 3);
 ```
 
 ### 2.3 Sequences (8 exercises)
@@ -697,20 +714,28 @@ assertEqual("Exercise 7: original.b.c changed (shallow)", original.b.c, 99);
 
 ### 2.5 Object-Oriented Programming (7 exercises)
 
+**Safe stub pattern for classes:** Every class stub must include a `constructor` that stores params and placeholder methods that `return undefined`. This prevents `TypeError` when `new` is called or methods are invoked.
+
 ```javascript
 import { assertEqual } from "../../shared/helpers.js";
 
 // Exercise 1: Basic class — define a Point class
+// TODO: Fill in constructor and distanceTo method
 class Point {
-  // TODO: constructor(x, y), distanceTo(other) using distance formula
+  constructor(x, y) { /* TODO: store x, y */ }
+  distanceTo(other) { return undefined; }
 }
 const p1 = new Point(0, 0);
 const p2 = new Point(3, 4);
 assertEqual("Exercise 1: distanceTo", Math.round(p1.distanceTo(p2)), 5);
 
 // Exercise 2: Account class with deposit/withdraw
+// TODO: Fill in constructor and methods
 class Account {
-  // TODO: constructor(holder, balance), deposit(amount), withdraw(amount), getBalance()
+  constructor(holder, balance) { /* TODO: store holder, balance */ }
+  deposit(amount) { return undefined; }
+  withdraw(amount) { return undefined; }
+  getBalance() { return undefined; }
 }
 const acc = new Account("Alice", 100);
 acc.deposit(50);
@@ -719,39 +744,49 @@ acc.withdraw(30);
 assertEqual("Exercise 2: balance after withdraw", acc.getBalance(), 120);
 
 // Exercise 3: Inheritance — CheckingAccount extends Account with fee
+// TODO: Override withdraw to deduct fee
 class CheckingAccount extends Account {
-  // TODO: constructor(holder, balance, fee), override withdraw to deduct fee
+  constructor(holder, balance, fee) { /* TODO: super + store fee */ }
+  withdraw(amount) { return undefined; }
 }
 const checking = new CheckingAccount("Bob", 100, 1);
 checking.withdraw(20);
 assertEqual("Exercise 3: balance after withdraw with fee", checking.getBalance(), 79);
 
 // Exercise 4: super keyword — SavingsAccount with interest
+// TODO: Implement addInterest using this.balance and this.interestRate
 class SavingsAccount extends Account {
-  // TODO: constructor(holder, balance, interestRate), addInterest() method
+  constructor(holder, balance, interestRate) { /* TODO: super + store interestRate */ }
+  addInterest() { return undefined; }
 }
 const savings = new SavingsAccount("Carol", 1000, 0.05);
 savings.addInterest();
 assertEqual("Exercise 4: balance after interest", savings.getBalance(), 1050);
 
 // Exercise 5: toString override
+// TODO: Implement area() and toString()
 class Rectangle {
-  // TODO: constructor(width, height), area(), toString() returns "Rectangle(w x h)"
+  constructor(width, height) { /* TODO: store width, height */ }
+  area() { return undefined; }
+  toString() { return undefined; }
 }
 const rect = new Rectangle(3, 4);
 assertEqual("Exercise 5: toString", rect.toString(), "Rectangle(3 x 4)");
 assertEqual("Exercise 5: area", rect.area(), 12);
 
 // Exercise 6: Static method
+// TODO: Implement static gcd and lcm
 class MathUtils {
-  // TODO: static gcd(a, b), static lcm(a, b)
+  static gcd(a, b) { return undefined; }
+  static lcm(a, b) { return undefined; }
 }
 assertEqual("Exercise 6: gcd", MathUtils.gcd(12, 8), 4);
 assertEqual("Exercise 6: lcm", MathUtils.lcm(4, 6), 12);
 
 // Exercise 7: Mixin pattern (for multiple inheritance simulation)
+// TODO: Implement toJSON in the mixin
 const Serializable = (Base) => class extends Base {
-  // TODO: toJSON() returns JSON.stringify of all own properties
+  toJSON() { return undefined; }
 };
 class Book {
   constructor(title, author) { this.title = title; this.author = author; }
@@ -763,46 +798,76 @@ assertEqual("Exercise 7: toJSON", book.toJSON(), '{"title":"SICP","author":"Abel
 
 ### 2.6 Implementing Classes and Objects (6 exercises)
 
+**Safe stub pattern for dispatch factories:** Every factory stub must return a callable (function or object with callable properties) so chained calls like `inst("set")("name", "Alice")` don't throw `TypeError`. Use `return (msg) => (msg === "set") ? () => {} : undefined` as the minimal safe placeholder.
+
 ```javascript
 import { assertEqual } from "../../shared/helpers.js";
 
 // Exercise 1: Instance factory — create an object with get/set message dispatch
-function makeInstance() { return undefined; }
+// TODO: Return a dispatch function that handles "get" and "set" messages
+function makeInstance() {
+  // Safe placeholder: returns a callable dispatch function
+  const props = {};
+  return (msg) => {
+    if (msg === "set") return (key, val) => { props[key] = val; };
+    if (msg === "get") return (key) => props[key];
+    return undefined;
+  };
+}
 const inst = makeInstance();
 inst("set")("name", "Alice");
 inst("set")("age", 30);
 assertEqual("Exercise 1: get name", inst("get")("name"), "Alice");
 
 // Exercise 2: Class factory — makeClass returns a function that creates instances
-function makeClass(methods) { return undefined; }
+// TODO: Implement makeClass — should create instances with method dispatch via "send"
+function makeClass(methods) {
+  // Safe placeholder: returns a factory that produces dispatch objects
+  return (...args) => {
+    const self = {};
+    return (msg) => {
+      if (msg === "send") return (methodName, ...methodArgs) => {
+        if (methods[methodName]) return methods[methodName](self, ...methodArgs);
+        return undefined;
+      };
+      return undefined;
+    };
+  };
+}
 const Dog = makeClass({
   init(self, name) { self.name = name; },
   bark(self) { return self.name + " says woof!"; }
 });
 const d = Dog("Rex");
+d("send")("init", "Rex");
 assertEqual("Exercise 2: bark", d("send")("bark"), "Rex says woof!");
 
 // Exercise 3: Account via dispatch — reimplement Account with makeClass
+// TODO: Fill in the method bodies
 const AccountClass = makeClass({
-  init(self, holder, balance) { /* TODO */ },
+  init(self, holder, balance) { /* TODO: store holder, balance on self */ },
   deposit(self, amount) { /* TODO */ },
   withdraw(self, amount) { /* TODO */ },
   getBalance(self) { /* TODO */ },
 });
-const a = AccountClass("Alice", 100);
+const a = AccountClass();
+a("send")("init", "Alice", 100);
 a("send")("deposit", 50);
 assertEqual("Exercise 3: balance", a("send")("getBalance"), 150);
 
 // Exercise 4: Method binding — automatic self binding
+// TODO: Implement bindMethod that wraps a method to auto-bind self
 function bindMethod(instance, methodName, methods) { return undefined; }
-// Test that methods receive the correct instance context
+// No assertions — this is a helper exercise; correctness is verified in Exercises 3 and 5
 
 // Exercise 5: Inheritance via dispatch — CheckingAccount via makeClass
+// TODO: Implement withdraw with fee, reuse Account init/deposit/getBalance
 const CheckingClass = makeClass({
   init(self, holder, balance, fee) { /* TODO */ },
   withdraw(self, amount) { /* TODO: include fee */ },
 });
-const c = CheckingClass("Bob", 100, 1);
+const c = CheckingClass();
+c("send")("init", "Bob", 100, 1);
 c("send")("withdraw", 20);
 assertEqual("Exercise 5: balance with fee", c("send")("getBalance"), 79);
 
@@ -814,38 +879,45 @@ assertEqual("Exercise 6: comparison exercise", true, true);
 
 ### 2.7 Object Abstraction (6 exercises)
 
+**Safe stub pattern:** Classes include constructors that store params; methods return `undefined`. The `Range` class includes a stub `[Symbol.iterator]` so spread doesn't crash.
+
 ```javascript
 import { assertEqual, assertApprox } from "../../shared/helpers.js";
 
 // Exercise 1: toString override for custom types
+// TODO: Implement toString() and valueOf()
 class Rational {
   constructor(n, d) { this.n = n; this.d = d; }
-  // TODO: toString() returns "n/d"
-  // TODO: valueOf() returns n/d as float
+  toString() { return undefined; }
+  valueOf() { return undefined; }
 }
 const r = new Rational(3, 4);
 assertEqual("Exercise 1: toString", r.toString(), "3/4");
 assertApprox("Exercise 1: valueOf", r.valueOf(), 0.75);
 
 // Exercise 2: Iterable object — make a Range class that works with for...of
+// TODO: Implement [Symbol.iterator]() to yield start..end-1
 class Range {
-  // TODO: constructor(start, end), [Symbol.iterator]()
+  constructor(start, end) { /* TODO: store start, end */ }
+  [Symbol.iterator]() { return [][Symbol.iterator](); } // safe placeholder: yields nothing
 }
 const nums = new Range(1, 4);
 assertEqual("Exercise 2: spread Range", [...nums], [1, 2, 3]);
 
 // Exercise 3: Type dispatch — handle different number representations
-function addNumber(a, b) {
-  // TODO: dispatch on typeTag property
-  // Both a and b have { typeTag, value } — support "rational" and "complex"
-}
+// TODO: dispatch on typeTag property — support "rational" and "complex"
+function addNumber(a, b) { return undefined; }
 const r1 = { typeTag: "rational", value: [1, 2] }; // 1/2
 const r2 = { typeTag: "rational", value: [1, 3] }; // 1/3
 assertEqual("Exercise 3: add rationals", addNumber(r1, r2), { typeTag: "rational", value: [5, 6] });
 
 // Exercise 4: Getters and setters
+// TODO: Implement get fahrenheit() and set fahrenheit(f)
 class Temperature {
-  // TODO: constructor(celsius), get fahrenheit(), set fahrenheit(f)
+  constructor(celsius) { /* TODO: store celsius */ }
+  get fahrenheit() { return undefined; }
+  set fahrenheit(f) { /* TODO: update celsius */ }
+  get celsius() { return undefined; }
 }
 const temp = new Temperature(0);
 assertEqual("Exercise 4: fahrenheit", temp.fahrenheit, 32);
@@ -853,33 +925,52 @@ temp.fahrenheit = 212;
 assertEqual("Exercise 4: celsius after set", temp.celsius, 100);
 
 // Exercise 5: Symbol.toPrimitive for custom conversion
+// TODO: Implement toString() and [Symbol.toPrimitive](hint)
 class Complex {
-  // TODO: constructor(real, imag), toString(), [Symbol.toPrimitive](hint)
+  constructor(real, imag) { /* TODO: store real, imag */ }
+  toString() { return undefined; }
+  [Symbol.toPrimitive](hint) { return undefined; }
 }
 const z = new Complex(3, 4);
 assertEqual("Exercise 5: toString", z.toString(), "3 + 4i");
 assertEqual("Exercise 5: number hint", +z, 5); // magnitude
 
 // Exercise 6: Generic function via coercion
-function multiplyGeneric(a, b) {
-  // TODO: coerce types if needed, then multiply
-}
+// TODO: coerce types if needed, then multiply
+function multiplyGeneric(a, b) { return undefined; }
 assertEqual("Exercise 6: rational * integer", multiplyGeneric({ typeTag: "rational", value: [2, 3] }, { typeTag: "integer", value: 6 }), { typeTag: "rational", value: [4, 1] });
 ```
 
 ### 2.8 Efficiency (7 exercises)
 
+**Safe stub pattern:** Functions that return arrays (for destructuring) must return `[undefined, undefined]` as placeholder instead of bare `undefined`, to avoid `TypeError` during destructuring. The `countCalls` and `memoize` stubs return callable wrappers with safe default properties.
+
 ```javascript
 import { assertEqual } from "../../shared/helpers.js";
 
 // Exercise 1: Call counter — HOF that wraps a function to count calls
-function countCalls(fn) { return undefined; }
+// TODO: Return a function that tracks call count and has a .callCount property
+function countCalls(fn) {
+  const wrapped = (...args) => fn(...args);
+  wrapped.callCount = 0;
+  return wrapped;
+}
 const countedFact = countCalls(function fact(n) { return n <= 1 ? 1 : n * fact(n - 1); });
 countedFact(5);
 assertEqual("Exercise 1: call count for factorial(5)", countedFact.callCount, 5);
 
 // Exercise 2: Memoize — cache function results
-function memoize(fn) { return undefined; }
+// TODO: Return a function that caches results by argument using a Map
+function memoize(fn) {
+  const cache = new Map();
+  const memoized = (n) => {
+    if (cache.has(n)) return cache.get(n);
+    const result = fn(n);
+    cache.set(n, result);
+    return result;
+  };
+  return memoized;
+}
 let fibCalls = 0;
 const memoFib = memoize(function fib(n) {
   fibCalls++;
@@ -889,45 +980,53 @@ assertEqual("Exercise 2: fib(10)", memoFib(10), 55);
 assertEqual("Exercise 2: fib calls <= 11", fibCalls <= 11, true);
 
 // Exercise 3: Linear exponentiation
-function exp(b, n) { return undefined; } // b^n, O(n)
+// TODO: Implement b^n in O(n) multiplications
+function exp(b, n) { return undefined; }
 assertEqual("Exercise 3: exp(2, 10)", exp(2, 10), 1024);
 
 // Exercise 4: Fast exponentiation (successive squaring)
-function fastExp(b, n) { return undefined; } // O(log n)
+// TODO: Implement b^n in O(log n) using successive squaring
+function fastExp(b, n) { return undefined; }
 assertEqual("Exercise 4: fastExp(2, 10)", fastExp(2, 10), 1024);
 assertEqual("Exercise 4: fastExp(3, 5)", fastExp(3, 5), 243);
 
 // Exercise 5: Count steps — return [result, steps] for exp
-function expCounted(b, n) { return undefined; }
+// TODO: Track multiplication count, return [result, steps]
+function expCounted(b, n) { return [undefined, undefined]; }
 const [result5, steps5] = expCounted(2, 10);
 assertEqual("Exercise 5: result", result5, 1024);
 assertEqual("Exercise 5: steps", steps5, 10);
 
 // Exercise 6: Count steps — fastExp
-function fastExpCounted(b, n) { return undefined; }
+// TODO: Track multiplication count, return [result, steps]
+function fastExpCounted(b, n) { return [undefined, undefined]; }
 const [result6, steps6] = fastExpCounted(2, 10);
 assertEqual("Exercise 6: result", result6, 1024);
 assertEqual("Exercise 6: steps (log)", steps6, 4);
 
 // Exercise 7: Growth category classifier
-function growthCategory(steps, n) {
-  // TODO: return "constant", "logarithmic", "linear", "quadratic", or "exponential"
-  // based on the ratio of steps to n
-  return undefined;
-}
+// TODO: return "constant", "logarithmic", "linear", "quadratic", or "exponential"
+function growthCategory(steps, n) { return undefined; }
 assertEqual("Exercise 7: constant", growthCategory(1, 100), "constant");
 assertEqual("Exercise 7: linear", growthCategory(100, 100), "linear");
 ```
 
 ### 2.9 Recursive Objects (8 exercises)
 
+**Safe stub pattern:** Classes include constructors storing params and placeholder methods returning `undefined`. Static factory methods (`fromArray`, `fibTree`) return safe placeholder instances.
+
 ```javascript
 import { assertEqual } from "../../shared/helpers.js";
 
 // Exercise 1: LinkedList class
+// TODO: Implement constructor, static fromArray, get length, get(i), toString(), add(value)
 class LinkedList {
-  // TODO: constructor(value, rest = null), static fromArray(arr)
-  // Methods: get length, get(i), toString(), add(value)
+  constructor(value, rest = null) { /* TODO: store value, rest */ }
+  static fromArray(arr) { return new LinkedList(undefined); } // safe placeholder
+  get length() { return undefined; }
+  get(i) { return undefined; }
+  toString() { return undefined; }
+  add(value) { return undefined; }
 }
 const ll = LinkedList.fromArray([1, 2, 3]);
 assertEqual("Exercise 1: length", ll.length, 3);
@@ -936,14 +1035,19 @@ assertEqual("Exercise 1: toString", ll.toString(), "LinkedList(1, 2, 3)");
 
 // Exercise 2: LinkedList map and filter
 // TODO: Add map(fn) and filter(pred) methods to LinkedList
+// NOTE: These methods are called on `ll` which has real values in solutions.js
+// In practice.js, they will return undefined (safe — no chained method calls on result)
 const doubled = ll.map(x => x * 2);
-assertEqual("Exercise 2: map", doubled.toString(), "LinkedList(2, 4, 6)");
+assertEqual("Exercise 2: map", doubled === undefined ? undefined : doubled.toString(), "LinkedList(2, 4, 6)");
 const evens = ll.filter(x => x % 2 === 0);
-assertEqual("Exercise 2: filter", evens.toString(), "LinkedList(2)");
+assertEqual("Exercise 2: filter", evens === undefined ? undefined : evens.toString(), "LinkedList(2)");
 
 // Exercise 3: Tree class
+// TODO: Implement constructor, isLeaf getter, static fibTree(n)
 class Tree {
-  // TODO: constructor(label, children = []), isLeaf, static fibTree(n)
+  constructor(label, children = []) { /* TODO: store label, children */ }
+  get isLeaf() { return undefined; }
+  static fibTree(n) { return new Tree(undefined); } // safe placeholder
 }
 const t = new Tree(1, [new Tree(2), new Tree(3, [new Tree(4)])]);
 assertEqual("Exercise 3: label", t.label, 1);
@@ -951,29 +1055,35 @@ assertEqual("Exercise 3: children count", t.children.length, 2);
 assertEqual("Exercise 3: isLeaf", t.children[0].isLeaf, true);
 
 // Exercise 4: Tree traversal — sum all labels
+// TODO: Recursively sum all labels in the tree
 function sumLabels(t) { return undefined; }
 assertEqual("Exercise 4: sumLabels", sumLabels(t), 10);
 
 // Exercise 5: Fibonacci tree
+// TODO: fibTree(n) returns a Tree where label = fib(n), left = fibTree(n-1), right = fibTree(n-2)
 const fibTree5 = Tree.fibTree(5);
 assertEqual("Exercise 5: fibTree(5) root", fibTree5.label, 5);
 assertEqual("Exercise 5: fibTree(5) left", fibTree5.children[0].label, 3);
 assertEqual("Exercise 5: fibTree(5) right", fibTree5.children[1].label, 2);
 
 // Exercise 6: BST — contains
+// TODO: Implement constructor, contains(val), insert(val)
 class BST {
-  // TODO: constructor(entry, left = null, right = null)
-  // Methods: contains(val), insert(val)
+  constructor(entry, left = null, right = null) { /* TODO: store entry, left, right */ }
+  contains(val) { return undefined; }
+  insert(val) { return undefined; }
 }
 const bst = new BST(5, new BST(3, new BST(1), new BST(4)), new BST(8, null, new BST(9)));
 assertEqual("Exercise 6: contains 4", bst.contains(4), true);
 assertEqual("Exercise 6: contains 7", bst.contains(7), false);
 
 // Exercise 7: BST insert
+// TODO: insert should create new BST nodes for new values
 bst.insert(7);
 assertEqual("Exercise 7: contains 7 after insert", bst.contains(7), true);
 
 // Exercise 8: BST to sorted array
+// TODO: In-order traversal returning sorted array
 function bstToArray(bst) { return undefined; }
 assertEqual("Exercise 8: bstToArray", bstToArray(bst), [1, 3, 4, 5, 7, 8, 9]);
 ```
@@ -1082,15 +1192,15 @@ Before committing each chunk, verify:
 - [ ] Each exercise has a `// TODO:` comment in practice.js
 - [ ] Each exercise has a corresponding `assertEqual`/`assertApprox` in both files
 
-### Open Questions
+### Resolved Design Decisions
 
-1. **Constraint propagation (2.4.9):** The source's full constraint system (adder, multiplier, connector) is complex. Should we include it as a guided exercise or simplify to just dispatch dicts? **Recommendation:** Include as a guided exercise with substantial starter code.
+1. **Constraint propagation (2.4.9):** Include as a guided exercise with substantial starter code. Do not ask students to implement the full constraint system from scratch.
 
-2. **Mixin depth (2.5.7):** How deep should the mixin pattern go? The source shows `AsSeenOnTVAccount(CheckingAccount, SavingsAccount)`. In JS, we'd use mixins. **Recommendation:** One simple mixin example is sufficient; don't try to replicate full MRO.
+2. **Mixin depth (2.5.7):** One simple mixin example only (e.g., `Serializable`). Do not attempt to replicate Python's full MRO or `AsSeenOnTVAccount` multiple-inheritance chain.
 
-3. **BST class (2.9.3):** Should BST use a separate `BST` class or extend the `Tree` class from 2.9.2? **Recommendation:** Separate `BST` class with `entry`/`left`/`right` attributes (matching the source) rather than reusing the generic `Tree` class.
+3. **BST class (2.9.3):** Separate `BST` class with `entry`/`left`/`right` attributes, matching the source. Do not extend the generic `Tree` class from 2.9.2.
 
-4. **Performance.now availability:** `performance.now()` is available in Node.js >= 16 via `import { performance } from 'node:perf_hooks'`. This is fine for our Node >= 18 requirement, but efficiency exercises should prefer step-counting over timing.
+4. **Performance.now availability:** Efficiency exercises use step-counting, not timing. `performance.now()` is available in Node >= 16 via `import { performance } from 'node:perf_hooks'` but is not used in exercises.
 
 ---
 
