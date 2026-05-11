@@ -30,3 +30,18 @@ export function assertApprox(name, actual, expected, tolerance = 0.0001) {
 export function range(n) {
   return Array.from({ length: n }, (_, i) => i);
 }
+
+export async function assertThrows(name, fn, expectedMessage) {
+  try {
+    await fn();
+    process.exitCode = 1;
+    console.log(`FAIL: ${name} — expected to throw, but did not`);
+  } catch (e) {
+    if (expectedMessage && !e.message.includes(expectedMessage)) {
+      process.exitCode = 1;
+      console.log(`FAIL: ${name} — expected message containing "${expectedMessage}", got "${e.message}"`);
+    } else {
+      console.log(`PASS: ${name}`);
+    }
+  }
+}
