@@ -1,84 +1,52 @@
-// CS61A Composing Programs — 2.3 Sequences
-// Adapted from https://composingprograms.com/pages/23-sequences.html
-// Run: node practice/cs61a-composing-programs/02-building-abstractions-with-data/2.3-sequences/practice.js
+/**
+ * CS61A Composing Programs - 2.3 Sequences
+ * Based on: https://composingprograms.com/pages/23-sequences.html
+ *
+ * Run: node practice/cs61a-composing-programs/02-building-abstractions-with-data/2.3-sequences/practice.js
+ */
 
-import { assertEqual, assertApprox } from "../../shared/helpers.js";
-import { tree, label, branches, isLeaf } from "../../shared/tree.js";
-import { link, first, rest, isEmpty, listFromArray, listToArray } from "../../shared/linked-list.js";
+import { assertEqual, range } from "../../shared/helpers.js";
+import { link, first, rest, isEmpty, listLength, listFromArray, listToArray, mapList, filterList } from "../../shared/linked-list.js";
+import { tree, label, branches, isLeaf, treeSize, mapTree } from "../../shared/tree.js";
 
-// --- Exercise 1: combine ---
-// Use the spread operator to combine two arrays into a new one.
-function combine(a, b) {
-  return undefined; // TODO
-}
+// Exercise 1: Array iteration — sum all elements
+function sumArray(arr) { return undefined; }
+assertEqual("Exercise 1: sumArray", sumArray([1, 2, 3, 4, 5]), 15);
 
-assertEqual("combine([1, 2], [3, 4])", combine([1, 2], [3, 4]), [1, 2, 3, 4]);
-assertEqual("combine([], [5])", combine([], [5]), [5]);
+// Exercise 2: Map and filter chains — get squares of even numbers
+function evenSquares(arr) { return undefined; }
+assertEqual("Exercise 2: evenSquares", evenSquares([1, 2, 3, 4, 5, 6]), [4, 16, 36]);
 
-// --- Exercise 2: countOccurrence ---
-// Count how many times value appears in an array using for...of.
-function countOccurrence(arr, value) {
-  return undefined; // TODO
-}
+// Exercise 3: Reduce — implement sum using reduce
+function sumReduce(arr) { return undefined; }
+assertEqual("Exercise 3: sumReduce", sumReduce([10, 20, 30]), 60);
 
-assertEqual("count [1,8,2,8] for 8", countOccurrence([1, 8, 2, 8], 8), 2);
-assertEqual("count [1,8,2,8] for 3", countOccurrence([1, 8, 2, 8], 3), 0);
+// Exercise 4: Linked list basics — build and query
+const lst = link(1, link(2, link(3)));
+assertEqual("Exercise 4: first(lst)", first(lst), 1);
+assertEqual("Exercise 4: first(rest(lst))", first(rest(lst)), 2);
+assertEqual("Exercise 4: listLength(lst)", listLength(lst), 3);
 
-// --- Exercise 3: myReduce ---
-// Implement reduce: apply fn(accumulator, element) for each element,
-// starting with initial. Do NOT use Array.prototype.reduce.
-function myReduce(arr, fn, initial) {
-  return undefined; // TODO
-}
+// Exercise 5: Linked list sum — recursive
+function sumList(lst) { return undefined; }
+assertEqual("Exercise 5: sumList", sumList(listFromArray([10, 20, 30])), 60);
 
-assertEqual("sum via myReduce", myReduce([1, 2, 3, 4], (a, b) => a + b, 0), 10);
-assertEqual("product via myReduce", myReduce([2, 4, 8], (a, b) => a * b, 1), 64);
-
-// --- Exercise 4: divisors ---
-// Return an array of all divisors of n from 1 to n inclusive.
-// Hint: create an array [1, 2, ..., n] and filter.
-function divisors(n) {
-  return undefined; // TODO
-}
-
-assertEqual("divisors(12)", divisors(12), [1, 2, 3, 4, 6, 12]);
-assertEqual("divisors(7)", divisors(7), [1, 7]);
-
-// --- Exercise 5: countLeaves ---
-// Count the number of leaf nodes in a tree.
-// A leaf has no branches (isLeaf returns true).
-function countLeaves(t) {
-  return undefined; // TODO
-}
-
+// Exercise 6: Tree basics — count leaves
+function countLeaves(t) { return undefined; }
 const t1 = tree(1, [tree(2), tree(3, [tree(4), tree(5)])]);
-assertEqual("countLeaves", countLeaves(t1), 3);
+assertEqual("Exercise 6: countLeaves", countLeaves(t1), 3);
 
-// --- Exercise 6: sumTreeLabels ---
-// Sum all labels in a tree recursively.
-function sumTreeLabels(t) {
-  return undefined; // TODO
-}
+// Exercise 7: Tree map — apply function to all labels
+// TODO: Return a new tree with each label doubled
+// Safe stub: returns a tree-shaped placeholder so label()/branches() don't crash.
+function doubleTree(t) { return tree(undefined, [tree(undefined), tree(undefined)]); }
+const t2 = tree(1, [tree(2), tree(3)]);
+const doubled = doubleTree(t2);
+assertEqual("Exercise 7: label(doubled)", label(doubled), 2);
+assertEqual("Exercise 7: label(branches[0])", label(branches(doubled)[0]), 4);
 
-const t2 = tree(1, [tree(2), tree(3, [tree(4)])]);
-assertEqual("sumTreeLabels", sumTreeLabels(t2), 10);
-
-// --- Exercise 7: lenLinkRecursive ---
-// Compute the length of a linked list recursively.
-// isEmpty(s) checks for the empty list; rest(s) returns the remainder.
-function lenLinkRecursive(s) {
-  return undefined; // TODO
-}
-
-assertEqual("lenLinkRecursive([])", lenLinkRecursive(listFromArray([])), 0);
-assertEqual("lenLinkRecursive([10, 20, 30])", lenLinkRecursive(listFromArray([10, 20, 30])), 3);
-
-// --- Exercise 8: applyToAllLink ---
-// Apply function f to every element of a linked list, returning a new
-// linked list. Use link(first, rest) to construct the result.
-function applyToAllLink(f, s) {
-  return undefined; // TODO
-}
-
-const doubled = applyToAllLink(x => x * 2, listFromArray([1, 2, 3]));
-assertEqual("applyToAllLink double", listToArray(doubled), [2, 4, 6]);
+// Exercise 8: Partitions — list all partitions of n using parts up to m
+// (Guided: recursive structure given, fill in logic)
+// Safe stub: returns [] so .length doesn't crash.
+function partitions(n, m) { return []; }
+assertEqual("Exercise 8: partitions(6, 4)", partitions(6, 4).length, 9);

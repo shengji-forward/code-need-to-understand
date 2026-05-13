@@ -1,37 +1,33 @@
-// CS61A Composing Programs — 2.1 Introduction
-// Adapted from https://composingprograms.com/pages/21-introduction.html
-// Run: node practice/cs61a-composing-programs/02-building-abstractions-with-data/2.1-introduction/practice.js
+/**
+ * CS61A Composing Programs - 2.1 Introduction
+ * Based on: https://composingprograms.com/pages/21-introduction.html
+ *
+ * Run: node practice/cs61a-composing-programs/02-building-abstractions-with-data/2.1-introduction/practice.js
+ */
 
 import { assertEqual, assertApprox } from "../../shared/helpers.js";
 
-// 1. typeof — every value has a type you can inspect with typeof.
-const type1 = undefined; // TODO: check typeof 42
-const type2 = undefined; // TODO: check typeof "hello"
-const type3 = undefined; // TODO: check typeof true
-assertEqual("typeof 42", type1, "number");
-assertEqual("typeof 'hello'", type2, "string");
-assertEqual("typeof true", type3, "boolean");
+// Exercise 1: Type checking with typeof
+// TODO: What type is 3.14?
+const typeOfPi = undefined;
+assertEqual("Exercise 1: typeof 3.14", typeOfPi, "number");
 
-// 2. Float approximation — floating-point arithmetic is not exact.
-//    0.1 + 0.2 does NOT equal 0.3 in JavaScript.
-const floatEqual = undefined; // TODO: check if (0.1 + 0.2) === 0.3
-assertEqual("0.1 + 0.2 === 0.3", floatEqual, false);
+// Exercise 2: Number limits — check that 0.1 + 0.2 is NOT exactly 0.3
+// TODO: Write a boolean expression that checks if 0.1 + 0.2 !== 0.3
+const floatTrap = undefined;
+assertEqual("Exercise 2: float precision", floatTrap, true);
 
-// 3. BigInt — use the n suffix for exact large integer arithmetic.
-const bigResult = undefined; // TODO: compute 9007199254740993n + 1n
-assertEqual("bigint addition", bigResult, 9007199254740994n);
+// Exercise 3: Integer check — use Number.isInteger()
+// TODO: Check if 4.0 is an integer
+const isFourInteger = undefined;
+assertEqual("Exercise 3: Number.isInteger(4.0)", isFourInteger, true);
 
-// 4. Number.isInteger — check whether a number has no fractional part.
-const isInt1 = undefined; // TODO: check Number.isInteger(7)
-const isInt2 = undefined; // TODO: check Number.isInteger(7 / 2)
-assertEqual("isInteger(7)", isInt1, true);
-assertEqual("isInteger(7/2)", isInt2, false);
+// Exercise 4: BigInt — compute 2n ** 100n > Number.MAX_SAFE_INTEGER
+// TODO: Check if 2n ** 100n is larger than Number.MAX_SAFE_INTEGER
+const bigIntComparison = undefined;
+assertEqual("Exercise 4: BigInt comparison", bigIntComparison, true);
 
-// 5. Safe integer boundary — beyond MAX_SAFE_INTEGER, integers collide.
-//    Number.MAX_SAFE_INTEGER + 1 === Number.MAX_SAFE_INTEGER + 2 is true.
-const beyondSafe = undefined; // TODO: compare (Number.MAX_SAFE_INTEGER + 1) === (Number.MAX_SAFE_INTEGER + 2)
-assertEqual("beyond safe integer", beyondSafe, true);
-
-// 6. typeof null quirk — typeof null returns "object", a known JavaScript oddity.
-const nullType = undefined; // TODO: check typeof null
-assertEqual("typeof null", nullType, "object");
+// Exercise 5: typeof checks — multiple values
+// TODO: Create an array [typeof 42, typeof "hello", typeof true, typeof undefined]
+const typeArray = undefined;
+assertEqual("Exercise 5: typeof array", typeArray, ["number", "string", "boolean", "undefined"]);
