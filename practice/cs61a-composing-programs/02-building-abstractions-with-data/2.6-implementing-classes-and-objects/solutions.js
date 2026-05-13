@@ -23,7 +23,7 @@ assertEqual("Exercise 1: get name", inst("get")("name"), "Alice");
 
 // Exercise 2: Class factory — makeClass returns a function that creates instances
 function makeClass(methods) {
-  return (...args) => {
+  const factory = (...args) => {
     const self = {};
     return (msg) => {
       if (msg === "send") {
@@ -37,6 +37,8 @@ function makeClass(methods) {
       return undefined;
     };
   };
+  factory.methods = methods;
+  return factory;
 }
 const Dog = makeClass({
   init(self, name) { self.name = name; },
@@ -65,12 +67,11 @@ function bindMethod(instance, methodName, methods) {
 }
 // No assertions — this is a helper exercise; correctness is verified in Exercises 3 and 5
 
-// Exercise 5: Inheritance via dispatch — CheckingAccount via makeClass
+// Exercise 5: Inheritance via dispatch — CheckingAccount reuses Account methods
 const CheckingClass = makeClass({
+  ...AccountClass.methods, // inherit deposit, getBalance
   init(self, holder, balance, fee) { self.holder = holder; self.balance = balance; self.fee = fee; },
-  deposit(self, amount) { self.balance += amount; },
   withdraw(self, amount) { self.balance -= (amount + self.fee); },
-  getBalance(self) { return self.balance; },
 });
 const c = CheckingClass();
 c("send")("init", "Bob", 100, 1);
