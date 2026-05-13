@@ -11,6 +11,7 @@ export function assertEqual(name, actual, expected) {
   if (!pass) {
     process.exitCode = 1;
     const safe = (v) => {
+      if (typeof v === "bigint") return v + "n";
       try { return JSON.stringify(v); }
       catch { return String(v); }
     };
