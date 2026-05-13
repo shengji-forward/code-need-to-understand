@@ -79,7 +79,7 @@ It's time to review all of Chapter 1. I've completed practice exercises for sect
 ## Session 09 — Native Data Types & Abstraction (2.1-2.2)
 
 ```
-[Planned] Session 09 will cover native data types and data abstraction (sections 2.1-2.2). Prompt will reference knowledge file for 2.1 and 2.2 and corresponding practice exercises.
+Teach me CS61A sections 2.1-2.2: Introduction and Data Abstraction. I've read knowledge/cs61a-composing-programs/02-building-abstractions-with-data/2.1-introduction.md and knowledge/cs61a-composing-programs/02-building-abstractions-with-data/2.2-data-abstraction.md. Now let me work through practice/cs61a-composing-programs/02-building-abstractions-with-data/2.1-introduction/practice.js and practice/cs61a-composing-programs/02-building-abstractions-with-data/2.2-data-abstraction/practice.js. Guide me with questions and analogies — don't give away the practice answers immediately. Check my understanding of JavaScript's number types (IEEE 754 doubles, BigInt, typeof), floating-point precision traps, and how closure-based pairs enable data abstraction before I attempt each exercise. Help me trace through how makeRational uses gcd to reduce fractions and how numer/denom selectors maintain the abstraction barrier.
 ```
 
 ---
@@ -87,7 +87,7 @@ It's time to review all of Chapter 1. I've completed practice exercises for sect
 ## Session 10 — Sequences (2.3)
 
 ```
-[Planned] Session 10 will cover sequences including arrays, linked lists, and trees (section 2.3). Prompt will reference knowledge file and practice exercises for 2.3.
+Teach me CS61A section 2.3 Sequences. I've read knowledge/cs61a-composing-programs/02-building-abstractions-with-data/2.3-sequences.md. Now let me work through practice/cs61a-composing-programs/02-building-abstractions-with-data/2.3-sequences/practice.js. Guide me with questions and analogies — don't give away the practice answers immediately. This section covers a lot of ground: arrays, linked lists, and trees. Make sure I understand the difference between JS array iteration (for...of, map, filter, reduce) and custom data structures. Before I attempt exercises, check that I can trace through a linked list recursively (what's first? what's rest? when do I stop?) and explain tree recursion (base case = leaf, recursive step = process branches). Use concrete analogies: arrays are like a row of lockers, linked lists are like a scavenger hunt with clues, trees are like an org chart.
 ```
 
 ---
@@ -95,7 +95,7 @@ It's time to review all of Chapter 1. I've completed practice exercises for sect
 ## Session 11 — Mutable Data (2.4)
 
 ```
-[Planned] Session 11 will cover mutable data, object mutation, and closures for state (section 2.4). Prompt will reference knowledge file and practice exercises for 2.4.
+Teach me CS61A section 2.4 Mutable Data. I've read knowledge/cs61a-composing-programs/02-building-abstractions-with-data/2.4-mutable-data.md. Now let me work through practice/cs61a-composing-programs/02-building-abstractions-with-data/2.4-mutable-data/practice.js. Guide me with questions and analogies — don't give away the practice answers immediately. This is a critical mindset shift from Chapter 1's immutable style. Before I attempt exercises, check my understanding of: why objects are mutable by default in JS (vs const only preventing reassignment), how closures with let variables create private mutable state (the makeCounter pattern), and the difference between identity (===) and equality (deep comparison). Use concrete analogies: mutating an array is like editing a shared Google Doc — everyone with a reference sees the change. A closure with state is like a function with its own private notebook that only it can read and write.
 ```
 
 ---
@@ -103,7 +103,7 @@ It's time to review all of Chapter 1. I've completed practice exercises for sect
 ## Session 12 — OOP (2.5)
 
 ```
-[Planned] Session 12 will cover object-oriented programming with classes and inheritance (section 2.5). Prompt will reference knowledge file and practice exercises for 2.5.
+Teach me CS61A section 2.5 Object-Oriented Programming. I've read knowledge/cs61a-composing-programs/02-building-abstractions-with-data/2.5-object-oriented-programming.md. Now let me work through practice/cs61a-composing-programs/02-building-abstractions-with-data/2.5-object-oriented-programming/practice.js. Guide me with questions and analogies — don't give away the practice answers immediately. Focus on how JS class syntax relates to the dispatch objects from 2.4: a class is a blueprint, an instance is a concrete object built from that blueprint. Before I attempt exercises, check my understanding of: constructor initialization, this binding (and why arrow functions in methods are dangerous), inheritance with extends and super, and why JS uses mixins instead of multiple inheritance. Use concrete analogies: a class hierarchy is like a species classification (Animal → Dog → Poodle), super is like "ask my parent how they do this," and mixins are like adding optional capabilities ( waterproof trait) without changing the family tree.
 ```
 
 ---
@@ -111,7 +111,7 @@ It's time to review all of Chapter 1. I've completed practice exercises for sect
 ## Session 13 — Implementing Objects (2.6-2.7)
 
 ```
-[Planned] Session 13 will cover implementing classes with dispatch dicts and object abstraction (sections 2.6-2.7). Prompt will reference knowledge file and practice exercises for 2.6-2.7.
+Teach me CS61A sections 2.6-2.7: Implementing Classes and Objects + Object Abstraction. I've read knowledge/cs61a-composing-programs/02-building-abstractions-with-data/2.6-implementing-classes-and-objects.md and knowledge/cs61a-composing-programs/02-building-abstractions-with-data/2.7-object-abstraction.md. Now let me work through practice/cs61a-composing-programs/02-building-abstractions-with-data/2.6-implementing-classes-and-objects/practice.js and practice/cs61a-composing-programs/02-building-abstractions-with-data/2.7-object-abstraction/practice.js. Guide me with questions and analogies — don't give away the practice answers immediately. Section 2.6 peels back the curtain: classes aren't magic — they're dispatch functions + closures. Before exercises, check that I can explain how makeClass creates instances and how "send" dispatches to methods with self binding. For 2.7, make sure I understand toString, Symbol.toPrimitive, and why type-tag dispatch lets us write generic functions that work across different representations. Use concrete analogies: dispatch is like a receptionist who routes your request to the right department, and type tags are like name badges that tell the system how to handle each object.
 ```
 
 ---
@@ -119,7 +119,7 @@ It's time to review all of Chapter 1. I've completed practice exercises for sect
 ## Session 14 — Efficiency (2.8)
 
 ```
-[Planned] Session 14 will cover efficiency, memoization, and orders of growth (section 2.8). Prompt will reference knowledge file and practice exercises for 2.8.
+Teach me CS61A section 2.8 Efficiency. I've read knowledge/cs61a-composing-programs/02-building-abstractions-with-data/2.8-efficiency.md. Now let me work through practice/cs61a-composing-programs/02-building-abstractions-with-data/2.8-efficiency/practice.js. Guide me with questions and analogies — don't give away the practice answers immediately. This section connects back to recursion from Chapter 1 and asks: how expensive is each call? Before I attempt exercises, check my understanding of: counting function calls as a proxy for time complexity, how memoization turns exponential fibonacci into linear by caching results, and the difference between O(n) linear exponentiation and O(log n) fast exponentiation via successive squaring. Use concrete analogies: memoization is like writing down answers in a notebook so you never solve the same subproblem twice, and successive squaring is like folding a piece of paper — each fold doubles the layers with just one action.
 ```
 
 ---
@@ -127,7 +127,7 @@ It's time to review all of Chapter 1. I've completed practice exercises for sect
 ## Session 15 — Recursive Objects (2.9)
 
 ```
-[Planned] Session 15 will cover recursive objects including linked list and tree classes (section 2.9). Prompt will reference knowledge file and practice exercises for 2.9.
+Teach me CS61A section 2.9 Recursive Objects. I've read knowledge/cs61a-composing-programs/02-building-abstractions-with-data/2.9-recursive-objects.md. Now let me work through practice/cs61a-composing-programs/02-building-abstractions-with-data/2.9-recursive-objects/practice.js. Guide me with questions and analogies — don't give away the practice answers immediately. This section brings together OOP (2.5), recursive data structures (2.3), and efficiency (2.8). Before I attempt exercises, check my understanding of: how a LinkedList node references another LinkedList node (the recursive structure), how Tree.fibTree(n) builds a tree by recursively computing left and right subtrees, and how BST uses ordering invariants to enable O(log n) search. Use concrete analogies: a linked list is like a train where each car knows about the next one, a tree is like a family tree where each person knows their children, and a BST is like the "guess my number" game — each guess eliminates half the possibilities.
 ```
 
 ---
@@ -135,7 +135,7 @@ It's time to review all of Chapter 1. I've completed practice exercises for sect
 ## Session 16 — Ch2 Review
 
 ```
-[Planned] Session 16 will review all of Chapter 2, running through practice solutions and testing understanding of data abstraction, OOP, and efficiency.
+It's time to review all of Chapter 2. I've completed practice exercises for sections 2.1 through 2.9. Run through all solution files in practice/cs61a-composing-programs/02-building-abstractions-with-data/*/solutions.js and help me identify which concepts I should revisit. Ask me to explain the connections between data abstraction → sequences → mutation → OOP → efficiency. Don't just summarize — test my understanding with questions like: "If I change the pair implementation from closures to arrays, which functions break and why?" and "Why does memoizing fibonacci reduce calls from exponential to linear, but memoizing factorial barely helps?" Ask me to predict outputs before running code. Focus especially on the ideas that are new in Chapter 2 compared to Chapter 1: mutable state, this binding, dispatch dictionaries, and algorithmic complexity analysis.
 ```
 
 ---
