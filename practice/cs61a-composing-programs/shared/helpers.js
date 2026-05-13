@@ -10,7 +10,11 @@ export function assertEqual(name, actual, expected) {
   const status = pass ? "PASS" : "FAIL";
   if (!pass) {
     process.exitCode = 1;
-    console.log(`${status}: ${name} — expected ${JSON.stringify(expected)}, got ${JSON.stringify(actual)}`);
+    const safe = (v) => {
+      try { return JSON.stringify(v); }
+      catch { return String(v); }
+    };
+    console.log(`${status}: ${name} — expected ${safe(expected)}, got ${safe(actual)}`);
   } else {
     console.log(`${status}: ${name}`);
   }
