@@ -1,6 +1,6 @@
 /**
  * CS61A Composing Programs - 2.8 Efficiency
- * Based: https://composingprograms.com/pages/28-efficiency.html
+ * Based on: https://composingprograms.com/pages/28-efficiency.html
  *
  * Run: node practice/cs61a-composing-programs/02-building-abstractions-with-data/2.8-efficiency/solutions.js
  */
@@ -16,9 +16,10 @@ function countCalls(fn) {
   wrapper.callCount = 0;
   return wrapper;
 }
-const countedFact = countCalls(function fact(n) { return n <= 1 ? 1 : n * fact(n - 1); });
+let countedFact;
+countedFact = countCalls(function fact(n) { return n <= 1 ? 1 : n * countedFact(n - 1); });
 countedFact(5);
-assertEqual("Exercise 1: call count for factorial(5)", countedFact.callCount, 1);
+assertEqual("Exercise 1: call count for factorial(5)", countedFact.callCount, 5);
 
 // Exercise 2: Memoize — cache function results
 function memoize(fn) {

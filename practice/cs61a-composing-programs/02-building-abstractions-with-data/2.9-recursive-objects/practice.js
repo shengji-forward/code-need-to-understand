@@ -1,6 +1,6 @@
 /**
  * CS61A Composing Programs - 2.9 Recursive Objects
- * Based: https://composingprograms.com/pages/29-recursive-objects.html
+ * Based on: https://composingprograms.com/pages/29-recursive-objects.html
  *
  * Run: node practice/cs61a-composing-programs/02-building-abstractions-with-data/2.9-recursive-objects/practice.js
  */
