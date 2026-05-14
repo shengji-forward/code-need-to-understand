@@ -143,7 +143,7 @@ It's time to review all of Chapter 2. I've completed practice exercises for sect
 ## Session 17 — Programming Languages (3.1)
 
 ```
-[Planned] Session 17 will introduce programming language interpreters (section 3.1). Prompt will reference knowledge file and practice exercises for 3.1.
+Teach me CS61A section 3.1 Introduction. I've read knowledge/cs61a-composing-programs/03-interpreting-computer-programs/3.1-introduction.md. Now let me work through practice/cs61a-composing-programs/03-interpreting-computer-programs/3.1-introduction/practice.js. Guide me with questions and analogies — don't give away the practice answers immediately. This section opens the curtain on how languages work. Before I attempt each exercise, check my understanding of: the four stages of the language pipeline (source → tokens → AST → value), why syntax and semantics are different things, what an AST node looks like and why it's a tree, and how the eval/apply cycle works at a high level. Use concrete analogies: tokenizing is like splitting a sentence into individual words, parsing is like diagramming a sentence into a grammar tree, and evaluation is like following the tree from leaves to root to compute the final answer.
 ```
 
 ---
@@ -151,7 +151,7 @@ It's time to review all of Chapter 2. I've completed practice exercises for sect
 ## Session 18 — Functional Programming in JS (3.2)
 
 ```
-[Planned] Session 18 will cover functional programming patterns in JS: closures, immutability, pure functions (section 3.2). Prompt will reference knowledge file and practice exercises for 3.2.
+Teach me CS61A section 3.2 Functional Programming. I've read knowledge/cs61a-composing-programs/03-interpreting-computer-programs/3.2-functional-programming.md. Now let me work through practice/cs61a-composing-programs/03-interpreting-computer-programs/3.2-functional-programming/practice.js. Guide me with questions and analogies — don't give away the practice answers immediately. This section connects Ch1's higher-order functions to a stricter functional style and bridges toward the interpreter sections. Before I attempt exercises, check my understanding of: what makes a function pure vs impure (same inputs always give same outputs, no side effects), why immutability matters (never mutate the original — return a new value), how compose(f, g) builds a pipeline x => f(g(x)), and how symbolic expressions like { type: "add", left: 2, right: 3 } represent programs as data. Use concrete analogies: a pure function is like a calculator — press the same buttons, get the same answer every time. Compose is like an assembly line — each station does one transformation and passes the result to the next. Symbolic expressions are like a recipe written in data, not code — the interpreter will "read" and execute them later.
 ```
 
 ---
@@ -159,7 +159,7 @@ It's time to review all of Chapter 2. I've completed practice exercises for sect
 ## Session 19 — Exceptions (3.3)
 
 ```
-[Planned] Session 19 will cover exceptions, try/catch/finally, and custom errors (section 3.3). Prompt will reference knowledge file and practice exercises for 3.3.
+Teach me CS61A section 3.3 Exceptions. I've read knowledge/cs61a-composing-programs/03-interpreting-computer-programs/3.3-exceptions.md. Now let me work through practice/cs61a-composing-programs/03-interpreting-computer-programs/3.3-exceptions/practice.js. Guide me with questions and analogies — don't give away the practice answers immediately. This section teaches structured error handling that the interpreter sections will rely on heavily. Before I attempt exercises, check my understanding of: how throw interrupts control flow and bubbles up through the call stack, how try/catch lets you recover at a specific point, why finally always runs (even after return or throw), how custom Error subclasses (like InterpreterError) let you distinguish domain-specific errors from built-in ones, and the difference between throwing an error and returning an error result. Use concrete analogies: throwing is like pulling a fire alarm — everyone stops what they're doing and evacuates until someone with authority (catch) handles it. finally is like the cleaning crew — they come through no matter how the meeting ended. Custom error classes are like different alarm tones — one for fire, one for security, so responders know what they're dealing with.
 ```
 
 ---
@@ -167,7 +167,7 @@ It's time to review all of Chapter 2. I've completed practice exercises for sect
 ## Session 20 — Calculator Interpreter (3.4)
 
 ```
-[Planned] Session 20 will cover building a calculator interpreter with tokenizer and parser (section 3.4). Prompt will reference knowledge file and practice exercises for 3.4.
+Teach me CS61A section 3.4 Interpreters for Languages with Combination. I've read knowledge/cs61a-composing-programs/03-interpreting-computer-programs/3.4-interpreters-for-languages-with-combination.md. Now let me work through practice/cs61a-composing-programs/03-interpreting-computer-programs/3.4-interpreters-for-languages-with-combination/practice.js. Guide me with questions and analogies — don't give away the practice answers immediately. This section builds a complete (but small) interpreter for a calculator language using S-expression syntax like (+ 1 (* 2 3)). Before I attempt exercises, check my understanding of: how the tokenizer splits "(+ 1 2)" into ["(", "+", "1", "2", ")"], how recursive descent parsing turns those tokens into a tree like { type: "CallExpression", operator: "+", operands: [...] }, how tree-walking evaluation dispatches on node type (NumberLiteral evaluates to its value, CallExpression evaluates operands then applies the operator), and how the full pipeline composes: runCalculator = evaluate(parse(tokenize(source))). Use concrete analogies: the tokenizer is a word splitter, the parser is a grammar diagram builder, and the evaluator is someone reading the diagram and doing the math. The S-expression syntax is like writing math in reverse Polish notation but with parentheses around every operation.
 ```
 
 ---
@@ -175,7 +175,7 @@ It's time to review all of Chapter 2. I've completed practice exercises for sect
 ## Session 21 — JS Interpreter (3.5)
 
 ```
-[Planned] Session 21 will cover building a full JS subset interpreter with eval/apply (section 3.5). Prompt will reference knowledge file and practice exercises for 3.5.
+Teach me CS61A section 3.5 Interpreters for Languages with Abstraction. I've read knowledge/cs61a-composing-programs/03-interpreting-computer-programs/3.5-interpreters-for-languages-with-abstraction.md. Now let me work through practice/cs61a-composing-programs/03-interpreting-computer-programs/3.5-interpreters-for-languages-with-abstraction/practice.js. This is the capstone of Chapter 3 — a JavaScript-subset interpreter built in JavaScript. Guide me with questions and analogies — don't give away the practice answers immediately. Before I attempt exercises, check my understanding of: how Frame objects with parent pointers implement lexical scope (lookup walks the parent chain, define places in the current frame), how the tokenizer handles multi-character operators (===, &&, ||, <=) before single-character ones, how the recursive descent parser handles operator precedence (logical OR → AND → equality → comparison → additive → multiplicative → unary → call → primary), how the evaluator dispatches on AST node type (Program, ExpressionStatement, Literal, Identifier, BinaryExpression, LetDeclaration, Assignment, FunctionDeclaration, ArrowFunction, CallExpression, IfStatement, BlockStatement, ReturnStatement), how closures capture their defining environment and create a child frame of that captured env (not the caller's env) when called, and how ReturnSignal implements non-local return flow. The interpreter intentionally excludes: classes, loops (for/while), async/await, imports/exports, destructuring, array/object literal syntax, template literals, var, const hoisting, this, and new. Use concrete analogies: Frame lookup is like looking for a book — first check your own shelf, then your parent's shelf, then their parent's shelf. A closure is like a person who carries a backpack with their hometown's phone book — no matter where they travel, they can always look up numbers from home. The ReturnSignal is like a "teleport out" card — when played inside any nested block, it instantly transports you back to the function exit.
 ```
 
 ---
@@ -183,7 +183,7 @@ It's time to review all of Chapter 2. I've completed practice exercises for sect
 ## Session 22 — Ch3 Review
 
 ```
-[Planned] Session 22 will review all of Chapter 3, running through practice solutions and testing understanding of interpreters and language design.
+It's time to review all of Chapter 3. I've completed practice exercises for sections 3.1 through 3.5. Run through all solution files in practice/cs61a-composing-programs/03-interpreting-computer-programs/*/solutions.js and help me identify which concepts I should revisit. Ask me to explain the connections between the language pipeline (3.1) → functional patterns (3.2) → error handling (3.3) → calculator interpreter (3.4) → JS-subset interpreter (3.5). Don't just summarize — test my understanding with questions like: "If I change Frame to always create a child of the caller's frame instead of the closure's captured frame, what breaks and why?" and "Why does the tokenizer need to check === before =, and what would happen if it checked single-character operators first?" and "How would you add support for while loops to the 3.5 interpreter — what new AST nodes, parser functions, and evaluator cases would you need?" Ask me to predict outputs before running code. Focus especially on the ideas that are new in Chapter 3: environment frames, closures in the interpreter, return signals, recursive descent parsing, and the eval/apply cycle.
 ```
 
 ---
