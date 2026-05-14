@@ -262,6 +262,7 @@ function tokenize(source) {
       while (pos < source.length && source[pos] !== '"') {
         if (source[pos] === "\\") {
           pos++;
+          if (pos >= source.length) throw new SyntaxError("unterminated string");
           if (source[pos] === "n") value += "\n";
           else if (source[pos] === "t") value += "\t";
           else if (source[pos] === "\\") value += "\\";
@@ -272,6 +273,7 @@ function tokenize(source) {
         }
         pos++;
       }
+      if (pos >= source.length) throw new SyntaxError("unterminated string");
       pos++;
       tokens.push({ type: "string", value });
       continue;
@@ -350,6 +352,7 @@ assertEqual("Exercise 3: comment", tokenize("10 // ignore\n+ 5;"), [
   { type: "number", value: 5 }, { type: "punctuation", value: ";" }
 ]);
 await assertThrows("Exercise 3: bad char", () => tokenize("@"), "unsupported character");
+await assertThrows("Exercise 3: unterminated string", () => tokenize('"hello'), "unterminated string");
 
 // Exercise 4: Closure and ReturnSignal
 // Closure stores params, body, and env. ReturnSignal stores value.

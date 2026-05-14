@@ -255,6 +255,7 @@ assertEqual("Exercise 3: comment", tokenize("10 // ignore\n+ 5;"), [
   { type: "number", value: 5 }, { type: "punctuation", value: ";" }
 ]);
 await assertThrows("Exercise 3: bad char", () => tokenize("@"), "unsupported character");
+await assertThrows("Exercise 3: unterminated string", () => tokenize('"hello'), "unterminated string");
 
 // Exercise 4: Closure and ReturnSignal
 // TODO: Closure stores params, body, and env. ReturnSignal stores value.
