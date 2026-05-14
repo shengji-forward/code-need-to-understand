@@ -49,11 +49,12 @@ assertEqual("Exercise 4: instanceof Error", err instanceof Error, true);
 // Exercise 5: Assertion helper use
 // Throw InterpreterError when name is missing from env.
 function lookupOrThrow(name, env) {
-  if (!(name in env)) throw new InterpreterError("unbound name: " + name);
+  if (!Object.hasOwn(env, name)) throw new InterpreterError("unbound name: " + name);
   return env[name];
 }
 assertEqual("Exercise 5: lookup", lookupOrThrow("x", { x: 10 }), 10);
 await assertThrows("Exercise 5: missing name", () => lookupOrThrow("y", { x: 10 }), "unbound name");
+await assertThrows("Exercise 5: inherited property", () => lookupOrThrow("toString", { x: 10 }), "unbound name");
 
 // Exercise 6: Parse error reporting
 // Throw SyntaxError with the unexpected token value in the message.
