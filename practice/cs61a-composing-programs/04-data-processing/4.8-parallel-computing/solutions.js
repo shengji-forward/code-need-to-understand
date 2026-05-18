@@ -184,6 +184,14 @@ await Promise.all([
 ]);
 assertEqual("Exercise 5: barrier phases A", phaseA, [1, 2, 3]);
 assertEqual("Exercise 5: barrier phases B", phaseB, [1, 2, 3]);
+const blockBarrier = new Barrier(2);
+let blockPassed = false;
+const blockPromise = (async () => { await blockBarrier.wait(); blockPassed = true; })();
+await Promise.resolve();
+assertEqual("Exercise 5: barrier blocks incomplete party", blockPassed, false);
+await blockBarrier.wait();
+await blockPromise;
+assertEqual("Exercise 5: barrier releases on full party", blockPassed, true);
 
 // --- Channel ---
 
@@ -291,3 +299,14 @@ await Promise.all([
 assertEqual("Exercise 8: ordered locks no deadlock", deadlockResults.length, 2);
 assertEqual("Exercise 8: ordered locks both completed",
   [...deadlockResults].sort(), ["task1-cs", "task2-cs"]);
+const lockC = new OrderedMutex(3);
+const lockD = new OrderedMutex(1);
+const lockE = new OrderedMutex(2);
+const sortedLocks = await acquireOrdered(lockC, lockD, lockE);
+assertEqual("Exercise 8: acquireOrdered sorts by id",
+  sortedLocks.map(m => m.id), [1, 2, 3]);
+assertEqual("Exercise 8: locks held after acquire",
+  [lockD._locked, lockE._locked, lockC._locked], [true, true, true]);
+releaseAll(sortedLocks);
+assertEqual("Exercise 8: locks released after releaseAll",
+  [lockD._locked, lockE._locked, lockC._locked], [false, false, false]);
