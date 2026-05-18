@@ -41,14 +41,31 @@ assertEqual("Exercise 2: mapPartition empty", mapPartition([], echoMapper), []);
 
 // --- Shuffle ---
 
+// toPlain converts a null-prototype grouping object to a plain {} for assertion.
+// Object.create(null) is required internally so that keys like "__proto__" are
+// treated as regular data properties, not the prototype accessor.
+function toPlain(obj) {
+  const result = {};
+  for (const key of Object.keys(obj)) {
+    if (key === "__proto__") {
+      Object.defineProperty(result, key, {
+        value: obj[key], enumerable: true, writable: true, configurable: true,
+      });
+    } else {
+      result[key] = obj[key];
+    }
+  }
+  return result;
+}
+
 // Exercise 3: shuffle — group [key, value] pairs by key
 function shuffle(mappedPairs) {
-  const groups = {};
+  const groups = Object.create(null);
   for (const [key, value] of mappedPairs) {
     if (!Object.hasOwn(groups, key)) groups[key] = [];
     groups[key].push(value);
   }
-  return groups;
+  return toPlain(groups);
 }
 assertEqual("Exercise 3: shuffle groups pairs",
   shuffle([["a", 1], ["b", 2], ["a", 3]]),
@@ -62,11 +79,11 @@ assertEqual("Exercise 3: shuffle single key",
 
 // Exercise 4: reduceGroups — apply reducer to each key's values
 function reduceGroups(groups, reducer) {
-  const result = {};
+  const raw = Object.create(null);
   for (const key of Object.keys(groups).sort()) {
-    result[key] = reducer(key, groups[key]);
+    raw[key] = reducer(key, groups[key]);
   }
-  return result;
+  return toPlain(raw);
 }
 function sumReducer(key, values) {
   return values.reduce((a, b) => a + b, 0);
@@ -123,6 +140,9 @@ assertEqual("Exercise 6: wordCount fox", wc6.fox, 2);
 assertEqual("Exercise 6: wordCount quick", wc6.quick, 2);
 assertEqual("Exercise 6: wordCount dog", wc6.dog, 1);
 assertEqual("Exercise 6: wordCount key count", Object.keys(wc6).length, 9);
+const wcProto = wordCount(["__proto__ normal __proto__"]);
+assertEqual("Exercise 6: __proto__ as word counted", wcProto.__proto__, 2);
+assertEqual("Exercise 6: normal alongside __proto__", wcProto.normal, 1);
 
 // --- Inverted Index ---
 
@@ -142,20 +162,22 @@ const docs7 = [
   { id: "doc1", text: "map reduce distributed" },
   { id: "doc2", text: "distributed data processing" },
   { id: "doc3", text: "map data filter" },
+  { id: "doc4", text: "__proto__ map" },
 ];
 const idx7 = invertedIndex(docs7);
-assertEqual("Exercise 7: invertedIndex map", idx7.map, ["doc1", "doc3"]);
+assertEqual("Exercise 7: invertedIndex map", idx7.map, ["doc1", "doc3", "doc4"]);
 assertEqual("Exercise 7: invertedIndex distributed", idx7.distributed, ["doc1", "doc2"]);
 assertEqual("Exercise 7: invertedIndex data", idx7.data, ["doc2", "doc3"]);
 assertEqual("Exercise 7: invertedIndex reduce", idx7.reduce, ["doc1"]);
 assertEqual("Exercise 7: invertedIndex filter", idx7.filter, ["doc3"]);
-assertEqual("Exercise 7: invertedIndex key count", Object.keys(idx7).length, 6);
+assertEqual("Exercise 7: __proto__ as index key", idx7.__proto__, ["doc4"]);
+assertEqual("Exercise 7: invertedIndex key count", Object.keys(idx7).length, 7);
 
 // --- Combiner ---
 
 // Exercise 8: combiner — local pre-aggregation before shuffle
 function wordCountCombiner(pairs) {
-  const local = {};
+  const local = Object.create(null);
   for (const [key, value] of pairs) {
     local[key] = (local[key] || 0) + value;
   }

@@ -108,6 +108,9 @@ assertEqual("Exercise 6: wordCount fox", wc6.fox, 2);
 assertEqual("Exercise 6: wordCount quick", wc6.quick, 2);
 assertEqual("Exercise 6: wordCount dog", wc6.dog, 1);
 assertEqual("Exercise 6: wordCount key count", Object.keys(wc6).length, 9);
+const wcProto = wordCount(["__proto__ normal __proto__"]);
+assertEqual("Exercise 6: __proto__ as word counted", wcProto.__proto__, 2);
+assertEqual("Exercise 6: normal alongside __proto__", wcProto.normal, 1);
 
 // --- Inverted Index ---
 
@@ -126,14 +129,16 @@ const docs7 = [
   { id: "doc1", text: "map reduce distributed" },
   { id: "doc2", text: "distributed data processing" },
   { id: "doc3", text: "map data filter" },
+  { id: "doc4", text: "__proto__ map" },
 ];
 const idx7 = invertedIndex(docs7);
-assertEqual("Exercise 7: invertedIndex map", idx7.map, ["doc1", "doc3"]);
+assertEqual("Exercise 7: invertedIndex map", idx7.map, ["doc1", "doc3", "doc4"]);
 assertEqual("Exercise 7: invertedIndex distributed", idx7.distributed, ["doc1", "doc2"]);
 assertEqual("Exercise 7: invertedIndex data", idx7.data, ["doc2", "doc3"]);
 assertEqual("Exercise 7: invertedIndex reduce", idx7.reduce, ["doc1"]);
 assertEqual("Exercise 7: invertedIndex filter", idx7.filter, ["doc3"]);
-assertEqual("Exercise 7: invertedIndex key count", Object.keys(idx7).length, 6);
+assertEqual("Exercise 7: __proto__ as index key", idx7.__proto__, ["doc4"]);
+assertEqual("Exercise 7: invertedIndex key count", Object.keys(idx7).length, 7);
 
 // --- Combiner ---
 
