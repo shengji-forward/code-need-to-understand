@@ -18,7 +18,7 @@ function makeDatabase(facts, rules = []) {
     if (!Object.hasOwn(index, f.name)) index[f.name] = [];
     index[f.name].push(f);
   }
-  return { factsFor: name => index[name] || [], rules };
+  return { factsFor: name => index[name] || [], rules, _freshCounter: 0 };
 }
 
 // Exercise 1: walk — resolve variable chains through substitutions
@@ -114,9 +114,29 @@ assertEqual("Exercise 8: prove exact fact", prove(term("parent", ["abraham", "ba
 assertEqual("Exercise 8: prove with variable", prove(term("parent", ["abraham", variable("child")]), dogDb).length, 2);
 assertEqual("Exercise 8: prove no match", prove(term("parent", ["nobody", variable("x")]), dogDb), []);
 
+// Variable renaming — prevents collisions when a rule is used multiple times
+function renameVariables(rule, suffix) {
+  const mapping = Object.create(null);
+  function rename(value) {
+    if (isVariable(value)) {
+      if (!Object.hasOwn(mapping, value)) {
+        mapping[value] = `${value}_${suffix}`;
+      }
+      return mapping[value];
+    }
+    if (value && value.type === "term") {
+      return term(value.name, value.args.map(rename));
+    }
+    return value;
+  }
+  return { type: "rule", head: rename(rule.head), body: rule.body.map(rename) };
+}
+
 // Exercise 9: solve — prove goals using facts and rules
 const dogRules = [
   { type: "rule", head: term("child", [variable("c"), variable("p")]), body: [term("parent", [variable("p"), variable("c")])] },
+  { type: "rule", head: term("ancestor", [variable("a"), variable("y")]), body: [term("parent", [variable("a"), variable("y")])] },
+  { type: "rule", head: term("ancestor", [variable("a"), variable("y")]), body: [term("parent", [variable("a"), variable("z")]), term("ancestor", [variable("z"), variable("y")])] },
 ];
 const dogDbRules = makeDatabase(dogFacts, dogRules);
 // TODO: Recursively solve each goal against facts and rules; chain substitutions
@@ -130,12 +150,16 @@ assertEqual("Exercise 9: child rule resolved",
   term("child", ["barack", "abraham"]));
 assertEqual("Exercise 9: prove no rule match", solve([term("child", ["nobody", variable("p")])], dogDbRules), []);
 
-// Exercise 10: solve — multiple goals and fuel bounding
+// Exercise 10: solve — multiple goals, recursive rules, and fuel bounding
 const grandkids = solve(
   [term("parent", ["fillmore", variable("x")]), term("parent", [variable("x"), variable("y")])],
   dogDb
 );
 const grandkidNames = grandkids.map(s => applySubstitution(variable("y"), s)).sort();
 assertEqual("Exercise 10: solve multi-goal", grandkidNames, ["barack", "clinton", "herbert"]);
+const ancestorResults = solve([term("ancestor", ["fillmore", variable("y")])], dogDbRules);
+const ancestorNames = ancestorResults.map(s => applySubstitution(variable("y"), s)).sort();
+assertEqual("Exercise 10: ancestor recursive", ancestorNames,
+  ["abraham", "barack", "clinton", "delano", "grover", "herbert"]);
 assertEqual("Exercise 10: fuel zero returns empty",
   solve([term("parent", ["abraham", variable("x")])], dogDb, new Map(), 0), []);
