@@ -29,7 +29,7 @@
 | 20 | Calculator Interpreter | 3.4 | 3 |
 | 21 | JS Interpreter | 3.5 | 3 |
 | 22 | Ch3 Review | All of Ch3 | 3 |
-| 23 | Implicit Sequences | 4.2 | 4 |
+| 23 | Implicit Sequences | 4.1-4.2 | 4 |
 | 24 | Declarative Programming / SQL | 4.3 | 4 |
 | 25 | Logic Programming | 4.4-4.5 | 4 |
 | 26 | Distributed Computing | 4.6-4.7 | 4 |
@@ -246,13 +246,15 @@
   - Consolidate understanding through comprehensive exercises
 - **Artifacts:** learning-report.md (report-only — no transcript or slides)
 
-### Session 23 — Implicit Sequences (4.2)
-- **Source:** [4.2 Implicit Sequences](https://composingprograms.com/pages/42-implicit-sequences.html)
+### Session 23 — Implicit Sequences (4.1-4.2)
+- **Source:** [4.1 Introduction](https://composingprograms.com/pages/41-introduction.html), [4.2 Implicit Sequences](https://composingprograms.com/pages/42-implicit-sequences.html)
 - **Chapter:** 4 — Data Processing
 - **Objectives:**
+  - Understand data-processing pipelines: source → transform → aggregate (4.1)
   - Implement iterators and generators using `function*` and `yield`
   - Build lazy sequences and streams with memoization
   - Understand the JS iterator protocol `[Symbol.iterator]()`
+  - Use finite consumers (take) to safely process infinite iterables
 - **Artifacts:** learning-report.md, transcript.md, slides.html
 
 ### Session 24 — Declarative Programming / SQL (4.3)
@@ -277,27 +279,27 @@
 - **Source:** [4.6 Distributed Computing](https://composingprograms.com/pages/46-distributed-computing.html), [4.7 Distributed Data Processing](https://composingprograms.com/pages/47-distributed-data-processing.html)
 - **Chapter:** 4 — Data Processing
 - **Objectives:**
-  - Use Node.js `net` module and `fetch` for network communication
-  - Implement the MapReduce pattern for distributed data processing
-  - Understand client/server architecture and protocols
+  - Model messages, client/server, and peer-to-peer systems using deterministic in-memory MessageBus
+  - Implement the MapReduce pattern: partition → map → shuffle → reduce
+  - Understand serialization, routing, and distributed data processing concepts
 - **Artifacts:** learning-report.md, transcript.md, slides.html
 
 ### Session 27 — Parallel Computing (4.8)
 - **Source:** [4.8 Parallel Computing](https://composingprograms.com/pages/48-parallel-computing.html)
 - **Chapter:** 4 — Data Processing
 - **Objectives:**
-  - Use `worker_threads` for parallel computation in Node.js
-  - Implement synchronization with `MessageChannel` and `SharedArrayBuffer`
-  - Understand race conditions and deadlock prevention
+  - Understand shared-state race conditions and why synchronization is needed
+  - Implement Mutex, Barrier, and Channel using promise-based simulations
+  - Recognize deadlock-prone patterns and synchronization pitfalls
 - **Artifacts:** learning-report.md, transcript.md, slides.html
 
 ### Session 28 — Ch4 Review
 - **Source:** All of Chapter 4 (4.1–4.8)
 - **Chapter:** 4 — Data Processing
 - **Objectives:**
-  - Review iterators, generators, SQL, and parallel computing
-  - Connect lazy evaluation to declarative programming patterns
-  - Consolidate understanding through comprehensive exercises
+  - Review pipelines, lazy sequences, declarative queries, logic programming, unification, distributed computing, MapReduce, and parallel computing
+  - Connect lazy evaluation to declarative programming, and unification to logic queries
+  - Consolidate understanding by predicting outputs before running code
 - **Artifacts:** learning-report.md (report-only — no transcript or slides)
 
 ### Session 29 — Capstone

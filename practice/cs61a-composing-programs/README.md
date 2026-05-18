@@ -32,4 +32,4 @@ Shared utilities in `shared/`:
 | 1. Building Abstractions with Functions | 1.1-1.7 | In Progress |
 | 2. Building Abstractions with Data | 2.1-2.9 | Complete |
 | 3. Interpreting Computer Programs | 3.1-3.5 | Complete |
-| 4. Data Processing | 4.1-4.8 | In Progress |
+| 4. Data Processing | 4.1-4.8 | Complete |
