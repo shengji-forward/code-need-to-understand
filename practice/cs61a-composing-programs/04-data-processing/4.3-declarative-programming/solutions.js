@@ -136,7 +136,18 @@ function executeQuery(query) {
   }
 
   if (query.groupBy) {
-    return groupBy(rows, query.groupBy);
+    const groups = groupBy(rows, query.groupBy);
+    if (query.aggregates) {
+      rows = [...groups.entries()].map(([key, groupRows]) => {
+        const result = { _key: key };
+        for (const [name, fn] of Object.entries(query.aggregates)) {
+          result[name] = fn(groupRows);
+        }
+        return result;
+      });
+    } else {
+      return groups;
+    }
   }
 
   if (query.select) {
@@ -169,6 +180,29 @@ assertEqual("Exercise 7: query join and select", executeQuery({
 }), [{ name: "Ada", course: "CS" }, { name: "Grace", course: "Math" }]);
 const byHouse = executeQuery({ from: roster, groupBy: r => r.house });
 assertEqual("Exercise 7: query groupBy keys", [...byHouse.keys()], ["A", "B"]);
+assertEqual("Exercise 7: query groupBy with aggregates", executeQuery({
+  from: roster,
+  groupBy: r => r.house,
+  aggregates: {
+    count: group => count(group),
+    avgYear: group => avg(group, r => r.year),
+  },
+}), [
+  { _key: "A", count: 2, avgYear: 2 },
+  { _key: "B", count: 1, avgYear: 3 },
+]);
+assertEqual("Exercise 7: query groupBy with sum", executeQuery({
+  from: [
+    { product: "Widget", qty: 10, price: 5 },
+    { product: "Gadget", qty: 3, price: 20 },
+    { product: "Widget", qty: 7, price: 5 },
+  ],
+  groupBy: r => r.product,
+  aggregates: { revenue: group => sum(group, r => r.qty * r.price) },
+}), [
+  { _key: "Widget", revenue: 85 },
+  { _key: "Gadget", revenue: 60 },
+]);
 
 // Exercise 8: declarative vs imperative — same result, different style
 const salesData = [
