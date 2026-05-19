@@ -26,6 +26,10 @@ Review sessions (08, 16, 22, 28, 29) are report-only — they produce just `lear
 
 See `TODO.md` for detailed checkbox tracking.
 
+## Rebuild Status
+
+The CS61A JavaScript source rebuild is complete for Chapters 1-4: knowledge files, practice exercises, solutions, and session prompts are available for sessions 00-29. `TODO.md` tracks learner artifact progress, not source rebuild status.
+
 ## Workflow
 
 1. Study the knowledge file for the session's topics

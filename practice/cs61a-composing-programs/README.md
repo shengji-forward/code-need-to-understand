@@ -29,7 +29,7 @@ Shared utilities in `shared/`:
 
 | Chapter | Sections | Status |
 |---------|----------|--------|
-| 1. Building Abstractions with Functions | 1.1-1.7 | In Progress |
+| 1. Building Abstractions with Functions | 1.1-1.7 | Complete |
 | 2. Building Abstractions with Data | 2.1-2.9 | Complete |
 | 3. Interpreting Computer Programs | 3.1-3.5 | Complete |
 | 4. Data Processing | 4.1-4.8 | Complete |

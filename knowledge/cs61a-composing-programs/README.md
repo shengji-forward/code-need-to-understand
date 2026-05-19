@@ -9,9 +9,9 @@ UC Berkeley's CS61A course translated from Python to idiomatic modern JavaScript
 
 | # | Title | Status |
 |---|-------|--------|
-| 1 | [Building Abstractions with Functions](01-building-abstractions-with-functions/) | In Progress |
+| 1 | [Building Abstractions with Functions](01-building-abstractions-with-functions/) | Complete |
 | 2 | [Building Abstractions with Data](02-building-abstractions-with-data/) | Complete |
-| 3 | Interpreting Computer Programs | Complete |
+| 3 | [Interpreting Computer Programs](03-interpreting-computer-programs/) | Complete |
 | 4 | [Data Processing](04-data-processing/) | Complete |
 
 ## Usage

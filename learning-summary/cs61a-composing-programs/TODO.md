@@ -1,5 +1,7 @@
 # CS61A Composing Programs JS — Progress Tracker
 
+> Source rebuild status: Chapters 1-4 and the capstone prompt are complete. These checkboxes track learner session artifacts, not source rebuild completion.
+
 ## Chapter 1: Building Abstractions with Functions
 - [ ] Session 00 — Course Overview
 - [ ] Session 01 — Getting Started (1.1)
@@ -30,7 +32,7 @@
 - [ ] Session 22 — Ch3 Review
 
 ## Chapter 4: Data Processing
-- [ ] Session 23 — Implicit Sequences (4.2)
+- [ ] Session 23 — Introduction & Implicit Sequences (4.1-4.2)
 - [ ] Session 24 — Declarative Programming / SQL (4.3)
 - [ ] Session 25 — Logic Programming (4.4-4.5)
 - [ ] Session 26 — Distributed Computing (4.6-4.7)
