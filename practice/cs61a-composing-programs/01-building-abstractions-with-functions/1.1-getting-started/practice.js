@@ -5,21 +5,21 @@
 import { assertEqual, assertApprox } from "../../shared/helpers.js";
 
 // 1. Arithmetic — JavaScript supports standard arithmetic operators.
-const result1 = undefined; // TODO: compute 12 + 8
+const result1 = 12 + 8; // TODO: compute 12 + 8
 assertEqual("arithmetic", result1, 20);
 
 // 2. String concatenation — the + operator also joins strings.
-const result2 = undefined; // TODO: concatenate "hello" + " " + "world"
+const result2 = "hello" + " " + "world"; // TODO: concatenate "hello" + " " + "world"
 assertEqual("string concat", result2, "hello world");
 
 // 3. typeof — every value in JavaScript has a type you can inspect.
-const result3 = undefined; // TODO: check typeof 42
+const result3 = typeof 42; // TODO: check typeof 42
 assertEqual("typeof number", result3, "number");
 
 // 4. Math.sqrt — the Math object provides common mathematical functions.
-const result4 = undefined; // TODO: compute Math.sqrt(144)
+const result4 = Math.sqrt(144); // TODO: compute Math.sqrt(144)
 assertEqual("sqrt", result4, 12);
 
 // 5. Circle area — combine constants and arithmetic to solve a problem.
-const result5 = undefined; // TODO: compute area of circle with radius 5 (Math.PI * r * r)
+const result5 = Math.PI * 5 * 5; // TODO: compute area of circle with radius 5 (Math.PI * r * r)
 assertApprox("circle area", result5, Math.PI * 25);

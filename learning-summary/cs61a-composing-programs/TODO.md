@@ -3,8 +3,8 @@
 > Source rebuild status: Chapters 1-4 and the capstone prompt are complete. These checkboxes track learner session artifacts, not source rebuild completion.
 
 ## Chapter 1: Building Abstractions with Functions
-- [ ] Session 00 — Course Overview
-- [ ] Session 01 — Getting Started (1.1)
+- [x] Session 00 — Course Overview
+- [x] Session 01 — Getting Started (1.1)
 - [ ] Session 02 — Expressions & Names (1.2)
 - [ ] Session 03 — Defining Functions (1.3)
 - [ ] Session 04 — Designing Functions (1.4)
