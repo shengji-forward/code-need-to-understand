@@ -1,6 +1,7 @@
 # CS61A Composing Programs JS — Progress Tracker
 
 > Source rebuild status: Chapters 1-4 and the capstone prompt are complete. These checkboxes track learner session artifacts, not source rebuild completion.
+> For normal teaching sessions, complete means the learner report, public transcript, and editable tldraw deck artifacts exist. Review sessions are report-only.
 
 ## Chapter 1: Building Abstractions with Functions
 - [x] Session 00 — Course Overview

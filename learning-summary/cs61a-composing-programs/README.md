@@ -16,9 +16,17 @@
 ## Session Structure
 
 Each session directory may contain:
-- `learning-report.md` — key insights and connections
-- `transcript.md` — teaching script
-- `slides.html` — Reveal.js slides
+- `learning-report.md` — private learner artifact: checkpoints, mistakes, quiz notes, practice results, and next steps
+- `transcript.md` — YouTube-facing mentor narration for viewers; it teaches the topic and does not need to mirror the report
+- `slides-tldraw-deck.html` — main editable tldraw story deck with navigation, Save/Load, Export SVG, All frames, and Reset controls
+- `slides-tldraw-story-nav.html` — explicit navigation-named tldraw deck variant
+- `slides-tldraw-story-plain.html` — editable tldraw canvas without slide navigation controls
+- `tldraw-*.js` — source file that creates the editable tldraw frames and shapes
+- `*-tldraw.bundle.js` — generated browser bundle for the tldraw deck
+- `build-tldraw-deck-html.mjs` — local builder that inlines the tldraw bundle and CSS into standalone HTML
+- Optional support files such as `concept-map.md` — supplemental learning artifacts
+
+`slides.html` is not synonymous with Reveal.js in this rebuilt workflow. Use an explicit `slides-reveal-map.html` name only when a Reveal-specific walkthrough is actually generated.
 
 Review sessions (08, 16, 22, 28, 29) are report-only — they produce just `learning-report.md` with summary notes and practice problems. No transcript or slides required for reviews.
 
@@ -34,5 +42,7 @@ The CS61A JavaScript source rebuild is complete for Chapters 1-4: knowledge file
 
 1. Study the knowledge file for the session's topics
 2. Complete the practice exercises
-3. Create session artifacts (report, transcript, slides)
-4. Mark session complete in TODO.md
+3. Create the private learner report
+4. Create the public YouTube transcript
+5. Create the editable tldraw deck and generated HTML variants
+6. Mark session complete in TODO.md after the expected artifacts exist

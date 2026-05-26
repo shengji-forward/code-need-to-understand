@@ -37,6 +37,16 @@
 | 28 | Ch4 Review | All of Ch4 | 4 |
 | 29 | Capstone | Full course | — |
 
+## Artifact Contract
+
+Normal teaching sessions use the standard teaching-session artifact set:
+- `learning-report.md` — private learner report from the Feynman/mentor run
+- `transcript.md` — public YouTube teaching narration
+- editable tldraw deck source, generated bundle, and standalone HTML deck variants
+- optional support files such as `concept-map.md`
+
+Review sessions (08, 16, 22, 28, 29) remain report-only unless a future pass explicitly generates public video artifacts for them.
+
 ## Session Details
 
 ### Session 00 — Course Overview
@@ -46,7 +56,7 @@
   - Understand the 4-chapter course structure and learning philosophy
   - Set up Node.js development environment
   - Learn the Feynman method for self-teaching
-- **Artifacts:** learning-report.md, transcript.md, slides.html
+- **Artifacts:** standard teaching-session artifact set
 
 ### Session 01 — Getting Started (1.1)
 - **Source:** [1.1 Getting Started](https://composingprograms.com/pages/11-getting-started.html)
@@ -55,7 +65,7 @@
   - Install and use Node.js REPL and script execution
   - Identify and distinguish syntax, runtime, and semantic errors
   - Experiment with basic expressions in the JavaScript REPL
-- **Artifacts:** learning-report.md, transcript.md, slides.html
+- **Artifacts:** standard teaching-session artifact set
 
 ### Session 02 — Expressions & Names (1.2)
 - **Source:** [1.2 Elements of Programming](https://composingprograms.com/pages/12-elements-of-programming.html)
@@ -64,7 +74,7 @@
   - Understand expressions, call expressions, and evaluation order
   - Use `const`/`let` to bind names to values in the environment
   - Distinguish pure functions from non-pure functions like `console.log`
-- **Artifacts:** learning-report.md, transcript.md, slides.html
+- **Artifacts:** standard teaching-session artifact set
 
 ### Session 03 — Defining Functions (1.3)
 - **Source:** [1.3 Defining New Functions](https://composingprograms.com/pages/13-defining-new-functions.html)
@@ -73,7 +83,7 @@
   - Define functions with parameters and return values
   - Trace function calls through environment diagrams (global frame, local frames)
   - Understand scope and local name lookup rules
-- **Artifacts:** learning-report.md, transcript.md, slides.html
+- **Artifacts:** standard teaching-session artifact set
 
 ### Session 04 — Designing Functions (1.4)
 - **Source:** [1.4 Designing Functions](https://composingprograms.com/pages/14-designing-functions.html)
@@ -82,7 +92,7 @@
   - Apply design principles: domain, range, preconditions, side effects
   - Use locally defined (nested) functions and default parameters
   - Treat functions as abstractions that hide implementation details
-- **Artifacts:** learning-report.md, transcript.md, slides.html
+- **Artifacts:** standard teaching-session artifact set
 
 ### Session 05 — Control Flow (1.5)
 - **Source:** [1.5 Control](https://composingprograms.com/pages/15-control.html)
@@ -91,7 +101,7 @@
   - Write conditional statements (`if`/`else if`/`else`) and `while` loops
   - Understand statements vs expressions and boolean truthiness in JS
   - Practice simple testing patterns with `console.assert`
-- **Artifacts:** learning-report.md, transcript.md, slides.html
+- **Artifacts:** standard teaching-session artifact set
 
 ### Session 06 — Higher-Order Functions (1.6)
 - **Source:** [1.6 Higher-Order Functions](https://composingprograms.com/pages/16-higher-order-functions.html)
@@ -100,7 +110,7 @@
   - Pass functions as arguments and return functions from other functions
   - Implement map, filter, compose, curry, and decorator patterns
   - Apply Newton's method using higher-order function abstractions
-- **Artifacts:** learning-report.md, transcript.md, slides.html
+- **Artifacts:** standard teaching-session artifact set
 
 ### Session 07 — Recursive Functions (1.7)
 - **Source:** [1.7 Recursive Functions](https://composingprograms.com/pages/17-recursive-functions.html)
@@ -109,7 +119,7 @@
   - Write recursive functions with proper base cases and recursive steps
   - Implement mutual recursion and understand tree recursion
   - Trace recursive call chains and count partitions
-- **Artifacts:** learning-report.md, transcript.md, slides.html
+- **Artifacts:** standard teaching-session artifact set
 
 ### Session 08 — Ch1 Review
 - **Source:** All of Chapter 1 (1.1–1.7)
@@ -127,7 +137,7 @@
   - Understand JavaScript native types and their behavior
   - Implement data abstraction with constructors and selectors
   - Build rational number arithmetic using abstraction barriers
-- **Artifacts:** learning-report.md, transcript.md, slides.html
+- **Artifacts:** standard teaching-session artifact set
 
 ### Session 10 — Sequences (2.3)
 - **Source:** [2.3 Sequences](https://composingprograms.com/pages/23-sequences.html)
@@ -136,7 +146,7 @@
   - Work with arrays, strings, and sequence operations
   - Implement and use linked lists and tree data structures
   - Process sequences using map, filter, and reduce patterns
-- **Artifacts:** learning-report.md, transcript.md, slides.html
+- **Artifacts:** standard teaching-session artifact set
 
 ### Session 11 — Mutable Data (2.4)
 - **Source:** [2.4 Mutable Data](https://composingprograms.com/pages/24-mutable-data.html)
@@ -145,7 +155,7 @@
   - Understand object mutation and identity vs equality
   - Use closures to encapsulate mutable state
   - Implement dispatch dictionaries for state management
-- **Artifacts:** learning-report.md, transcript.md, slides.html
+- **Artifacts:** standard teaching-session artifact set
 
 ### Session 12 — OOP (2.5)
 - **Source:** [2.5 Object-Oriented Programming](https://composingprograms.com/pages/25-object-oriented-programming.html)
@@ -154,7 +164,7 @@
   - Define classes with constructors, methods, and inheritance in JS
   - Understand prototypal vs class-based inheritance
   - Apply multiple inheritance patterns and method resolution
-- **Artifacts:** learning-report.md, transcript.md, slides.html
+- **Artifacts:** standard teaching-session artifact set
 
 ### Session 13 — Implementing Objects (2.6-2.7)
 - **Source:** [2.6 Implementing Classes](https://composingprograms.com/pages/26-implementing-classes-and-objects.html), [2.7 Object Abstraction](https://composingprograms.com/pages/27-object-abstraction.html)
@@ -163,7 +173,7 @@
   - Implement objects using dispatch dictionaries and closures
   - Understand special methods and generic function patterns
   - Apply multiple representation techniques with type tags
-- **Artifacts:** learning-report.md, transcript.md, slides.html
+- **Artifacts:** standard teaching-session artifact set
 
 ### Session 14 — Efficiency (2.8)
 - **Source:** [2.8 Efficiency](https://composingprograms.com/pages/28-efficiency.html)
@@ -172,7 +182,7 @@
   - Analyze time and space complexity using big-O notation
   - Compare algorithm efficiency through empirical measurement
   - Implement memoization to optimize recursive algorithms
-- **Artifacts:** learning-report.md, transcript.md, slides.html
+- **Artifacts:** standard teaching-session artifact set
 
 ### Session 15 — Recursive Objects (2.9)
 - **Source:** [2.9 Recursive Objects](https://composingprograms.com/pages/29-recursive-objects.html)
@@ -181,7 +191,7 @@
   - Implement linked list and tree classes with recursive methods
   - Build and search binary search trees
   - Understand recursive data structure invariants
-- **Artifacts:** learning-report.md, transcript.md, slides.html
+- **Artifacts:** standard teaching-session artifact set
 
 ### Session 16 — Ch2 Review
 - **Source:** All of Chapter 2 (2.1–2.9)
@@ -199,7 +209,7 @@
   - Understand the structure of programming language interpreters
   - Learn the eval/apply cycle at a high level
   - Distinguish syntax, parsing, and evaluation phases
-- **Artifacts:** learning-report.md, transcript.md, slides.html
+- **Artifacts:** standard teaching-session artifact set
 
 ### Session 18 — Functional Programming in JS (3.2)
 - **Source:** [3.2 Functional Programming](https://composingprograms.com/pages/32-functional-programming.html)
@@ -208,7 +218,7 @@
   - Apply functional programming patterns: closures, immutability, pure functions
   - Implement pairs and lists in functional style using closures
   - Work with symbolic data and pattern matching
-- **Artifacts:** learning-report.md, transcript.md, slides.html
+- **Artifacts:** standard teaching-session artifact set
 
 ### Session 19 — Exceptions (3.3)
 - **Source:** [3.3 Exceptions](https://composingprograms.com/pages/33-exceptions.html)
@@ -217,7 +227,7 @@
   - Use try/catch/finally for structured error handling
   - Create custom Error subclasses for domain-specific errors
   - Understand exception propagation and assertion patterns
-- **Artifacts:** learning-report.md, transcript.md, slides.html
+- **Artifacts:** standard teaching-session artifact set
 
 ### Session 20 — Calculator Interpreter (3.4)
 - **Source:** [3.4 Interpreters for Calculator](https://composingprograms.com/pages/34-interpreters-for-languages-with-combination.html)
@@ -226,7 +236,7 @@
   - Build a tokenizer and recursive descent parser
   - Construct and evaluate expression trees
   - Implement a calculator that handles arithmetic expressions
-- **Artifacts:** learning-report.md, transcript.md, slides.html
+- **Artifacts:** standard teaching-session artifact set
 
 ### Session 21 — JS Interpreter (3.5)
 - **Source:** [3.5 Interpreters for JS](https://composingprograms.com/pages/35-interpreters-for-languages-with-abstraction.html)
@@ -235,7 +245,7 @@
   - Implement a full eval/apply interpreter for a JS subset
   - Build environment frames with parent-chain lookup
   - Understand closures, recursion, and data-as-programs
-- **Artifacts:** learning-report.md, transcript.md, slides.html
+- **Artifacts:** standard teaching-session artifact set
 
 ### Session 22 — Ch3 Review
 - **Source:** All of Chapter 3 (3.1–3.5)
@@ -255,7 +265,7 @@
   - Build lazy sequences and streams with memoization
   - Understand the JS iterator protocol `[Symbol.iterator]()`
   - Use finite consumers (take) to safely process infinite iterables
-- **Artifacts:** learning-report.md, transcript.md, slides.html
+- **Artifacts:** standard teaching-session artifact set
 
 ### Session 24 — Declarative Programming / SQL (4.3)
 - **Source:** [4.3 Declarative Programming](https://composingprograms.com/pages/43-declarative-programming.html)
@@ -264,7 +274,7 @@
   - Write SQL queries: SELECT, WHERE, JOIN, GROUP BY
   - Build a mini SQL engine in JavaScript
   - Compare declarative vs imperative data processing
-- **Artifacts:** learning-report.md, transcript.md, slides.html
+- **Artifacts:** standard teaching-session artifact set
 
 ### Session 25 — Logic Programming (4.4-4.5)
 - **Source:** [4.4 Logic Programming](https://composingprograms.com/pages/44-logic-programming.html), [4.5 Unification](https://composingprograms.com/pages/45-unification.html)
@@ -273,7 +283,7 @@
   - Represent facts and queries in a logic programming system
   - Implement the unification algorithm for pattern matching
   - Build a simple logic interpreter in JavaScript
-- **Artifacts:** learning-report.md, transcript.md, slides.html
+- **Artifacts:** standard teaching-session artifact set
 
 ### Session 26 — Distributed Computing (4.6-4.7)
 - **Source:** [4.6 Distributed Computing](https://composingprograms.com/pages/46-distributed-computing.html), [4.7 Distributed Data Processing](https://composingprograms.com/pages/47-distributed-data-processing.html)
@@ -282,7 +292,7 @@
   - Model messages, client/server, and peer-to-peer systems using deterministic in-memory MessageBus
   - Implement the MapReduce pattern: partition → map → shuffle → reduce
   - Understand serialization, routing, and distributed data processing concepts
-- **Artifacts:** learning-report.md, transcript.md, slides.html
+- **Artifacts:** standard teaching-session artifact set
 
 ### Session 27 — Parallel Computing (4.8)
 - **Source:** [4.8 Parallel Computing](https://composingprograms.com/pages/48-parallel-computing.html)
@@ -291,7 +301,7 @@
   - Understand shared-state race conditions and why synchronization is needed
   - Implement Mutex, Barrier, and Channel using promise-based simulations
   - Recognize deadlock-prone patterns and synchronization pitfalls
-- **Artifacts:** learning-report.md, transcript.md, slides.html
+- **Artifacts:** standard teaching-session artifact set
 
 ### Session 28 — Ch4 Review
 - **Source:** All of Chapter 4 (4.1–4.8)
