@@ -10,7 +10,7 @@ import { assertEqual, assertApprox } from "../../shared/helpers.js";
 // Math.max takes any number of arguments and returns the largest.
 // =============================================================================
 
-const result1 = undefined; // TODO: use Math.max(3, 7, 1)
+const result1 = Math.max(3, 7, 1); // TODO: use Math.max(3, 7, 1)
 assertEqual("call expression max", result1, 7);
 
 // =============================================================================
@@ -19,7 +19,7 @@ assertEqual("call expression max", result1, 7);
 // =============================================================================
 
 const pi = 3.14159;
-const circumference = undefined; // TODO: compute 2 * pi * 10
+const circumference = 2 * pi * 10; // TODO: compute 2 * pi * 10
 assertApprox("circumference", circumference, 62.8318);
 
 // =============================================================================
@@ -28,7 +28,7 @@ assertApprox("circumference", circumference, 62.8318);
 // then the outer function is applied. Think of it as an expression tree.
 // =============================================================================
 
-const result3 = undefined; // TODO: compute Math.pow(2 + 3, 4 - 1)
+const result3 = Math.pow(2 + 3, 4 - 1); // TODO: compute Math.pow(2 + 3, 4 - 1)
 assertEqual("nested expression", result3, 125);
 
 // =============================================================================
@@ -37,8 +37,8 @@ assertEqual("nested expression", result3, 125);
 // describing the type of its operand.
 // =============================================================================
 
-const type1 = undefined; // TODO: typeof "hello"
-const type2 = undefined; // TODO: typeof true
+const type1 = typeof "hello"; // TODO: typeof "hello"
+const type2 = typeof true; // TODO: typeof true
 assertEqual("typeof string", type1, "string");
 assertEqual("typeof boolean", type2, "boolean");
 
@@ -49,7 +49,7 @@ assertEqual("typeof boolean", type2, "boolean");
 // Math.sqrt(16) returns 4, which is a number.
 // =============================================================================
 
-const result5 = undefined; // TODO: typeof Math.sqrt(16) === "number"
+const result5 = typeof Math.sqrt(16) === "number"; // TODO: typeof Math.sqrt(16) === "number"
 assertEqual("sqrt returns number", result5, true);
 
 console.log("\nAll exercises complete. Fill in the TODOs to make all tests pass.");

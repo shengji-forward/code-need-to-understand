@@ -6,7 +6,7 @@
 ## Chapter 1: Building Abstractions with Functions
 - [x] Session 00 — Course Overview
 - [x] Session 01 — Getting Started (1.1)
-- [ ] Session 02 — Expressions & Names (1.2)
+- [x] Session 02 — Expressions & Names (1.2)
 - [ ] Session 03 — Defining Functions (1.3)
 - [ ] Session 04 — Designing Functions (1.4)
 - [ ] Session 05 — Control Flow (1.5)
