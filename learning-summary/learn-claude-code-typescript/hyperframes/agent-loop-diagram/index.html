@@ -1,0 +1,746 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <link rel="icon" href="data:," />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #050505;
+        color: #f5f5f5;
+        font-family:
+          Geist,
+          Inter,
+          "Helvetica Neue",
+          Arial,
+          sans-serif;
+        letter-spacing: 0;
+      }
+
+      [data-composition-id="main"] {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #050505;
+      }
+
+      .grid {
+        position: absolute;
+        inset: 0;
+        width: 1920px;
+        height: 1080px;
+        opacity: 0.42;
+      }
+
+      .canvas {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        padding: 38px 44px 36px;
+        gap: 18px;
+      }
+
+      .topbar {
+        display: grid;
+        grid-template-columns: 1fr 420px;
+        align-items: end;
+        gap: 30px;
+        min-height: 116px;
+      }
+
+      .kicker {
+        color: #a3a3a3;
+        font-size: 20px;
+        font-weight: 650;
+      }
+
+      h1 {
+        margin: 6px 0 0;
+        color: #f5f5f5;
+        font-size: 64px;
+        font-weight: 780;
+        line-height: 0.98;
+      }
+
+      .thesis {
+        border: 1px solid #262626;
+        border-radius: 8px;
+        background: #0a0a0a;
+        padding: 18px 20px;
+        color: #d4d4d4;
+        font-size: 20px;
+        font-weight: 650;
+        line-height: 1.28;
+        text-align: right;
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: 410px 1018px 352px;
+        gap: 18px;
+        min-height: 0;
+        flex: 1;
+      }
+
+      .panel {
+        min-height: 0;
+        border: 1px solid #262626;
+        border-radius: 8px;
+        background: #0a0a0a;
+        overflow: hidden;
+      }
+
+      .panel-pad {
+        padding: 20px;
+      }
+
+      .label {
+        color: #737373;
+        font-family:
+          "JetBrains Mono",
+          Consolas,
+          monospace;
+        font-size: 12px;
+        font-weight: 760;
+        text-transform: uppercase;
+      }
+
+      .panel-title {
+        margin-top: 5px;
+        color: #f5f5f5;
+        font-size: 26px;
+        font-weight: 760;
+        line-height: 1.08;
+      }
+
+      .plain {
+        margin-top: 8px;
+        color: #a3a3a3;
+        font-size: 15px;
+        font-weight: 560;
+        line-height: 1.32;
+      }
+
+      .parts {
+        display: grid;
+        gap: 7px;
+        margin-top: 10px;
+      }
+
+      .part {
+        display: grid;
+        grid-template-columns: 30px 1fr;
+        gap: 9px;
+        align-items: start;
+        padding: 8px 10px;
+        border: 1px solid #262626;
+        border-radius: 8px;
+        background: #050505;
+      }
+
+      .part-num {
+        display: grid;
+        place-items: center;
+        width: 25px;
+        height: 25px;
+        border: 1px solid #0070f3;
+        border-radius: 999px;
+        color: #0070f3;
+        font-family:
+          "JetBrains Mono",
+          Consolas,
+          monospace;
+        font-size: 12px;
+        font-weight: 760;
+      }
+
+      .part-name {
+        color: #f5f5f5;
+        font-size: 14px;
+        font-weight: 760;
+      }
+
+      .part-code {
+        margin-top: 2px;
+        color: #0070f3;
+        font-family:
+          "JetBrains Mono",
+          Consolas,
+          monospace;
+        font-size: 11px;
+        font-weight: 700;
+      }
+
+      .part-text {
+        margin-top: 2px;
+        color: #a3a3a3;
+        font-size: 11px;
+        font-weight: 560;
+        line-height: 1.22;
+      }
+
+      .robot {
+        margin-top: 12px;
+        border: 1px solid #262626;
+        border-radius: 8px;
+        background: #050505;
+        padding: 10px;
+      }
+
+      .robot-svg {
+        display: block;
+        width: 100%;
+        height: 124px;
+      }
+
+      .sequence-panel {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .sequence-head {
+        display: grid;
+        grid-template-columns: 1fr 300px;
+        gap: 16px;
+        align-items: end;
+      }
+
+      .micro-code {
+        border: 1px solid #262626;
+        border-radius: 8px;
+        background: #050505;
+        padding: 12px 14px;
+        color: #d4d4d4;
+        font-family:
+          "JetBrains Mono",
+          Consolas,
+          monospace;
+        font-size: 13px;
+        font-weight: 700;
+        line-height: 1.36;
+      }
+
+      .micro-code .blue {
+        color: #0070f3;
+      }
+
+      .sequence-board {
+        position: relative;
+        min-height: 0;
+        flex: 1;
+        border: 1px solid #262626;
+        border-radius: 8px;
+        background: #050505;
+        overflow: hidden;
+      }
+
+      .seq {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+
+      .lifeline {
+        stroke: #262626;
+        stroke-width: 1;
+      }
+
+      .participant {
+        fill: #f5f5f5;
+        font-size: 16px;
+        font-weight: 760;
+      }
+
+      .participant-sub {
+        fill: #a3a3a3;
+        font-size: 11px;
+        font-weight: 650;
+      }
+
+      .lap {
+        fill: #f5f5f5;
+        opacity: 0.055;
+        stroke: #737373;
+        stroke-width: 1;
+      }
+
+      .lap-title {
+        fill: #f5f5f5;
+        font-size: 15px;
+        font-weight: 780;
+      }
+
+      .arrow {
+        fill: none;
+        stroke: #d4d4d4;
+        stroke-width: 1.7;
+      }
+
+      .arrow-blue {
+        fill: none;
+        stroke: #0070f3;
+        stroke-width: 2.4;
+      }
+
+      .msg {
+        fill: #f5f5f5;
+        font-size: 12px;
+        font-weight: 680;
+      }
+
+      .msg-blue {
+        fill: #0070f3;
+        font-family:
+          "JetBrains Mono",
+          Consolas,
+          monospace;
+        font-size: 11px;
+        font-weight: 760;
+      }
+
+      .step-dot {
+        fill: #050505;
+        stroke: #0070f3;
+        stroke-width: 1.5;
+      }
+
+      .step-num {
+        fill: #f5f5f5;
+        font-family:
+          "JetBrains Mono",
+          Consolas,
+          monospace;
+        font-size: 10px;
+        font-weight: 800;
+      }
+
+      .right-col {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .explain-list {
+        display: grid;
+        gap: 9px;
+        margin-top: 14px;
+      }
+
+      .explain {
+        padding: 11px 12px;
+        border: 1px solid #262626;
+        border-radius: 8px;
+        background: #050505;
+      }
+
+      .explain strong {
+        color: #f5f5f5;
+        font-size: 15px;
+        font-weight: 760;
+      }
+
+      .explain p {
+        margin: 4px 0 0;
+        color: #a3a3a3;
+        font-size: 13px;
+        font-weight: 560;
+        line-height: 1.26;
+      }
+
+      .ledger {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-top: 14px;
+      }
+
+      .ledger-card {
+        min-height: 138px;
+        padding: 11px 12px;
+        border: 1px solid #262626;
+        border-radius: 8px;
+        background: #050505;
+      }
+
+      .ledger-title {
+        color: #f5f5f5;
+        font-size: 14px;
+        font-weight: 760;
+      }
+
+      .ledger-line {
+        margin-top: 7px;
+        color: #a3a3a3;
+        font-family:
+          "JetBrains Mono",
+          Consolas,
+          monospace;
+        font-size: 11px;
+        font-weight: 650;
+        line-height: 1.32;
+      }
+
+      .ledger-line .blue {
+        color: #0070f3;
+      }
+
+      .bottom {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 18px;
+        min-height: 142px;
+      }
+
+      .rule {
+        padding: 18px 20px;
+        border: 1px solid #262626;
+        border-radius: 8px;
+        background: #0a0a0a;
+      }
+
+      .rule-title {
+        color: #f5f5f5;
+        font-size: 18px;
+        font-weight: 760;
+      }
+
+      .rule-text {
+        margin-top: 8px;
+        color: #a3a3a3;
+        font-size: 14px;
+        font-weight: 560;
+        line-height: 1.28;
+      }
+
+      .rule-code {
+        margin-top: 8px;
+        color: #0070f3;
+        font-family:
+          "JetBrains Mono",
+          Consolas,
+          monospace;
+        font-size: 12px;
+        font-weight: 760;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="20"
+      data-width="1920"
+      data-height="1080"
+    >
+      <svg class="grid" viewBox="0 0 1920 1080" aria-hidden="true">
+        <g stroke="#262626" stroke-width="1">
+          <line x1="44" y1="0" x2="44" y2="1080" />
+          <line x1="472" y1="0" x2="472" y2="1080" />
+          <line x1="1502" y1="0" x2="1502" y2="1080" />
+          <line x1="1876" y1="0" x2="1876" y2="1080" />
+          <line x1="0" y1="38" x2="1920" y2="38" />
+          <line x1="0" y1="174" x2="1920" y2="174" />
+          <line x1="0" y1="904" x2="1920" y2="904" />
+          <line x1="0" y1="1044" x2="1920" y2="1044" />
+        </g>
+      </svg>
+
+      <main class="canvas">
+        <header class="topbar">
+          <div>
+            <div class="kicker">s01 / agent loop / robot instruction manual</div>
+            <h1>How an AI Coding Agent Gets Hands</h1>
+          </div>
+          <div class="thesis">
+            A model is the brain. The harness is the operator. Bash is the hand. The message history is the notebook.
+          </div>
+        </header>
+
+        <section class="layout">
+          <aside class="panel panel-pad">
+            <div class="label">Disassembly guide</div>
+            <div class="panel-title">The robot is five simple parts</div>
+            <div class="plain">
+              The model never touches your computer directly. The TypeScript harness decides when to ask, when to execute, and what to remember.
+            </div>
+
+            <div class="robot">
+              <svg class="robot-svg" viewBox="0 0 360 176" aria-label="Robot metaphor diagram">
+                <defs>
+                  <marker id="small-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                    <path d="M 0 0 L 8 4 L 0 8 z" fill="#737373" />
+                  </marker>
+                  <marker id="small-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                    <path d="M 0 0 L 8 4 L 0 8 z" fill="#0070F3" />
+                  </marker>
+                </defs>
+                <rect x="128" y="14" width="104" height="62" rx="8" fill="#050505" stroke="#0070F3" />
+                <text x="180" y="40" text-anchor="middle" fill="#F5F5F5" font-size="16" font-weight="760">Harness</text>
+                <text x="180" y="61" text-anchor="middle" fill="#A3A3A3" font-size="11">operator</text>
+                <rect x="18" y="96" width="86" height="52" rx="8" fill="#050505" stroke="#F5F5F5" />
+                <text x="61" y="126" text-anchor="middle" fill="#F5F5F5" font-size="14" font-weight="760">You</text>
+                <rect x="130" y="104" width="100" height="58" rx="8" fill="#050505" stroke="#F5F5F5" />
+                <text x="180" y="128" text-anchor="middle" fill="#F5F5F5" font-size="14" font-weight="760">Notebook</text>
+                <text x="180" y="147" text-anchor="middle" fill="#A3A3A3" font-size="10">messages[]</text>
+                <rect x="260" y="28" width="82" height="52" rx="8" fill="#050505" stroke="#F5F5F5" />
+                <text x="301" y="58" text-anchor="middle" fill="#F5F5F5" font-size="14" font-weight="760">Brain</text>
+                <rect x="264" y="112" width="82" height="52" rx="8" fill="#050505" stroke="#F5F5F5" />
+                <text x="305" y="142" text-anchor="middle" fill="#F5F5F5" font-size="14" font-weight="760">Hand</text>
+                <path d="M 104 122 L 130 122" class="arrow" marker-end="url(#small-arrow)" />
+                <path d="M 232 45 L 260 53" class="arrow" marker-end="url(#small-arrow)" />
+                <path d="M 232 63 L 264 124" class="arrow-blue" marker-end="url(#small-blue)" />
+                <path d="M 264 143 L 230 145" class="arrow-blue" marker-end="url(#small-blue)" />
+              </svg>
+            </div>
+
+            <div class="parts">
+              <div class="part">
+                <div class="part-num">1</div>
+                <div>
+                  <div class="part-name">Terminal prompt</div>
+                  <div class="part-code">You type query</div>
+                  <div class="part-text">A plain sentence starts the whole machine.</div>
+                </div>
+              </div>
+              <div class="part">
+                <div class="part-num">2</div>
+                <div>
+                  <div class="part-name">main() REPL</div>
+                  <div class="part-code">history.push(user)</div>
+                  <div class="part-text">It writes your request into the notebook.</div>
+                </div>
+              </div>
+              <div class="part">
+                <div class="part-num">3</div>
+                <div>
+                  <div class="part-name">agentLoop(messages)</div>
+                  <div class="part-code">while (true)</div>
+                  <div class="part-text">The operator repeats until the brain stops asking for tools.</div>
+                </div>
+              </div>
+              <div class="part">
+                <div class="part-num">4</div>
+                <div>
+                  <div class="part-name">messages.create</div>
+                  <div class="part-code">model + system + tools</div>
+                  <div class="part-text">The brain reads the notebook and chooses the next move.</div>
+                </div>
+              </div>
+              <div class="part">
+                <div class="part-num">5</div>
+                <div>
+                  <div class="part-name">runBash()</div>
+                  <div class="part-code">execAsync(command)</div>
+                  <div class="part-text">The only part that actually touches files or runs commands.</div>
+                </div>
+              </div>
+            </div>
+          </aside>
+
+          <section class="panel sequence-panel">
+            <div class="sequence-head">
+              <div>
+                <div class="label">Sequence diagram</div>
+                <div class="panel-title">Two laps through the loop</div>
+                <div class="plain">
+                  Lap 1: the model asks for Bash. Lap 2: the model sees the tool result and finishes.
+                </div>
+              </div>
+              <div class="micro-code">
+                <span class="blue">autonumber</span><br />
+                participants: You, Main, Loop, API, Bash
+              </div>
+            </div>
+
+            <div class="sequence-board">
+              <svg class="seq" viewBox="0 0 976 636" role="img" aria-label="Mermaid-style sequence diagram for the agent loop">
+                <defs>
+                  <marker id="seq-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                    <path d="M 0 0 L 8 4 L 0 8 z" fill="#D4D4D4" />
+                  </marker>
+                  <marker id="seq-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                    <path d="M 0 0 L 8 4 L 0 8 z" fill="#0070F3" />
+                  </marker>
+                </defs>
+
+                <g>
+                  <text class="participant" x="82" y="30" text-anchor="middle">You</text>
+                  <text class="participant-sub" x="82" y="48" text-anchor="middle">terminal</text>
+                  <text class="participant" x="258" y="30" text-anchor="middle">Main</text>
+                  <text class="participant-sub" x="258" y="48" text-anchor="middle">main() REPL</text>
+                  <text class="participant" x="454" y="30" text-anchor="middle">Loop</text>
+                  <text class="participant-sub" x="454" y="48" text-anchor="middle">agentLoop(messages)</text>
+                  <text class="participant" x="668" y="30" text-anchor="middle">API</text>
+                  <text class="participant-sub" x="668" y="48" text-anchor="middle">messages.create</text>
+                  <text class="participant" x="870" y="30" text-anchor="middle">Bash</text>
+                  <text class="participant-sub" x="870" y="48" text-anchor="middle">runBash()</text>
+                </g>
+
+                <g>
+                  <line class="lifeline" x1="82" y1="62" x2="82" y2="612" />
+                  <line class="lifeline" x1="258" y1="62" x2="258" y2="612" />
+                  <line class="lifeline" x1="454" y1="62" x2="454" y2="612" />
+                  <line class="lifeline" x1="668" y1="62" x2="668" y2="612" />
+                  <line class="lifeline" x1="870" y1="62" x2="870" y2="612" />
+                </g>
+
+                <rect class="lap" x="380" y="166" width="350" height="260" rx="8" />
+                <text class="lap-title" x="398" y="188">Lap 1: model asks to use Bash</text>
+                <rect class="lap" x="380" y="438" width="350" height="134" rx="8" />
+                <text class="lap-title" x="398" y="460">Lap 2: model sees tool_result and finishes</text>
+
+                <g>
+                  <circle class="step-dot" cx="42" cy="82" r="12" /><text class="step-num" x="42" y="86" text-anchor="middle">1</text>
+                  <path class="arrow" d="M 82 82 L 258 82" marker-end="url(#seq-arrow)" />
+                  <text class="msg" x="100" y="74">type query string</text>
+
+                  <circle class="step-dot" cx="218" cy="118" r="12" /><text class="step-num" x="218" y="122" text-anchor="middle">2</text>
+                  <path class="arrow-blue" d="M 258 118 C 318 118 318 146 258 146" marker-end="url(#seq-blue)" />
+                  <text class="msg-blue" x="314" y="116">history.push({role:user, content:query})</text>
+
+                  <circle class="step-dot" cx="218" cy="154" r="12" /><text class="step-num" x="218" y="158" text-anchor="middle">3</text>
+                  <path class="arrow" d="M 258 154 L 454 154" marker-end="url(#seq-arrow)" />
+                  <text class="msg" x="286" y="146">await agentLoop(history)</text>
+
+                  <circle class="step-dot" cx="414" cy="206" r="12" /><text class="step-num" x="414" y="210" text-anchor="middle">4</text>
+                  <path class="arrow-blue" d="M 454 206 L 668 206" marker-end="url(#seq-blue)" />
+                  <text class="msg-blue" x="486" y="198">create(messages, tools, ...)</text>
+
+                  <circle class="step-dot" cx="628" cy="242" r="12" /><text class="step-num" x="628" y="246" text-anchor="middle">5</text>
+                  <path class="arrow" d="M 668 242 L 454 242" marker-end="url(#seq-arrow)" />
+                  <text class="msg" x="486" y="234">response: tool_use + stop_reason = tool_use</text>
+
+                  <circle class="step-dot" cx="414" cy="278" r="12" /><text class="step-num" x="414" y="282" text-anchor="middle">6</text>
+                  <path class="arrow-blue" d="M 454 278 C 512 278 512 306 454 306" marker-end="url(#seq-blue)" />
+                  <text class="msg-blue" x="516" y="276">push assistant response.content</text>
+
+                  <circle class="step-dot" cx="414" cy="314" r="12" /><text class="step-num" x="414" y="318" text-anchor="middle">7</text>
+                  <path class="arrow" d="M 454 314 C 512 314 512 342 454 342" marker-end="url(#seq-arrow)" />
+                  <text class="msg" x="516" y="312">stop_reason is tool_use: do not return</text>
+
+                  <circle class="step-dot" cx="414" cy="350" r="12" /><text class="step-num" x="414" y="354" text-anchor="middle">8</text>
+                  <path class="arrow-blue" d="M 454 350 L 870 350" marker-end="url(#seq-blue)" />
+                  <text class="msg-blue" x="520" y="342">exec tool_use.command</text>
+
+                  <circle class="step-dot" cx="830" cy="386" r="12" /><text class="step-num" x="830" y="390" text-anchor="middle">9</text>
+                  <path class="arrow" d="M 870 386 L 454 386" marker-end="url(#seq-arrow)" />
+                  <text class="msg" x="528" y="378">stdout/stderr string</text>
+
+                  <circle class="step-dot" cx="414" cy="414" r="12" /><text class="step-num" x="414" y="418" text-anchor="middle">10</text>
+                  <path class="arrow-blue" d="M 454 414 C 512 414 512 434 454 434" marker-end="url(#seq-blue)" />
+                  <text class="msg-blue" x="516" y="412">push user message with tool_result blocks</text>
+
+                  <circle class="step-dot" cx="414" cy="478" r="12" /><text class="step-num" x="414" y="482" text-anchor="middle">11</text>
+                  <path class="arrow-blue" d="M 454 478 L 668 478" marker-end="url(#seq-blue)" />
+                  <text class="msg-blue" x="486" y="470">create(messages, tools, ...) now includes tool_result</text>
+
+                  <circle class="step-dot" cx="628" cy="514" r="12" /><text class="step-num" x="628" y="518" text-anchor="middle">12</text>
+                  <path class="arrow" d="M 668 514 L 454 514" marker-end="url(#seq-arrow)" />
+                  <text class="msg" x="486" y="506">response: text + stop_reason != tool_use</text>
+
+                  <circle class="step-dot" cx="414" cy="544" r="12" /><text class="step-num" x="414" y="548" text-anchor="middle">13</text>
+                  <path class="arrow-blue" d="M 454 544 C 512 544 512 566 454 566" marker-end="url(#seq-blue)" />
+                  <text class="msg-blue" x="516" y="542">push assistant response.content; return</text>
+
+                  <circle class="step-dot" cx="414" cy="586" r="12" /><text class="step-num" x="414" y="590" text-anchor="middle">14</text>
+                  <path class="arrow" d="M 454 586 L 258 586" marker-end="url(#seq-arrow)" />
+                  <text class="msg" x="294" y="578">done</text>
+
+                  <circle class="step-dot" cx="218" cy="616" r="12" /><text class="step-num" x="218" y="620" text-anchor="middle">15</text>
+                  <path class="arrow" d="M 258 616 L 82 616" marker-end="url(#seq-arrow)" />
+                  <text class="msg" x="104" y="608">print assistant text, if any</text>
+                </g>
+              </svg>
+            </div>
+          </section>
+
+          <aside class="right-col">
+            <div class="panel panel-pad">
+              <div class="label">Plain English</div>
+              <div class="panel-title">What each lap means</div>
+              <div class="explain-list">
+                <div class="explain">
+                  <strong>Lap 1 asks for action</strong>
+                  <p>The brain says, "I need to run this command." It does not run it itself.</p>
+                </div>
+                <div class="explain">
+                  <strong>The harness uses the hand</strong>
+                  <p>The TypeScript code checks for tool_use, calls runBash(), then captures the output.</p>
+                </div>
+                <div class="explain">
+                  <strong>Tool output becomes evidence</strong>
+                  <p>The result is wrapped as a tool_result and added back to messages[].</p>
+                </div>
+                <div class="explain">
+                  <strong>Lap 2 answers with evidence</strong>
+                  <p>The model now sees what happened in the real world, so it can finish.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel panel-pad">
+              <div class="label">Message notebook</div>
+              <div class="panel-title">What grows over time</div>
+              <div class="ledger">
+                <div class="ledger-card">
+                  <div class="ledger-title">Start</div>
+                  <div class="ledger-line"><span class="blue">user</span><br />"Create hello.ts"</div>
+                </div>
+                <div class="ledger-card">
+                  <div class="ledger-title">After Lap 1</div>
+                  <div class="ledger-line"><span class="blue">assistant</span><br />tool_use: bash</div>
+                  <div class="ledger-line"><span class="blue">user</span><br />tool_result: stdout</div>
+                </div>
+                <div class="ledger-card">
+                  <div class="ledger-title">After Lap 2</div>
+                  <div class="ledger-line"><span class="blue">assistant</span><br />final text answer</div>
+                </div>
+              </div>
+            </div>
+          </aside>
+        </section>
+
+        <section class="bottom">
+          <div class="rule">
+            <div class="rule-title">Rule 1: the model only proposes</div>
+            <div class="rule-text">It emits text blocks or tool_use blocks. The harness decides what to execute.</div>
+            <div class="rule-code">if (block.type === "tool_use")</div>
+          </div>
+          <div class="rule">
+            <div class="rule-title">Rule 2: messages[] is the memory</div>
+            <div class="rule-text">Every lap sends the whole notebook back to the API, including tool results.</div>
+            <div class="rule-code">messages: messages</div>
+          </div>
+          <div class="rule">
+            <div class="rule-title">Rule 3: stop_reason is the exit</div>
+            <div class="rule-text">When the model stops asking for tools, the while loop returns to main().</div>
+            <div class="rule-code">if (response.stop_reason !== "tool_use") return</div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
