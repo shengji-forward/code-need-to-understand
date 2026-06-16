@@ -128,6 +128,33 @@ Answers: `12 + 8`, `"hello" + " " + "world"`, `typeof 42`, `Math.sqrt(144)`, `Ma
 
 ---
 
+## Recap & Self-Assessment (2026-06-16)
+
+Before moving on, revisited all 8 concepts in a Q&A recap:
+
+| # | Concept | Result |
+|---|---|---|
+| 1 | Why languages exist (precision) | ✅ solid |
+| 2 | REPL cycle | ✅ solid |
+| 3 | Expressions vs. statements | ✅ solid |
+| 4 | Functions / encapsulation | ✅ solid |
+| 5 | Objects; property vs. method | ⚠️ minor refinements |
+| 6 | `typeof` — operator, not function | ✅ solid |
+| 7 | Three error types | ✅ solid |
+| 8 | Five-role relationship | ✅ solid |
+
+**Corrections / refinements to lock in:**
+
+1. **`Math.PI` is a stored constant** (a property), not recomputed each time — you *read* it, you don't *call* it.
+2. **`consolle.log("hi")` is a *runtime* `ReferenceError`** — the grammar is valid (`consolle` is a legal identifier); it only fails when the interpreter tries to look up the name during execution. Misspelling ≠ syntax error. (Syntax = broken grammar, caught *before* the run.)
+3. **`7 / 0` → `Infinity`** in JS — not an error (Python raises `ZeroDivisionError`).
+4. **`typeof(42)`** — the parentheses are **grouping**, not a function call. `typeof` is an operator (can't be stored: `const f = typeof` → `SyntaxError`); functions *are* values (`const g = Math.sqrt` works).
+5. **Primitives (like `3`) are data, not objects** — `Math` is the object; `const x = Math.sqrt(9)` binds `x` to a primitive number value. In JS primitives ≠ objects (auto-boxing only *fakes* methods on them). This split is *not* universal — in Python/Ruby everything is an object; in JS/Java/C primitives are separate. It's also *why* JS copies primitives (pass-by-value) but shares objects (call-by-sharing) — the 1.3 distinction.
+6. **Expression kinds** = **primitive** (`9`, names) and **compound** (`Math.sqrt(9)`, `2 + 3`). "Abstraction" (naming) is a separate *mechanism* (1.2/1.3), not an expression kind.
+7. **REPL trigger** = pressing **Enter**. The Loop phase captures keystrokes (autocomplete/preview), but the full Read→Eval→Print only fires on Enter. (The *agent* loop is a different loop wrapping the LLM call cycle.)
+
+---
+
 ## What's Next
 
 **Session 02 — Elements of Programming (1.2)**
