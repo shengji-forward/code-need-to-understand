@@ -34,6 +34,27 @@ Function Definitions (name → compound operation)
 
 ---
 
+## The WH-Framework — A Lens for 1.3
+
+A useful way to organize the whole section: map each WH-question onto a function concept.
+
+| Question | Function concept | 1.3 topic |
+|---|---|---|
+| **WHAT** does it do? | domain, range, intent | Functions as abstractions |
+| **HOW** does it do it? | the body / implementation | what abstraction *hides* |
+| **WHERE** do its names live? | environments — global vs local frames; scope | Environments, scope |
+| **WHEN** does the body run? | on call (not definition); frames created → destroyed; eval order | The call procedure |
+| **WHY** use / design it that way? | abstraction, reuse, purity, isolation | preview of **1.4 — Designing Functions** |
+| **WHO** is involved? | caller vs callee; the interpreter as evaluator | pass-by-value, who reads which frame |
+
+- **WHAT / HOW** is the official pair from the reading (depend on the *what*, hide the *how*).
+- **WHERE** (environments/scope) and **WHEN** (call lifecycle) are the other two pillars of 1.3 — almost every trace answered a *where* or *when* question.
+- **WHY** points forward to 1.4; **WHO** is a mnemonic for the caller/callee roles.
+
+In one line: **1.3 = WHAT/HOW (abstraction) + WHERE (environments/scope) + WHEN (call lifecycle).**
+
+---
+
 ## Objectives
 
 - [x] Define functions with parameters and return values
@@ -147,6 +168,31 @@ Exercise 6 was the capstone: three local frames (`hypotenuse`, two `square` call
 5. **Values are passed, not frames shared** — the argument is evaluated in the caller's frame, then copied onto the callee's fresh name tag (pass by value).
 6. **Composition multiplies frames, not confusion** — nested calls mean multiple isolated frames alive at once, each destroyed on return.
 7. **Good functions are abstractions** — depend on domain/range/intent, not implementation; callers can't tell built-in from user-defined.
+
+---
+
+## Recap & Self-Assessment
+
+After completing the exercises, worked through all 9 concepts in a Q&A recap:
+
+| # | Concept | Result |
+|---|---|---|
+| 1 | Defining vs. calling | ✅ solid |
+| 2 | Environments & frames | ✅ solid |
+| 3 | 3-step call procedure | ✅ solid |
+| 4 | Name lookup (local → global) | ✅ solid |
+| 5 | Scope / the wall | ✅ solid (sharpened: *who reads which frame, when*) |
+| 6 | Pass by value (copy, not link) | ✅ solid |
+| 7 | Composition | ⚠️ corrected — see below |
+| 8 | Abstraction (domain/range/intent) | ✅ solid |
+| 9 | Operators & precedence | ⚠️ partial — see below |
+
+**Two corrections to lock in:**
+
+1. **Only *user-defined* functions create local frames — built-ins do not.** In `hypotenuse(3, 4)` the count is **3** frames (`hypotenuse`, `square(a)`, `square(b)`), *not* 4. `Math.sqrt` is a built-in, applied directly with **no frame**. Also, the `square` calls run **before** `Math.sqrt` — they produce its argument (`25`) — they are not nested *inside* a Math frame.
+2. **Same-precedence operators evaluate left-to-right.** Precedence puts `*` `/` above `+` `-`; but when two operators share a level (`*` with `/`, or `+` with `-`), **left-to-right** decides: `c * 9 / 5` is `(c * 9) / 5`. Example: `12 / 3 * 2` → `(12/3)*2 = 8`, not `12/(3*2) = 2`.
+
+**A subtle scope point (resolved during the recap):** "Square never reads cube's ticket" is precise only if you track *when*. The operand `x` in `square(x)` is evaluated **while the interpreter is still running cube's body** — so reading `f1` then is *cube's* lookup, done on cube's behalf. Once the interpreter switches to square's body, it consults **only** `f2` (+ global), never `f1`. There is **one interpreter** (one cook); it just stands at different tickets at different moments.
 
 ---
 
