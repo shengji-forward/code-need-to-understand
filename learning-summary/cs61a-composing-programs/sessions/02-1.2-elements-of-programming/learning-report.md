@@ -136,6 +136,29 @@ Exercise 5 combined three concepts in one line: call expression (`Math.sqrt(16)`
 
 ---
 
+## Recap & Self-Assessment (2026-06-16)
+
+Revisited all 7 concepts in a Q&A recap:
+
+| # | Concept | Result |
+|---|---|---|
+| 1 | Three mechanisms (primitive / combination / abstraction) | ✅ solid |
+| 2 | Primitive vs. compound expressions | ✅ solid |
+| 3 | Call expressions | ⚠️ refinements |
+| 4 | Names, bindings, environment (`const`/`let`) | ⚠️ refinement |
+| 5 | Expression trees / evaluation procedure | ✅ solid |
+| 6 | Pure vs. non-pure functions | ✅ solid |
+| 7 | Environment as memory layers | ✅ solid |
+
+**Corrections / refinements to lock in:**
+
+1. **The operator is the function itself** (`Math.max`), not the call (`Math.max()`). `Math.max` = the function value; `Math.max(7.5, 9.5)` = the call.
+2. **Call notation's advantages over infix are syntactic:** **arbitrary args** (`Math.max(1, -2, 3, -4)`), **explicit nesting** (parens make structure clear), and **unified notation** (one form for all operations). Abstraction (naming a process) is a *separate* mechanism, not a call-notation advantage.
+3. **The snapshot trap is NOT pass-by-value.** `let area = Math.PI * radius * radius` evaluates the right side **once** and stores the resulting value; rebinding `radius` later does **not** re-compute `area`. There is no function call here (top-level binding), so there is no local frame and no pass-by-value. The *shared principle* with 1.3's pass-by-value is: **JS captures values, not live links** (pass-by-value captures the argument's value; assignment captures the RHS value).
+4. **3-step evaluation procedure (for each call expression, recursive):** evaluate the **operator** → evaluate the **operands left-to-right** (each may recurse) → **apply**. **Leaves** = primitives (numerals, names — the base case); **interior** nodes = combinations (calls, operators). Evaluate **inside-out** (bottom-up the tree).
+
+---
+
 ## What's Next
 
 **Session 03 — Defining Functions (1.3)**
