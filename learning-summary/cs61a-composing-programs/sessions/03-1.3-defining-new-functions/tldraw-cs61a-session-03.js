@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { Tldraw, toRichText } from 'tldraw'
 
 const VARIANT = window.CS61A_TLDRAW_VARIANT || 'nav'
-const STORAGE_KEY = `cs61a-session-03-tldraw-story-${VARIANT}-v1`
+const STORAGE_KEY = `cs61a-session-03-tldraw-story-${VARIANT}-v2`
 const SESSION_ID = 'cs61a-session-03'
 const SLIDE_W = 1920
 const SLIDE_H = 1080
@@ -13,15 +13,14 @@ const SLIDES = [
   ['title', '01. Why Define Functions'],
   ['defineCall', '02. Define vs Call'],
   ['parts', '03. Function Parts'],
-  ['localFrame', '04. Fresh Local Frame'],
-  ['environment', '05. Global and Local'],
-  ['callSteps', '06. Call Procedure'],
-  ['lookup', '07. Name Lookup'],
-  ['scope', '08. Scope Wall'],
-  ['passValue', '09. Pass by Value'],
-  ['composition', '10. Composition'],
-  ['abstraction', '11. Function Abstraction'],
-  ['recap', '12. Practice Recap'],
+  ['frames', '04. Local and Global Frames'],
+  ['callSteps', '05. Call Procedure'],
+  ['lookup', '06. Name Lookup'],
+  ['scope', '07. Scope Wall'],
+  ['passValue', '08. Pass by Value'],
+  ['composition', '09. Composition'],
+  ['abstraction', '10. Function Abstraction'],
+  ['recap', '11. Practice Recap'],
 ].map(([key, name], index) => ({
   key,
   name,
@@ -218,166 +217,148 @@ function buildDeck(editor) {
     size: 'l',
   })
 
-  title(3, 'Every call gets a fresh local frame', 'A new order gets a new ticket.')
-  makeCode(3, 's3-code', 185, 310, 520, 230, 'square(-2)\n\nfunction square(x) {\n  return x * x;\n}')
-  makeBox(3, 's3-call', 835, 330, 300, 140, 'call\nsquare(-2)', { fill: 'none', size: 'l' })
-  makeBox(3, 's3-frame', 1335, 300, 360, 220, 'local frame\n\nx -> -2', {
+  title(3, 'Local frames and the global board', 'Fresh tickets use the shared recipe wall.')
+  makeCode(3, 's3-code', 130, 300, 520, 230, 'square(-2)\n\nfunction square(x) {\n  return x * x;\n}')
+  makeBox(3, 's3-global', 760, 300, 390, 260, 'global frame\nshared board\n\nsquare -> function\nMath -> object', {
     fill: 'semi',
     size: 'l',
     align: 'start',
     verticalAlign: 'start',
   })
-  makeArrowBetween('s3-call', 's3-frame', 'creates')
-  makeBox(3, 's3-body', 730, 690, 430, 130, '(-2) * (-2)', { fill: 'none', size: 'xl' })
-  makeBox(3, 's3-return', 1395, 690, 230, 130, 'return 4', { fill: 'semi', size: 'xl' })
+  makeBox(3, 's3-local', 1320, 300, 390, 260, 'local frame\none call\n\nx -> -2', {
+    fill: 'none',
+    size: 'l',
+    align: 'start',
+    verticalAlign: 'start',
+  })
+  makeArrowBetween('s3-code', 's3-local', 'call creates')
+  makeArrow(3, 1325, 565, 1150, 520, 'can look up')
+  makeBox(3, 's3-body', 690, 735, 470, 120, '(-2) * (-2) = 4', { fill: 'none', size: 'xl' })
+  makeBox(3, 's3-return', 1325, 735, 300, 120, 'return clears\nthe ticket', { fill: 'semi', size: 'l' })
   makeArrowBetween('s3-body', 's3-return', '')
-  makeText(3, 320, 760, 400, 'return clears the ticket', { size: 'l', scale: 1 })
 
-  title(4, 'Environment = global frame + local frames', 'Wall board plus order tickets.')
-  makeBox(4, 's4-global', 190, 330, 620, 380, 'GLOBAL FRAME\nshared recipe board\n\nsquare -> function\nMath -> built-in object\ncube -> function', {
-    fill: 'semi',
-    size: 'l',
-    align: 'start',
-    verticalAlign: 'start',
-  })
-  makeBox(4, 's4-local1', 1030, 330, 300, 180, 'local frame\nsquare call\n\nx -> 5', {
-    fill: 'none',
-    size: 'l',
-    align: 'start',
-    verticalAlign: 'start',
-  })
-  makeBox(4, 's4-local2', 1410, 530, 300, 180, 'local frame\ncube call\n\nx -> 3', {
-    fill: 'none',
-    size: 'l',
-    align: 'start',
-    verticalAlign: 'start',
-  })
-  makeArrowBetween('s4-local1', 's4-global', 'can look up')
-  makeArrowBetween('s4-local2', 's4-global', 'can look up')
-  makeBox(4, 's4-note', 510, 810, 930, 95, 'global is shared; local belongs to one call', { fill: 'none', size: 'xl' })
-
-  title(5, 'A user-defined call has three steps', 'Evaluate, bind, run body.')
+  title(4, 'A user-defined call has three steps', 'Evaluate, bind, run body.')
   const steps = [
-    ['s5-step1', '1\nEvaluate\noperator + operands', 195, 410],
-    ['s5-step2', '2\nCreate local frame\nbind params to args', 750, 410],
-    ['s5-step3', '3\nEvaluate body\nreturn value', 1305, 410],
+    ['s4-step1', '1\nEvaluate\noperator + operands', 195, 410],
+    ['s4-step2', '2\nCreate local frame\nbind params to args', 750, 410],
+    ['s4-step3', '3\nEvaluate body\nreturn value', 1305, 410],
   ]
   steps.forEach(([key, text, x, y], index) => {
-    makeBox(5, key, x, y, 390, 230, text, { fill: index === 1 ? 'semi' : 'none', size: 'l' })
-    if (index < steps.length - 1) makeArrow(5, x + 395, y + 115, x + 550, y + 115, '')
+    makeBox(4, key, x, y, 390, 230, text, { fill: index === 1 ? 'semi' : 'none', size: 'l' })
+    if (index < steps.length - 1) makeArrow(4, x + 395, y + 115, x + 550, y + 115, '')
   })
-  makeCode(5, 's5-example', 525, 765, 870, 110, 'square(5) -> x -> 5 -> return x * x -> 25')
-  makeText(5, 430, 285, 1060, 'This cycle is the engine under every function call.', { size: 'xl', scale: 1 })
+  makeCode(4, 's4-example', 525, 765, 870, 110, 'square(5) -> x -> 5 -> return x * x -> 25')
+  makeText(4, 430, 285, 1060, 'This cycle is the engine under every function call.', { size: 'xl', scale: 1 })
 
-  title(6, 'Name lookup is local first, then global', 'Own ticket first. Wall board second.')
-  makeCode(6, 's6-code', 150, 305, 670, 230, 'function areaOfCircle(radius) {\n  return Math.PI * square(radius);\n}')
-  makeBox(6, 's6-local', 935, 315, 330, 200, 'local frame\n\nradius -> 10', {
+  title(5, 'Name lookup is local first, then global', 'Own ticket first. Wall board second.')
+  makeCode(5, 's5-code', 150, 305, 670, 230, 'function areaOfCircle(radius) {\n  return Math.PI * square(radius);\n}')
+  makeBox(5, 's5-local', 935, 315, 330, 200, 'local frame\n\nradius -> 10', {
     fill: 'semi',
     size: 'l',
     align: 'start',
     verticalAlign: 'start',
   })
-  makeBox(6, 's6-global', 1390, 315, 330, 250, 'global frame\n\nMath -> object\nsquare -> function', {
+  makeBox(5, 's5-global', 1390, 315, 330, 250, 'global frame\n\nMath -> object\nsquare -> function', {
     fill: 'none',
     size: 'l',
     align: 'start',
     verticalAlign: 'start',
   })
-  makeArrow(6, 825, 450, 930, 415, 'radius', { size: 'm' })
-  makeArrow(6, 825, 455, 1385, 440, 'Math, square', { size: 'm' })
-  makeBox(6, 's6-rule', 535, 765, 850, 110, 'lookup rule: local frame -> global frame', { fill: 'none', size: 'xl' })
+  makeArrow(5, 825, 450, 930, 415, 'radius', { size: 'm' })
+  makeArrow(5, 825, 455, 1385, 440, 'Math, square', { size: 'm' })
+  makeBox(5, 's5-rule', 535, 765, 850, 110, 'lookup rule: local frame -> global frame', { fill: 'none', size: 'xl' })
 
-  title(7, 'Scope is the wall between frames', 'Same name, different tickets.')
-  makeCode(7, 's7-code', 135, 300, 560, 255, 'function square(x) {\n  return x * x;\n}\n\nfunction cube(x) {\n  return x * square(x);\n}')
-  makeBox(7, 's7-cube', 835, 335, 330, 210, 'cube frame\n\nx -> 3', {
+  title(6, 'Scope is the wall between frames', 'Same name, different tickets.')
+  makeCode(6, 's6-code', 135, 300, 560, 255, 'function square(x) {\n  return x * x;\n}\n\nfunction cube(x) {\n  return x * square(x);\n}')
+  makeBox(6, 's6-cube', 835, 335, 330, 210, 'cube frame\n\nx -> 3', {
     fill: 'semi',
     size: 'l',
     align: 'start',
     verticalAlign: 'start',
   })
-  makeBox(7, 's7-wall', 1245, 300, 45, 500, '', { fill: 'none', size: 'xl' })
-  makeBox(7, 's7-square', 1375, 335, 330, 210, 'square frame\n\nx -> 3', {
+  makeBox(6, 's6-wall', 1245, 300, 45, 500, '', { fill: 'none', size: 'xl' })
+  makeBox(6, 's6-square', 1375, 335, 330, 210, 'square frame\n\nx -> 3', {
     fill: 'none',
     size: 'l',
     align: 'start',
     verticalAlign: 'start',
   })
-  makeArrowBetween('s7-cube', 's7-square', 'value 3')
-  makeText(7, 925, 700, 690, 'The frames can both say x. They do not collide.', { size: 'xl', scale: 1 })
-  makeText(7, 1205, 825, 140, 'wall', { size: 'l', scale: 1, textAlign: 'middle' })
+  makeArrowBetween('s6-cube', 's6-square', 'value 3')
+  makeText(6, 925, 700, 690, 'The frames can both say x. They do not collide.', { size: 'xl', scale: 1 })
+  makeText(6, 1205, 825, 140, 'wall', { size: 'l', scale: 1, textAlign: 'middle' })
 
-  title(8, 'Pass by value', 'Values cross the wall. Frames do not.')
-  makeBox(8, 's8-caller', 195, 390, 390, 250, 'caller frame\ncube\n\nx -> 3', {
+  title(7, 'Pass by value', 'Values cross the wall. Frames do not.')
+  makeBox(7, 's7-caller', 195, 390, 390, 250, 'caller frame\ncube\n\nx -> 3', {
     fill: 'semi',
     size: 'l',
     align: 'start',
     verticalAlign: 'start',
   })
-  makeBox(8, 's8-value', 785, 450, 240, 125, 'value\n3', { geo: 'ellipse', fill: 'none', size: 'xl' })
-  makeBox(8, 's8-callee', 1235, 390, 390, 250, 'callee frame\nsquare\n\nx -> 3', {
+  makeBox(7, 's7-value', 785, 450, 240, 125, 'value\n3', { geo: 'ellipse', fill: 'none', size: 'xl' })
+  makeBox(7, 's7-callee', 1235, 390, 390, 250, 'callee frame\nsquare\n\nx -> 3', {
     fill: 'none',
     size: 'l',
     align: 'start',
     verticalAlign: 'start',
   })
-  makeArrowBetween('s8-caller', 's8-value', 'evaluate x')
-  makeArrowBetween('s8-value', 's8-callee', 'copy')
-  makeCode(8, 's8-code', 455, 760, 1010, 105, 'return x * square(x);  // square gets the value, not cube frame')
-  makeText(8, 520, 285, 880, 'One cook shouts "3"; another writes it on a new ticket.', { size: 'xl', scale: 1 })
+  makeArrowBetween('s7-caller', 's7-value', 'evaluate x')
+  makeArrowBetween('s7-value', 's7-callee', 'copy')
+  makeCode(7, 's7-code', 455, 760, 1010, 105, 'return x * square(x);  // square gets the value, not cube frame')
+  makeText(7, 520, 285, 880, 'One cook shouts "3"; another writes it on a new ticket.', { size: 'xl', scale: 1 })
 
-  title(9, 'Composition builds bigger work', 'Small functions call other small functions.')
-  makeCode(9, 's9-code', 140, 285, 720, 260, 'function hypotenuse(a, b) {\n  return Math.sqrt(square(a) + square(b));\n}')
-  makeBox(9, 's9-hyp', 910, 300, 330, 160, 'hypotenuse\nframe\na -> 3, b -> 4', { fill: 'semi', size: 'm' })
-  makeBox(9, 's9-squareA', 760, 610, 260, 140, 'square\nx -> 3', { fill: 'none', size: 'l' })
-  makeBox(9, 's9-squareB', 1130, 610, 260, 140, 'square\nx -> 4', { fill: 'none', size: 'l' })
-  makeBox(9, 's9-sqrt', 1500, 465, 250, 140, 'Math.sqrt\nreturn 5', { fill: 'none', size: 'l' })
-  makeArrowBetween('s9-hyp', 's9-squareA', 'a', { fromSide: 'bottom', toSide: 'top' })
-  makeArrowBetween('s9-hyp', 's9-squareB', 'b', { fromSide: 'bottom', toSide: 'top' })
-  makeArrowBetween('s9-squareB', 's9-sqrt', '')
-  makeArrowBetween('s9-squareA', 's9-sqrt', '')
-  makeBox(9, 's9-note', 455, 830, 970, 90, 'multiple frames can be alive, but each is isolated', { fill: 'none', size: 'l' })
+  title(8, 'Composition builds bigger work', 'Small functions call other small functions.')
+  makeCode(8, 's8-code', 140, 285, 720, 260, 'function hypotenuse(a, b) {\n  return Math.sqrt(square(a) + square(b));\n}')
+  makeBox(8, 's8-hyp', 910, 300, 330, 160, 'hypotenuse\nframe\na -> 3, b -> 4', { fill: 'semi', size: 'm' })
+  makeBox(8, 's8-squareA', 760, 610, 260, 140, 'square\nx -> 3', { fill: 'none', size: 'l' })
+  makeBox(8, 's8-squareB', 1130, 610, 260, 140, 'square\nx -> 4', { fill: 'none', size: 'l' })
+  makeBox(8, 's8-sqrt', 1500, 465, 250, 140, 'Math.sqrt\nreturn 5', { fill: 'none', size: 'l' })
+  makeArrowBetween('s8-hyp', 's8-squareA', 'a', { fromSide: 'bottom', toSide: 'top' })
+  makeArrowBetween('s8-hyp', 's8-squareB', 'b', { fromSide: 'bottom', toSide: 'top' })
+  makeArrowBetween('s8-squareB', 's8-sqrt', '')
+  makeArrowBetween('s8-squareA', 's8-sqrt', '')
+  makeBox(8, 's8-note', 455, 830, 970, 90, 'multiple frames can be alive, but each is isolated', { fill: 'none', size: 'l' })
 
-  title(10, 'A function is an abstraction', 'Callers need what, not every how.')
-  makeBox(10, 's10-domain', 210, 395, 380, 210, 'DOMAIN\n\nallowed inputs\none number', {
+  title(9, 'A function is an abstraction', 'Callers need what, not every how.')
+  makeBox(9, 's9-domain', 210, 395, 380, 210, 'DOMAIN\n\nallowed inputs\none number', {
     fill: 'semi',
     size: 'l',
     align: 'start',
     verticalAlign: 'start',
   })
-  makeBox(10, 's10-range', 770, 395, 380, 210, 'RANGE\n\npossible outputs\nnon-negative number', {
+  makeBox(9, 's9-range', 770, 395, 380, 210, 'RANGE\n\npossible outputs\nnon-negative number', {
     fill: 'none',
     size: 'l',
     align: 'start',
     verticalAlign: 'start',
   })
-  makeBox(10, 's10-intent', 1330, 395, 380, 210, 'INTENT\n\npromise\ninput times itself', {
+  makeBox(9, 's9-intent', 1330, 395, 380, 210, 'INTENT\n\npromise\ninput times itself', {
     fill: 'none',
     size: 'l',
     align: 'start',
     verticalAlign: 'start',
   })
-  makeArrowBetween('s10-domain', 's10-range')
-  makeArrowBetween('s10-range', 's10-intent')
-  makeBox(10, 's10-house', 500, 785, 920, 100, '"house salsa" hides steps behind a useful name', {
+  makeArrowBetween('s9-domain', 's9-range')
+  makeArrowBetween('s9-range', 's9-intent')
+  makeBox(9, 's9-house', 500, 785, 920, 100, '"house salsa" hides steps behind a useful name', {
     fill: 'none',
     size: 'xl',
   })
 
-  title(11, 'Session 03 practice map', 'Define, call, frame, return.')
+  title(10, 'Session 03 practice map', 'Define, call, frame, return.')
   const recap = [
-    ['s11-define', 'define\nfunction', 130, 430],
-    ['s11-call', 'call\nsquare(5)', 430, 430],
-    ['s11-frame', 'fresh\nlocal frame', 730, 430],
-    ['s11-lookup', 'lookup\nlocal -> global', 1030, 430],
-    ['s11-return', 'return\nvalue', 1330, 430],
-    ['s11-clear', 'destroy\nframe', 1630, 430],
+    ['s10-define', 'define\nfunction', 130, 430],
+    ['s10-call', 'call\nsquare(5)', 430, 430],
+    ['s10-frame', 'fresh\nlocal frame', 730, 430],
+    ['s10-lookup', 'lookup\nlocal -> global', 1030, 430],
+    ['s10-return', 'return\nvalue', 1330, 430],
+    ['s10-clear', 'destroy\nframe', 1630, 430],
   ]
   recap.forEach(([key, text, x, y], index) => {
-    makeBox(11, key, x, y, 215, 150, text, { fill: index === 2 ? 'semi' : 'none', size: 'm' })
-    if (index < recap.length - 1) makeArrow(11, x + 220, y + 75, x + 295, y + 75, '')
+    makeBox(10, key, x, y, 215, 150, text, { fill: index === 2 ? 'semi' : 'none', size: 'm' })
+    if (index < recap.length - 1) makeArrow(10, x + 220, y + 75, x + 295, y + 75, '')
   })
-  makeCode(11, 's11-practice', 310, 735, 1300, 135, 'square(x)    cube(x)    areaOfCircle(radius)\ngreet(name, greeting = "Hello")\nhypotenuse(a, b)')
-  makeText(11, 395, 255, 1130, 'Next: design functions deliberately.', { size: 'xl', scale: 1.15 })
+  makeCode(10, 's10-practice', 310, 735, 1300, 135, 'square(x)    cube(x)    areaOfCircle(radius)\ngreet(name, greeting = "Hello")\nhypotenuse(a, b)')
+  makeText(10, 395, 255, 1130, 'Next: design functions deliberately.', { size: 'xl', scale: 1.15 })
 
   frameIds.forEach((id) => {
     try {
@@ -537,4 +518,3 @@ function App() {
 }
 
 createRoot(document.getElementById('root')).render(React.createElement(App))
-

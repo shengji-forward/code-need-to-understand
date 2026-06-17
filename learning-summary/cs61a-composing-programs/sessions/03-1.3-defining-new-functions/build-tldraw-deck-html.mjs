@@ -8,7 +8,7 @@ const bundle = readFileSync(resolve(here, 'cs61a-session-03-tldraw.bundle.js'), 
 const css = readFileSync(resolve(tldrawRoot, 'dist/tldraw.css'), 'utf8')
 
 const deckTitle = 'CS61A Session 03 - 1.3 Defining New Functions'
-const slideCount = 12
+const slideCount = 11
 
 function toolbar({ nav }) {
   const navControls = nav
@@ -174,4 +174,3 @@ for (const output of outputs) {
   console.log(`Built ${output.file}`)
   console.log('Size:', (Buffer.byteLength(html) / 1024 / 1024).toFixed(2), 'MB')
 }
-

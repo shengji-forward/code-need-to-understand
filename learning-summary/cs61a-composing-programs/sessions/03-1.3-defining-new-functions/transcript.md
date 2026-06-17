@@ -3,20 +3,18 @@
 **Audience**: Non-technical beginners learning CS and programming fundamentals.
 **Deck**: `slides-tldraw-story-nav.html`
 **Voice**: Clear mentor, plain English, kitchen and restaurant examples.
-**Length**: About 15-18 minutes.
+**Length**: About 12-15 minutes.
 
 ---
 
 ## Frame 01 - Why Defining Functions Matters
 
-[00:00-01:20]
+[00:00-01:05]
 
 Welcome to Session 03.
 This is CS61A section 1.3: Defining New Functions.
 
 In Session 02, we used names for values.
-
-For example:
 
 ```javascript
 const radius = 10;
@@ -24,21 +22,18 @@ const radius = 10;
 
 The name `radius` points to a value.
 
-Today we take a bigger step.
-We use a name for a process.
+Today we use a name for a process.
 
 That process can be called again and again.
 
-This matters a lot in the vibe coding era.
+This matters in the vibe coding era.
 AI can generate many lines of code.
-But if you do not understand functions, the code is just a pile of instructions.
-
-Functions are how we package meaning.
-They are how we turn repeated work into a named tool.
+But functions are how we package meaning.
 
 Kitchen version:
-instead of explaining "wash, chop, season, and mix" every time, the kitchen says "make salsa."
-One name now stands for a whole process.
+instead of saying "wash, chop, season, and mix" every time, the kitchen says "make salsa."
+
+One name now stands for the whole process.
 
 That is what a function definition gives us.
 
@@ -46,7 +41,7 @@ That is what a function definition gives us.
 
 ## Frame 02 - Defining Is Not Calling
 
-[01:20-02:45]
+[01:05-02:15]
 
 Look at this function:
 
@@ -58,8 +53,6 @@ function square(x) {
 
 This defines a function.
 It does not run the body yet.
-
-That is the first key idea.
 
 Defining a function is like writing a recipe card.
 Calling a function is like asking the kitchen to cook from that recipe.
@@ -78,7 +71,7 @@ does not run yet.
 There is no value for `x` yet.
 `x` is only a placeholder.
 
-To actually run the function, we call it:
+To run the function, we call it:
 
 ```javascript
 square(5)
@@ -88,15 +81,14 @@ Now the recipe gets used.
 Now `x` receives a value.
 Now the body can run.
 
-So remember:
-definition stores the recipe.
+Definition stores the recipe.
 Call cooks the order.
 
 ---
 
 ## Frame 03 - Parts of a Function
 
-[02:45-04:10]
+[02:15-03:25]
 
 Let us name the parts.
 
@@ -110,11 +102,11 @@ function square(x) {
 It is the public label.
 
 `x` is a formal parameter.
-That means it is a blank space on the recipe.
-It says, "when someone calls me, put the input here."
+It is a blank space on the recipe.
+When someone calls the function, the input goes there.
 
 `return x * x` is the body.
-It describes what the function does.
+It says what work to do.
 
 The `return` keyword sends a value back to the caller.
 
@@ -132,8 +124,7 @@ the cooking steps.
 Return:
 the finished dish leaving the station.
 
-When you read a function, do not rush.
-Ask four questions:
+When you read a function, ask four quick questions.
 
 What is its name?
 What inputs does it expect?
@@ -142,9 +133,9 @@ What value does it return?
 
 ---
 
-## Frame 04 - Every Call Creates a Local Frame
+## Frame 04 - Local Frames and the Global Board
 
-[04:10-05:45]
+[03:25-04:50]
 
 Now we get the engine under function calls.
 
@@ -159,22 +150,14 @@ square(-2)
 The function has a parameter named `x`.
 The argument value is `-2`.
 
-So the new local frame gets this binding:
+So the local frame gets:
 
 ```text
 x -> -2
 ```
 
-Then the body runs:
-
-```javascript
-return x * x;
-```
-
-JavaScript looks up `x`.
-It finds `-2` in the local frame.
-
-So it computes:
+Then the body runs.
+JavaScript looks up `x`, finds `-2`, and computes:
 
 ```text
 (-2) * (-2) = 4
@@ -183,11 +166,24 @@ So it computes:
 Then it returns `4`.
 After return, that local frame is gone.
 
-Kitchen version:
-an order comes in.
-A cook gets a fresh ticket.
-The cook fills the ticket with this order's values.
-When the dish leaves the kitchen, the ticket is thrown away.
+Now connect that to the global frame.
+
+The global frame is the shared recipe board.
+It holds top-level names like:
+
+```text
+square -> function
+Math -> built-in object
+```
+
+The local frame is one cook's order ticket.
+It belongs to one call.
+
+Global board:
+shared.
+
+Local ticket:
+private.
 
 Fresh call.
 Fresh ticket.
@@ -195,59 +191,9 @@ Fresh local frame.
 
 ---
 
-## Frame 05 - Global Frame and Local Frame
+## Frame 05 - The Three Steps of a Function Call
 
-[05:45-07:10]
-
-An environment is a sequence of frames.
-
-For now, we need two kinds.
-
-The global frame is shared.
-It holds top-level names.
-
-Examples:
-
-```text
-square -> function square(x)
-Math -> built-in object
-```
-
-A local frame belongs to one function call.
-It holds that call's parameter values.
-
-Example:
-
-```text
-square frame:
-x -> 5
-```
-
-Kitchen version:
-the global frame is the recipe board on the wall.
-Every cook can read it.
-
-The local frame is one cook's order ticket.
-It belongs to one order.
-
-This distinction is important.
-The global board is shared.
-The local ticket is private.
-
-When a beginner gets confused by functions, it is often because these frames are mixed together in the mind.
-
-So separate them.
-Wall board.
-Order ticket.
-
-Global frame.
-Local frame.
-
----
-
-## Frame 06 - The Three Steps of a Function Call
-
-[07:10-08:35]
+[04:50-06:05]
 
 Every user-defined function call follows three steps.
 
@@ -287,21 +233,20 @@ This gives:
 Then the value returns.
 The local frame is destroyed.
 
-This is the cycle:
+Kitchen version:
+look up the recipe.
+Prepare the ticket.
+Cook the order.
+Return the dish.
+Clear the station.
 
-look up the function.
-prepare the ticket.
-run the body.
-return the dish.
-clear the station.
-
-If you can trace this cycle, you can understand many programs that first look mysterious.
+If you can trace this cycle, you can read many programs that first look mysterious.
 
 ---
 
-## Frame 07 - Name Lookup: Local First, Then Global
+## Frame 06 - Name Lookup: Local First, Then Global
 
-[08:35-10:00]
+[06:05-07:15]
 
 When JavaScript sees a name, it must find its value.
 
@@ -318,20 +263,14 @@ function areaOfCircle(radius) {
 
 Inside the body, JavaScript sees three important names.
 
-`radius`
-is found in the local frame.
+`radius` is local.
 It came from this function call.
 
-`square`
-is not local.
-So JavaScript looks in the global frame.
-There it finds the function `square`.
+`square` is not local.
+So JavaScript checks the global frame and finds the function.
 
-`Math`
-is also global.
+`Math` is also global.
 It is a built-in object.
-
-So one body can use both local and global names.
 
 Kitchen version:
 the cook checks their own ticket first.
@@ -345,18 +284,16 @@ That is local first, then global.
 
 ---
 
-## Frame 08 - Scope Is a Wall Between Frames
+## Frame 07 - Scope Is a Wall Between Frames
 
-[10:00-11:25]
+[07:15-08:30]
 
 Scope tells us where a name can be used.
 
 A parameter is local to its own function body.
 
-This means two functions can both use the name `x`.
+That means two functions can both use the name `x`.
 They do not collide.
-
-Example:
 
 ```javascript
 function square(x) {
@@ -402,9 +339,9 @@ Scope is the wall between the tickets.
 
 ---
 
-## Frame 09 - Pass by Value
+## Frame 08 - Pass by Value
 
-[11:25-12:55]
+[08:30-09:45]
 
 Now we answer a subtle question.
 
@@ -438,20 +375,19 @@ It is a copy of the value.
 Kitchen version:
 one cook shouts "3" across the kitchen.
 The other cook writes "3" on their own ticket.
-They do not share the same ticket.
 
-That is pass by value.
+They do not share the same ticket.
 
 Values cross the wall.
 Frames do not cross the wall.
 
-This idea prevents many bugs.
+That is pass by value.
 
 ---
 
-## Frame 10 - Composition: Functions Calling Functions
+## Frame 09 - Composition: Functions Calling Functions
 
-[12:55-14:20]
+[09:45-11:05]
 
 Composition means building bigger work from smaller functions.
 
@@ -466,7 +402,7 @@ function cube(x) {
 `cube` uses `square`.
 That is composition.
 
-Look at a bigger example:
+Here is a bigger example:
 
 ```javascript
 function hypotenuse(a, b) {
@@ -474,10 +410,7 @@ function hypotenuse(a, b) {
 }
 ```
 
-This function uses:
-`square(a)`,
-`square(b)`,
-and `Math.sqrt`.
+This function uses `square(a)`, `square(b)`, and `Math.sqrt`.
 
 Several frames can be alive while this runs.
 
@@ -503,15 +436,14 @@ The final station plates the dish.
 Each station has its own ticket.
 The result moves forward.
 
-Good programs are built this way.
-Small clear functions.
-Composed into larger work.
+Good programs are built this way:
+small clear functions composed into larger work.
 
 ---
 
-## Frame 11 - Functions as Abstractions
+## Frame 10 - Functions as Abstractions
 
-[14:20-15:50]
+[11:05-12:20]
 
 A function is an abstraction.
 
@@ -550,14 +482,13 @@ But the name must be honest.
 The inputs must make sense.
 The return value must be clear.
 
-This prepares us for the next session:
-designing good functions.
+That prepares us for designing good functions.
 
 ---
 
-## Frame 12 - Practice Recap and Next Step
+## Frame 11 - Practice Recap and Next Step
 
-[15:50-17:30]
+[12:20-13:45]
 
 Let us connect this to the practice.
 
@@ -592,7 +523,7 @@ function areaOfCircle(radius) {
 That practiced local and global lookup.
 
 You defined `greet` with a default parameter.
-That means a caller can omit one argument, and the function still has a useful value.
+That means a caller can omit one argument and still get a useful value.
 
 You defined `hypotenuse`.
 That was the capstone.
@@ -605,6 +536,7 @@ Call the function.
 Create a fresh frame.
 Bind parameters.
 Look up local first, then global.
+Pass values across the scope wall.
 Return a value.
 Destroy the frame.
 
@@ -613,4 +545,3 @@ If a tool writes code for you, you still need to know where values live.
 You still need to know what each function promises.
 
 Next session, we use this engine to design better functions.
-
