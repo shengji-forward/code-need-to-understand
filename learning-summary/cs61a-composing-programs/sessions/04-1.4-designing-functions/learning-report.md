@@ -121,27 +121,36 @@ Callers depend only on **what** (domain, range, intent), not **how**. Two refine
 
 ---
 
-## Recap & Self-Assessment (2026-06-17)
+## Recap & Self-Assessment (2026-06-18)
 
-Worked through all 1.4 concepts in a Q&A recap:
+*A clean, dedicated verification pass. (The 2026-06-17 recap was interleaved with the learning itself; this supersedes it.)*
+
+Worked through all six 1.4 concept areas in a Q&A recap:
 
 | # | Concept | Result |
 |---|---|---|
-| 1 | Three design principles | ✅ solid |
-| 2 | `clamp` — design + reuse of `Math.min`/`Math.max` | ✅ solid |
-| 3 | Locally defined functions (definition, visibility, frame) | ✅ solid |
-| 4 | `areaBetweenCircles` — local helper + DRY | ✅ solid (with a `NaN` debugging moment) |
-| 5 | `distance` — composition, non-negative range | ✅ solid |
-| 6 | Default parameters (incl. the `null` trap) | ✅ solid |
-| 7 | Default param vs `const` in body | ✅ solid (sharpened to "by variability") |
+| 1 | Three design principles (single responsibility · DRY · generality) | ✅ solid |
+| 2 | JSDoc / documentation (`@param`, `@returns`, placement, when to write) | ✅ solid (minor refinements) |
+| 3 | Default parameters — the `null` trap; default vs `const` | ✅ solid |
+| 4 | Locally defined functions (visibility, frame, motivation) | ✅ solid (added the DRY reason) |
+| 5 | Abstraction barrier — domain/range/intent; precondition; side effect | ✅ solid |
+| 6 | Design applied — `clamp` (reuse abstractions) | ✅ solid |
+| 6 | Design applied — `isPrime` (precondition + `1` edge case) | ⏸ design noted; implementation deferred to 1.5 |
 
 **Refinements to lock in:**
 
-1. **Reuse abstractions, don't reinvent.** `clamp` needs no `if/else` — `Math.max(low, Math.min(val, high))` composes two built-ins (ceiling then floor).
-2. **`scope` ≠ `range`.** Scope = where a name is visible; range = the set of output values. (A locally defined function's *scope* is the enclosing body.)
-3. **A default is used only for `undefined`.** `null` is a real value, so it does **not** trigger the default → `greet(null)` is `"Hello, null!"`.
-4. **Default param vs `const` by variability**, not by "commonly provided." Caller may override → default param; universal constant → `const` in body.
-5. **Hoisting + unimplemented body ⇒ `NaN`.** A top-level `function` is callable before its textual position, but if its body returns `undefined`, math on its result yields `NaN`. (Caught live in Exercise 2.)
+1. **Code smells trigger each principle:** jobs-in-sequence → split (single responsibility); copy/paste a block → extract (DRY); a special-case function → generalize (generality).
+2. **JSDoc:** tags are `@param` (singular — one per parameter) and `@returns`; the block sits **above** the function. Write it for **all but the simplest** functions.
+3. **A default is used only for `undefined`.** `null`, `0`, `""`, `false` are real values and do **not** trigger the default (`greet(null)` → `"Hello, null!"`).
+4. **Default param vs `const` by variability** — *"could a caller legitimately want a different value?"* Yes → default param; universal constant → `const` in body.
+5. **Locally defined = DRY helper + encapsulation** — write once / use multiple times, and keep it private so it doesn't pollute the global frame.
+6. **`scope` ≠ `range`** — *scope* = where a name is visible; *range* = the set of output values. (A locally defined function's *scope* is the enclosing body.)
+7. **Precondition** = a constraint on valid inputs, the *caller's* responsibility (`clamp`: `low ≤ high`; `isPrime`: positive integer).
+8. **Side effect** = an observable effect beyond the return value; pure functions (none) are deterministic, compose reliably, and are safe under concurrency.
+9. **`clamp` without conditionals** — `Math.max(low, Math.min(val, high))`: ceiling (`min`) runs inside first, then floor (`max`) wraps it.
+10. **`isPrime` design points** (for 1.5): precondition = positive integer; **1 is not prime** (edge case); only check divisors up to `√n` (efficiency).
+
+**Live debugging note (Exercise 2):** reusing `square(r)` was correct DRY but yielded `NaN`, because `square`'s body was still `return undefined`. A top-level `function` is **hoisted** (callable before its textual position), but an unimplemented body returns `undefined`, and `Math.PI * undefined → NaN`. Fix: give `square` a body.
 
 ---
 
