@@ -98,9 +98,28 @@ All 6 exercises passed (18/18 checks):
 
 ---
 
-## Status Note
+## Recap & Self-Assessment (2026-06-21)
 
-The **dedicated Recap & Self-Assessment** for 1.5 is **deferred** (to be done in a follow-up session when fresh). This report covers the learning and all 6 exercises; a recap section — concept-by-concept scoreboard plus refinements — will be added later, matching sessions 01–04.
+Worked through all five 1.5 concept areas in a Q&A recap:
+
+| # | Concept | Result |
+|---|---|---|
+| 1 | Statements vs. expressions (discarded-value trap) | ✅ solid |
+| 2 | Conditionals — `if/else if/else` (`=` vs `===`; `<` vs `<=`) | ✅ solid |
+| 3 | Boolean operators & truthiness (`!` vs `-`; falsy list; `[]` truthy) | ✅ solid |
+| 4 | `while` loops (loop recipe; accumulator vs. sliding window) | ✅ solid (minor: it's 1-vs-2 tracked values, not "linear/non-linear") |
+| 5 | Testing (`console.assert` vs `assertEqual`) | ⚠️ partial — logs-vs-throws distinction |
+
+**Refinements to lock in:**
+
+1. **Expression statement** → value discarded; `return` or assign to keep it (`x + 1` ≠ `x = x + 1`).
+2. **`if (x = 5)`** assigns (always truthy → always-true bug); use **`===`** to compare.
+3. **Boundary:** strict **`<`** when the edge belongs to the *next* category.
+4. **`!` flips truthiness** (returns a boolean); **`-` flips sign** (returns a number).
+5. **`[]`/`{}` are truthy** in JS (falsy in Python) → test `.length`, not `if (array)`.
+6. **Loop recipe:** init · condition · update — no update ⇒ infinite loop.
+7. **Accumulator** = 1 running value; **sliding window** = 2 consecutive values that shift each step.
+8. **`console.assert` logs (keeps running); `assertEqual` throws (halts)** — hence the helper.
 
 ---
 
