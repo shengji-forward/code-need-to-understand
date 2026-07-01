@@ -6,8 +6,13 @@ import { assertEqual, assertApprox } from "../../shared/helpers.js";
 
 // --- Exercise 1: applyTwice ---
 // Apply function f to x, then apply f to the result.
+// function applyTwice(f, x) {
+//   const once = f(x)
+//   return f(once)
+// }
+
 function applyTwice(f, x) {
-  return undefined; // TODO
+  return f(f(x))
 }
 
 assertEqual("applyTwice(x => x + 1, 5)", applyTwice(x => x + 1, 5), 7);
@@ -16,7 +21,7 @@ assertEqual("applyTwice(x => x * x, 2)", applyTwice(x => x * x, 2), 16);
 // --- Exercise 2: makeAdder ---
 // Return a function that adds n to its argument.
 function makeAdder(n) {
-  return () => undefined; // TODO
+  return (x) => x + n
 }
 
 const add5 = makeAdder(5);
@@ -25,7 +30,7 @@ assertEqual("makeAdder(5)(3)", add5(3), 8);
 // --- Exercise 3: compose ---
 // Return a function that applies g then f: x => f(g(x)).
 function compose(f, g) {
-  return () => undefined; // TODO
+  return (x) => f(g(x))
 }
 
 const doubleThenSquare = compose(x => x * x, x => x * 2);
