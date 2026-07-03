@@ -38,16 +38,64 @@ assertEqual("compose(square, double)(3)", doubleThenSquare(3), 36);
 
 // --- Exercise 4: myMap ---
 // Implement map using a loop. Do NOT use Array.prototype.map.
+
+// Map method
+// function myMap(arr, f) {
+//   return arr.map(f)
+// }
+
+// Loop method (while loop)
+// function myMap(arr, f) {
+//   let looped = []
+//   let counter = 0
+//   while (counter < arr.length) {
+//     looped.push(f(arr[counter]))
+//     counter = counter + 1
+//   }
+//   return looped
+// }
+
+// Loop method (for loop)
 function myMap(arr, f) {
-  return undefined; // TODO
+  let looped = []
+  for (let counter = 0; counter < arr.length; counter++) {
+    looped.push(f(arr[counter]))
+  }
+  return looped
 }
 
 assertEqual("myMap([1, 2, 3], x => x * 2)", myMap([1, 2, 3], x => x * 2), [2, 4, 6]);
 
 // --- Exercise 5: myFilter ---
 // Implement filter using a loop. Do NOT use Array.prototype.filter.
+
+// filter method
+// function myFilter(arr, predicate) {
+//   return arr.filter(predicate)
+// }
+
+// loop method (while)
+// function myFilter(arr, predicate) {
+//   let filtered = []
+//   let counter = 0
+//   while (counter < arr.length) {
+//     if (predicate(arr[counter])) {
+//       filtered.push(arr[counter])
+//     }
+//     counter = counter + 1
+//   }
+//   return filtered
+// }
+
+// loop method (for)
 function myFilter(arr, predicate) {
-  return undefined; // TODO
+  let filtered = []
+  for (let counter = 0; counter < arr.length; counter = counter + 1) {
+    if (predicate(arr[counter])) {
+      filtered.push(arr[counter])
+    }
+  }
+  return filtered
 }
 
 assertEqual("myFilter([1, 2, 3, 4, 5], x => x > 3)", myFilter([1, 2, 3, 4, 5], x => x > 3), [4, 5]);
