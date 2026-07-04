@@ -1,11 +1,11 @@
 # Session 06 — 1.6 Higher-Order Functions: Learning Report
 
 **Completed (reading & concepts)**: 2026-06-28
-**Practice**: scheduled for the next session (tomorrow)
+**Practice completed**: 2026-07-04 — 8/8 exercises, 11/11 checks passing
 **Source**: [Composing Programs 1.6](https://www.composingprograms.com/pages/16-higher-order-functions.html)
 **Knowledge file**: `knowledge/cs61a-composing-programs/01-building-abstractions-with-functions/1.6-higher-order-functions.md`
 
-> Note: this session spanned several intermittent days (2026-06-26 → 06-28). The reading and concept mastery are done; the practice exercises are deliberately deferred to tomorrow, per the original study plan.
+> Note: this session spanned several intermittent days (2026-06-26 → 07-04). Reading, concept mastery, AND practice are all complete.
 
 ---
 
@@ -43,7 +43,7 @@ Full map: see `concept-map.md` in this folder.
 - [x] Explain **currying** & **partial application** (`f(a)(b)`)
 - [x] Explain **decorators** (HOF + closure; build-at-setup / run-at-call)
 - [x] Connect closures to real practice (React `useState`, stale-closure bug + fix, memoize, AI observability)
-- [ ] Complete the **practice exercises** (`practice.js`) — *tomorrow*
+- [x] Complete the **practice exercises** (`practice.js`) — **8/8 (11/11 checks)**, self-debugged via the trace method
 
 ---
 
@@ -114,11 +114,28 @@ A **decorator** = an HOF returning a closure that wraps the original with before
 
 ---
 
+## Practice Exercises
+
+All 8 exercises passed (11/11 checks), solved from scratch via the **trace-then-translate method** (read test → one-sentence spec → hand trace → translate to code → run; and *trace your own code* to debug). No answers given away.
+
+| # | Function | Solution | Concept + lesson / bug hit |
+|---|----------|----------|----------------------------|
+| 1 | `applyTwice(f, x)` | `return f(f(x))` | functions as args; traced `f(5)=6 → f(6)=7` |
+| 2 | `makeAdder(n)` | `return x => x + n` | closure factory; **concrete→general** — trace used `5`, code uses `n` |
+| 3 | `compose(f, g)` | `return x => f(g(x))` | closure + composition (`f` outer, `g` inner) |
+| 4 | `myMap(arr, f)` | loop + `push(f(arr[counter]))` | HOF + loop (no built-in `.map`); explored `.map`/`while`/`for`; deleted a dead `counter` line (clean-code instinct) |
+| 5 | `myFilter(arr, predicate)` | loop + `if (predicate(arr[counter])) push(arr[counter])` | **debugged**: was using index `counter` not element `arr[counter]`, and hardcoded `>3` not `predicate(...)` — fixed by tracing own code |
+| 6 | `curry2(f)` | `return a => b => f(a, b)` | closure chain; **concrete→general** — `a+b` (test) → `f(a,b)` (code) |
+| 7 | `repeated(f, n)` | `return x => { loop n times: result = f(result) }` | **synthesis** (closure factory + loop). Two debug rounds: (a) must *return a closure*, (b) `f(x)` → `f(result)` (feedback loop) |
+| 8 | `improve(update, close, guess)` | `while (!close(guess)) guess = update(guess)` | guided one-liner; the general engine (`repeated` was the hand-built version). Newton `sqrt(2)` now runs on it |
+
+**Biggest method win:** invented the **trace-then-translate** process mid-session to beat the "blank page from scratch" problem — then reused the *same trace as a debugger* (trace your buggy code → spot where it diverges from the spec). Two real bugs (`myFilter`, `repeated`) were found exactly this way. The recurring trap across exercises: baking the **test's concrete value** into the code instead of the **parameter** (`5`→`n`, `>3`→`predicate`, `a+b`→`f(a,b)`).
+
+---
+
 ## What's Next
 
-**Tomorrow — Practice** (`practice/cs61a-composing-programs/01-building-abstractions-with-functions/1.6-higher-order-functions/practice.js`)
-- Guided with questions + analogies; answers not given away.
-- Closures & environment model checked before each exercise.
+**Session 06 — COMPLETE.** ✅ Reading, concepts, AND practice all done (8/8 exercises, 11/11 checks).
 
 **Session 07 — Recursive Functions (1.7)**
 - Read: `knowledge/.../1.7-recursive-functions.md`

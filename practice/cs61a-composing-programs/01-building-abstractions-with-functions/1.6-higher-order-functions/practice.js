@@ -103,7 +103,7 @@ assertEqual("myFilter([1, 2, 3, 4, 5], x => x > 3)", myFilter([1, 2, 3, 4, 5], x
 // --- Exercise 6: curry2 ---
 // Convert a two-argument function f(a, b) into curried form: a => b => f(a, b).
 function curry2(f) {
-  return () => () => undefined; // TODO
+  return (a) => (b) => f(a, b)
 }
 
 const curriedAdd = curry2((a, b) => a + b);
@@ -112,7 +112,18 @@ assertEqual("curry2(add)(3)(4)", curriedAdd(3)(4), 7);
 // --- Exercise 7: repeated ---
 // Return a function that applies f n times to its argument.
 function repeated(f, n) {
-  return () => undefined; // TODO
+  return (x) => {
+    const times = n
+    let counter = 0
+    let result = x
+    while (counter < times) {
+      result = f(result) 
+      counter = counter + 1
+    }
+     if (counter === times) {
+      return result
+    }
+  }
 }
 
 const doubleThrice = repeated(x => x * 2, 3);
@@ -123,7 +134,7 @@ assertEqual("repeated(inc, 0)(10)", repeated(x => x + 1, 0)(10), 10);
 // Guided iterative improvement: repeatedly apply update to guess until close(guess) is true.
 function improve(update, close, guess) {
   while (!close(guess)) {
-    return undefined; // TODO: replace with guess = update(guess)
+    guess = update(guess)
   }
   return guess;
 }
