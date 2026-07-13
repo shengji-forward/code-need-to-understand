@@ -133,6 +133,39 @@ All 8 exercises passed (11/11 checks), solved from scratch via the **trace-then-
 
 ---
 
+## Recap & Self-Assessment (2026-07-13)
+
+Worked through all eight 1.6 concept areas in a Q&A recap:
+
+| # | Concept | Result |
+|---|---|---|
+| 1 | First-class functions & HOFs (4 rights; status vs. kind) | ✅ solid (2nd pass: nailed 4 rights + relationship) |
+| 2 | Functions as arguments & callbacks (`fn` vs `fn()`; sync vs async) | ⚠️ partial — `fn()` runs immediately; sync=waits, async=fires-later |
+| 3 | Lexical scope & the environment model (parent=birthplace; 3-step call) | ⚠️ partial — `f(a)(b)` is two calls/two frames, not one |
+| 4 | Closures (function + birthplace; live link ≠ snapshot) | ✅ solid (predicted 99 + counter; recovered from "not familiar") |
+| 5 | Currying & partial application (`f(a)(b)`) | ⚠️ partial — practical use = partial application, not "chaining" |
+| 6 | Decorators (HOF + closure) | ⚠️ partial — re-taught from scratch; core shape only (build/run deferred) |
+| 7 | Newton's method / iterative improvement (showcase) | ⚠️ partial — update/close/guess roles imprecise |
+| 8 | Trace-then-translate method | ✅ solid (remembered 5 steps; avoided the concrete-value trap) |
+
+**Refinements to lock in:**
+
+1. **First-class = functions ARE values** (4 rights: bind / pass / return / store); **HOF = takes OR returns a function**; HOFs are possible *because* functions are first-class.
+2. **`fn` vs `fn()`** — no parens = pass the function; parens = call it now. `map(fn(), arr)` calls fn immediately (wrong time/args) → crash. **The receiver always calls it, not you.**
+3. **Sync vs async** — sync: receiver calls now and *waits*; async: receiver stashes it, *returns immediately*, fires later on an event (timer/click/network).
+4. **`f(a)(b)` = two calls, two frames, two bindings.** `makeAdder(3)`: f1 `x→3`, returns inner. `inner(4)`: f2 `y→4` (parent f1). Never `x→4`.
+5. **Name lookup** = local frame first, then chain up the parent pointers (each = a birthplace). First match wins.
+6. **Closure = function + birthplace frame, a LIVE LINK, not a snapshot.** Captured vars are read fresh at call time — if the box changed, you see the change (99, not 10).
+7. **Captured vars live in the birthplace frame (f1), never global** — and that frame survives its function's return *only because* a closure points at it → private mutable state.
+8. **Parameter = call-arg** (fresh, bound each call); **free variable = captured** (from birthplace). Don't confuse the two.
+9. **Currying** = multi-arg fn → chain of single-arg fns. Practical use = **partial application** (`add5 = makeAdder(5)`). Currying *depends on* closures.
+10. **`@deco` / `fn = deco(fn)`** — decorator = HOF + closure. Returns a NEW function; calling the name runs the NEW one first, which calls the original (`fn(x)`) inside. Side effect + original, in order.
+11. **`improve(update, close, guess)`** — update → next better guess; close → stop predicate (`true` = done); guess → single starting value. Generic template + swappable callbacks = the HOF showcase.
+12. **Trace-then-translate** — READ TEST → ONE-SENTENCE SPEC → HAND TRACE (concrete) → TRANSLATE (generalize: `5`→`n`, `"a"`→`letter`) → RUN. Same trace doubles as your debugger. **Trap:** baking the test's concrete value into the code.
+13. **Boolean collapse** — `if (expr) return true; return false` → `return expr`. Never wrap a boolean expression in if-return-true-return-false.
+
+---
+
 ## What's Next
 
 **Session 06 — COMPLETE.** ✅ Reading, concepts, AND practice all done (8/8 exercises, 11/11 checks).
