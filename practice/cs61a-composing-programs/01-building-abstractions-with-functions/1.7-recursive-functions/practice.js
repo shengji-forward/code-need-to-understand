@@ -7,7 +7,14 @@ import { assertEqual } from "../../shared/helpers.js";
 // --- Exercise 1: factorial ---
 // Classic recursion: n! = n * (n-1)!, with base case 1! = 1.
 function factorial(n) {
-  return undefined; // TODO
+  // base case
+  if (n === 1) {
+    return 1
+  }
+  // recursive step
+  else {
+    return n * factorial(n - 1)
+  }
 }
 
 assertEqual("factorial(5)", factorial(5), 120);
@@ -16,7 +23,14 @@ assertEqual("factorial(1)", factorial(1), 1);
 // --- Exercise 2: sumToN ---
 // Recursive sum: 1 + 2 + ... + n
 function sumToN(n) {
-  return undefined; // TODO
+  // base case
+  if (n === 1) {
+    return 1
+  }
+  // recursive step
+  else {
+    return n + sumToN(n - 1)
+  }
 }
 
 assertEqual("sumToN(5)", sumToN(5), 15);
@@ -27,11 +41,17 @@ assertEqual("sumToN(1)", sumToN(1), 1);
 // isEven(0) = true; isEven(n) = isOdd(n - 1)
 // isOdd(0) = false; isOdd(n) = isEven(n - 1)
 function isEven(n) {
-  /* TODO: implement */ return undefined;
+  // base case
+  if (n === 0) return true
+  // recursive step
+  else return isOdd(n - 1)
 }
 
 function isOdd(n) {
-  /* TODO: implement */ return undefined;
+  // base case
+  if (n === 0) return false
+  // recursive step
+  else return isEven(n - 1)
 }
 
 assertEqual("isEven(4)", isEven(4), true);
@@ -41,7 +61,10 @@ assertEqual("isEven(3)", isEven(3), false);
 // --- Exercise 4: fibonacci ---
 // Tree recursion: fib(0) = 0, fib(1) = 1, fib(n) = fib(n-1) + fib(n-2).
 function fibonacci(n) {
-  return undefined; // TODO
+  // base case
+  if (n === 0 || n === 1) return n
+  // recursive step
+  else return fibonacci(n - 1) + fibonacci(n - 2)  
 }
 
 assertEqual("fibonacci(0)", fibonacci(0), 0);
