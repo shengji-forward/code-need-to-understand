@@ -77,7 +77,9 @@ assertEqual("fibonacci(7)", fibonacci(7), 13);
 // - Base case: n < 0 or m <= 0 -> return 0
 // - Recursive case: countPartitions(n - m, m) + countPartitions(n, m - 1)
 function countPartitions(n, m) {
-  return undefined; // TODO
+  if (n === 0) return 1
+  else if (n < 0 || m <= 0) return 0
+  else return countPartitions(n - m, m) + countPartitions(n, m - 1)
 }
 
 assertEqual("countPartitions(6, 4)", countPartitions(6, 4), 9);
