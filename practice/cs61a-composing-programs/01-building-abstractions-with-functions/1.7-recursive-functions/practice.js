@@ -88,7 +88,10 @@ assertEqual("countPartitions(6, 4)", countPartitions(6, 4), 9);
 // Recursive digit sum using Math.floor(n / 10) and n % 10.
 // Do NOT use string methods. Use numeric operations only.
 function sumDigits(n) {
-  return undefined; // TODO
+  // base case
+  if (n < 10) return n
+  // recursive step
+  else return (n % 10) + sumDigits(Math.floor(n / 10))
 }
 
 assertEqual("sumDigits(123)", sumDigits(123), 6);
@@ -97,7 +100,10 @@ assertEqual("sumDigits(9)", sumDigits(9), 9);
 // --- Exercise 7: reverseString ---
 // Recursive string reversal: return last char + reverse of the rest.
 function reverseString(s) {
-  return undefined; // TODO
+  // base case
+  if (s.length <= 1) return s
+  //recursive step
+  else return s[s.length - 1] + reverseString(s.slice(0, -1))
 }
 
 assertEqual('reverseString("hello")', reverseString("hello"), "olleh");
