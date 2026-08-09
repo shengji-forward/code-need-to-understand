@@ -1,7 +1,7 @@
 # Transcript: Session 02 - 1.2 Elements of Programming
 
 **Audience**: Non-technical beginners learning CS and programming fundamentals.
-**Deck**: `slides-tldraw-story-nav.html`
+**Deck**: `slides.excalidraw`
 **Voice**: Clear mentor, plain English, kitchen and restaurant examples.
 **Length**: About 12-15 minutes.
 
@@ -466,4 +466,3 @@ You need to know what the kitchen is doing.
 
 Next session, we stop only using functions.
 We learn how to define our own functions.
-

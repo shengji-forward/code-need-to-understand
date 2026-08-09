@@ -1,7 +1,7 @@
 # Transcript: Session 05 - 1.5 Control
 
 **Audience**: Non-technical beginners learning CS and programming fundamentals.
-**Deck**: `slides-tldraw-story-nav.html`
+**Deck**: `slides.excalidraw`
 **Voice**: Clear mentor, plain English, kitchen and restaurant examples.
 **Length**: About 12-15 minutes.
 
@@ -703,4 +703,3 @@ statements,
 conditions,
 loops,
 and truthiness.
-

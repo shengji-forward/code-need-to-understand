@@ -42,7 +42,7 @@
 Normal teaching sessions use the standard teaching-session artifact set:
 - `learning-report.md` — private learner report from the Feynman/mentor run
 - `transcript.md` — public YouTube teaching narration
-- editable tldraw deck source, generated bundle, and standalone HTML deck variants
+- `slides.excalidraw` — native editable Excalidraw teaching deck
 - optional support files such as `concept-map.md`
 
 Review sessions (08, 16, 22, 28, 29) remain report-only unless a future pass explicitly generates public video artifacts for them.

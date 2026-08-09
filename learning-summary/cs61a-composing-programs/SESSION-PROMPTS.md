@@ -2,7 +2,7 @@
 
 Copy-paste prompts for each session's teacher agent. Each prompt sets up the Feynman-method learning workflow.
 
-These prompts drive the private learner/mentor run and the `learning-report.md` artifact. Public YouTube `transcript.md` files and tldraw decks are separate orchestrator artifacts created after the learning run.
+These prompts drive the private learner/mentor run and the `learning-report.md` artifact. Public YouTube `transcript.md` files and `slides.excalidraw` decks are separate orchestrator artifacts created after the learning run.
 
 ---
 

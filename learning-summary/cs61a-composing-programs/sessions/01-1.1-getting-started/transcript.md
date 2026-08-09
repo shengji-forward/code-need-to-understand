@@ -1,7 +1,7 @@
 # Transcript: Session 01 - 1.1 Getting Started
 
 **Audience**: Non-technical beginners starting CS61A Composing Programs in JavaScript.
-**Deck**: `slides-tldraw-story-nav.html`
+**Deck**: `slides.excalidraw`
 **Voice**: Clear mentor, Feynman style, plain English.
 **Length**: About 12-15 minutes.
 
@@ -481,4 +481,3 @@ For now, keep the restaurant image.
 The computer is the kitchen.
 Your code is the ticket.
 Clear tickets make clear dishes.
-
