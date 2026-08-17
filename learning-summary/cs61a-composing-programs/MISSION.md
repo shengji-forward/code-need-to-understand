@@ -18,4 +18,4 @@ Forwardgrounds (`forwardgrounds.com`) is a pixel-native **media → people → s
 ## Out of scope
 - Competitive programming or math theory for its own sake.
 - The hardware/electronics bring-up (ESP32/HUB75 wiring, DMA) — separate from CS foundations.
-- Chapter 2+ until the Chapter 1 recap is locked.
+- ~~Chapter 2+ until the Chapter 1 recap is locked.~~ **Recap locked 2026-08-17** (6/7 traps, closure + recursion fully rebuilt — see `sessions/08-ch1-review/learning-report.md`). Chapter 2 is now in scope.

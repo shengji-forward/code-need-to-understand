@@ -7,12 +7,12 @@
 - [x] Session 00 — Course Overview
 - [x] Session 01 — Getting Started (1.1)
 - [x] Session 02 — Expressions & Names (1.2)
-- [ ] Session 03 — Defining Functions (1.3)
-- [ ] Session 04 — Designing Functions (1.4)
-- [ ] Session 05 — Control Flow (1.5)
-- [ ] Session 06 — Higher-Order Functions (1.6)
-- [ ] Session 07 — Recursive Functions (1.7)
-- [ ] Session 08 — Ch1 Review
+- [x] Session 03 — Defining Functions (1.3)
+- [x] Session 04 — Designing Functions (1.4)
+- [x] Session 05 — Control Flow (1.5)
+- [x] Session 06 — Higher-Order Functions (1.6)
+- [x] Session 07 — Recursive Functions (1.7) — *report + concept-map backfilled 2026-08-17 from transcript + practice (7/7, 15/15 checks re-verified) + Ch1 recap verification*
+- [x] Session 08 — Ch1 Review — *retrieval recap done 2026-08-17; see `learning-report.md`*
 
 ## Chapter 2: Building Abstractions with Data
 - [ ] Session 09 — Native Data Types & Abstraction (2.1-2.2)
