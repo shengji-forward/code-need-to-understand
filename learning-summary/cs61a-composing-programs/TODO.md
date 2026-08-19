@@ -15,7 +15,7 @@
 - [x] Session 08 — Ch1 Review — *retrieval recap done 2026-08-17; see `learning-report.md`*
 
 ## Chapter 2: Building Abstractions with Data
-- [ ] Session 09 — Native Data Types & Abstraction (2.1-2.2)
+- [ ] Session 09 — Native Data Types & Abstraction (2.1-2.2) — *learning + practice complete 2026-08-19 (2.1: 5/5, 2.2: 6/6); `learning-report.md` written; transcript + slides pending orchestrator pass*
 - [ ] Session 10 — Sequences (2.3)
 - [ ] Session 11 — Mutable Data (2.4)
 - [ ] Session 12 — OOP (2.5)
