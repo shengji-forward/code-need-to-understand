@@ -16,7 +16,7 @@
 
 ## Chapter 2: Building Abstractions with Data
 - [ ] Session 09 — Native Data Types & Abstraction (2.1-2.2) — *learning + practice complete 2026-08-19 (2.1: 5/5, 2.2: 6/6); `learning-report.md` written; transcript + slides pending orchestrator pass*
-- [ ] Session 10 — Sequences (2.3)
+- [ ] Session 10 — Sequences (2.3) — *learning + practice complete 2026-08-30 (8/8, 11/11 checks); `learning-report.md` + `concept-map.md` written; transcript + slides pending orchestrator pass*
 - [ ] Session 11 — Mutable Data (2.4)
 - [ ] Session 12 — OOP (2.5)
 - [ ] Session 13 — Implementing Objects (2.6-2.7)
